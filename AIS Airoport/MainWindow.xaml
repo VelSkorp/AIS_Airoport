@@ -78,11 +78,11 @@
 											</Grid.ColumnDefinitions>
 
 											<!-- Icon -->
-											<Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
-												<Image Source="/Images/Logo/logo-small.png" />
-											</Button>
+										<Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+											<Image Source="/Images/Logo/airplane.png" />
+										</Button>
 
-											<!-- Title -->
+										<!-- Title -->
 											<Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
 												<StackPanel>
 													<TextBlock FontFamily="{StaticResource LatoBold}" FontSize="{StaticResource FontSizeLarge}" Margin="0,0,0,-5">
