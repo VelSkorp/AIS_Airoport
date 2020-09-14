@@ -137,9 +137,14 @@
 					Panel.ZIndex="10"
 					Opacity="0.3">
 				<Border Background="{StaticResource ForegroundVeryDarkBrush}"
-						/>
+						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
 			</Border>
 
+			<Frame Grid.Column="1" x:Name="MainFrame"
+				   Content="{Binding ApplicationViewModel.CurrentPage,
+									 Source={x:Static local:ViewModelLocator.Instance},
+									 Converter={local:ApplicationPageValueConverter}}"
+				   Background="Transparent" />
 
 		</Grid>
 	</Border>
