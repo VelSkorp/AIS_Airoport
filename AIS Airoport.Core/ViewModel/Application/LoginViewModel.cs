@@ -58,6 +58,8 @@ namespace AIS_Airoport.Core
                 // TODO: Fake a loginll...
                 await Task.Delay(1000);
 
+                IoC.Application.GoToPage(ApplicationPage.MainMenu);
+
                 // Ok successfully loggedin... Now det users data
                 // TODO: Ask server for users info
 

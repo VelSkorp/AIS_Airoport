@@ -13,6 +13,31 @@
 		/// <summary>
 		/// The register page
 		/// </summary>
-		Register = 2,
+		Register = 1,
+
+		/// <summary>
+		/// The Main Menu page
+		/// </summary>
+		MainMenu = 2,
+
+		/// <summary>
+		/// The Ticket Selling page
+		/// </summary>
+		TicketSelling = 3,
+
+		/// <summary>
+		/// The Flight List page
+		/// </summary>
+		FlightList = 4,
+
+		/// <summary>
+		/// The Passengers page
+		/// </summary>
+		Passengers = 5,
+
+		/// <summary>
+		/// The Statistics page
+		/// </summary>
+		Statistics = 6,
 	}
 }

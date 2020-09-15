@@ -75,6 +75,9 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MainMenuPage.xaml.cs">
+      <DependentUpon>MainMenuPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToBorderThicknessConverter.cs" />
@@ -95,6 +98,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +168,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Images\Logo\airplane.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -171,9 +179,18 @@
       <Name>AIS_Airoport.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\Logo\airplane.png" />
+    <Resource Include="Images\Samples\UserByingTickets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Samples\airplane.png" />
+    <Resource Include="Images\Samples\Passenger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Samples\CircularBarGraph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Samples\airoport.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
