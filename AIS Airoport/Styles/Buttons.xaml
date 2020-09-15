@@ -120,14 +120,14 @@
 						<EventTrigger RoutedEvent="MouseEnter">
 							<BeginStoryboard>
 								<Storyboard>
-									<ColorAnimation To="{StaticResource WordBlue}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+									<ColorAnimation To="{StaticResource WordGreen}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
 						<EventTrigger RoutedEvent="MouseLeave">
 							<BeginStoryboard>
 								<Storyboard>
-									<ColorAnimation From="{StaticResource WordBlue}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+									<ColorAnimation From="{StaticResource WordGreen}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
@@ -186,14 +186,14 @@
 						<EventTrigger RoutedEvent="MouseEnter">
 							<BeginStoryboard>
 								<Storyboard>
-									<ColorAnimation To="{StaticResource WordBlue}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+									<ColorAnimation To="{StaticResource WordGreen}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
 						<EventTrigger RoutedEvent="MouseLeave">
 							<BeginStoryboard>
 								<Storyboard>
-									<ColorAnimation From="{StaticResource WordBlue}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+									<ColorAnimation From="{StaticResource WordGreen}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
