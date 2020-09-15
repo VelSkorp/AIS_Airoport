@@ -41,8 +41,14 @@ namespace AIS_Airoport
 			{
 				// TODO: Add ApplicationSettings so we can set/edit a location
 				//       For now just log to the path where this application is running
-				new Core.ConsoleLogger(),
+				new Core.FileLogger("OldLog.txt"),
 			}));
+
+			// Add our task manager
+			IoC.Kernel.Bind<ITaskManager>().ToConstant(new TaskManager());
+
+			// Bind a file manager
+			IoC.Kernel.Bind<IFileManager>().ToConstant(new FileManager());
 		}
 	}
 }
