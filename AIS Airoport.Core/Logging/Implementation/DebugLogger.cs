@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace AIS_Airoport.Core.Logging.Implementation
+namespace AIS_Airoport.Core
 {
     /// <summary>
     /// Logs the message to the Deebug log
