@@ -132,6 +132,11 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
+			<!-- Airoplain background image -->
+			<Grid.Background>
+				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/airoplains-background.png" />
+			</Grid.Background>
+
 			<!-- Dimmed overlay -->
 			<Border Grid.ColumnSpan="2" 
 					Panel.ZIndex="10"

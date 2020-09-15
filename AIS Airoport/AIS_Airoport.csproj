@@ -192,5 +192,8 @@
   <ItemGroup>
     <Resource Include="Images\Samples\airoport.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\airoplains-background.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
