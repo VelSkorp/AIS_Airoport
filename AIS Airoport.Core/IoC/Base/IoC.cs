@@ -20,6 +20,11 @@ namespace AIS_Airoport.Core
         public static ITaskManager Task => IoC.Get<ITaskManager>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="ILogFactory"/>
+        /// </summary>
+        public static ILogFactory Logger => IoC.Get<ILogFactory>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
         public static ApplicationViewModel Application => IoC.Get<ApplicationViewModel>();
