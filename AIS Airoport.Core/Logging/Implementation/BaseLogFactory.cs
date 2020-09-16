@@ -59,6 +59,8 @@ namespace AIS_Airoport.Core
         {
             // Add Console logger 
             AddLogger(new ConsoleLogger());
+            // Add Debug logger 
+            AddLogger(new DebugLogger());
 
             // Add any others passed in
             if (loggers != null)
