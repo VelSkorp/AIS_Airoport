@@ -22,10 +22,6 @@ namespace AIS_Airoport
 
 			//Log it
 			IoC.Logger.Log("Application starting up...", LogLevel.Debug);
-
-			// Show the main window
-			Current.MainWindow = new MainWindow();
-			Current.MainWindow.Show();
 		}
 
 		/// <summary>
