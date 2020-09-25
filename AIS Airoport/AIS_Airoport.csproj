@@ -47,6 +47,7 @@
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="PropertyChanged, Version=3.2.9.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.2.9\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
@@ -83,6 +84,9 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FlightListPage.xaml.cs">
+      <DependentUpon>FlightListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -98,6 +102,10 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Pages\FlightListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

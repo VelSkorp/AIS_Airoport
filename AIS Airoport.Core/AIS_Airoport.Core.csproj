@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\Application\Design\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Fody" Version="6.2.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

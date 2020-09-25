@@ -33,7 +33,7 @@ namespace AIS_Airoport
                     throw new NotImplementedException("Implement TicketSelling Page");
 
                 case ApplicationPage.FlightList:
-                    throw new NotImplementedException("Implement FlightList Page");
+                    return new FlightListPage(viewModel as FlightListViewModel);
 
                 case ApplicationPage.Passengers:
                     throw new NotImplementedException("Implement Passengers Page");
@@ -58,6 +58,9 @@ namespace AIS_Airoport
             // Find application page that matches the base page
             if (page is MainMenuPage)
                 return ApplicationPage.MainMenu;
+
+            if (page is FlightListPage)
+                return ApplicationPage.FlightList;
 
             if (page is LoginPage)
                 return ApplicationPage.Login;

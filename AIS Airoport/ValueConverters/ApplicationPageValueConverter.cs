@@ -27,7 +27,7 @@ namespace AIS_Airoport
                     throw new NotImplementedException("Implement TicketSelling Page");
 
                 case ApplicationPage.FlightList:
-                    throw new NotImplementedException("Implement FlightList Page");
+                    return new FlightListPage();
 
                 case ApplicationPage.Passengers:
                     throw new NotImplementedException("Implement Passengers Page");

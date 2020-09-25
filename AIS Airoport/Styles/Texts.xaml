@@ -9,6 +9,18 @@
 		<Setter Property="Margin" Value="0 6" />
 	</Style>
 
+	<Style TargetType="{x:Type TextBlock}" x:Key="RegularText" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+		<Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+		<Setter Property="Padding" Value="10" />
+		<Setter Property="Margin" Value="0 5 0 5" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+
+		<Setter Property="Background" Value="{StaticResource WordTransparentBlueBrush}" />
+		<Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />
+	</Style>
+
 	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
@@ -42,8 +54,7 @@
 								   Padding="{TemplateBinding Padding}"
 								   VerticalAlignment="Center"
 								   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-								   Foreground="{StaticResource ForegroundVeryDarkBrush}"
-								   >
+								   Foreground="{StaticResource ForegroundVeryDarkBrush}" >
 							<TextBlock.Style>
 								<Style TargetType="{x:Type TextBlock}">
 									<Setter Property="Visibility" Value="Collapsed" />
@@ -170,5 +181,240 @@
 		</Style.Triggers>
 
 	</Style>
+
+	<Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource BaseStyle}">
+		<Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+
+		<Setter Property="Background" Value="{StaticResource WordTransparentBlueBrush}" />
+		<Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />
+
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+	</Style>
+
+	<Style TargetType="{x:Type DatePickerTextBox}">
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+		<Setter Property="Padding" Value="2" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type DatePickerTextBox}">
+					<Grid>
+						<Grid.Resources>
+							<SolidColorBrush x:Key="WatermarkBrush" Color="#FFAAAAAA"/>
+						</Grid.Resources>
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualStateGroup.Transitions>
+									<VisualTransition GeneratedDuration="0"/>
+									<VisualTransition GeneratedDuration="0:0:0.1" To="MouseOver"/>
+								</VisualStateGroup.Transitions>
+								<VisualState x:Name="Normal"/>
+								<VisualState x:Name="MouseOver">
+									<Storyboard>
+										<ColorAnimation Duration="0" To="#FF99C1E2" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="ContentElement"/>
+										<ColorAnimation Duration="0" To="#FF99C1E2" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="watermark_decorator"/>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="WatermarkStates">
+								<VisualStateGroup.Transitions>
+									<VisualTransition GeneratedDuration="0"/>
+								</VisualStateGroup.Transitions>
+								<VisualState x:Name="Unwatermarked"/>
+								<VisualState x:Name="Watermarked">
+									<Storyboard>
+										<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentElement"/>
+										<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Watermark"/>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="FocusStates">
+								<VisualStateGroup.Transitions>
+									<VisualTransition GeneratedDuration="0"/>
+								</VisualStateGroup.Transitions>
+								<VisualState x:Name="Unfocused"/>
+								<VisualState x:Name="Focused">
+									<Storyboard>
+										<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisual"/>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<Border x:Name="Border"
+								CornerRadius="5"
+								Opacity="1"
+								Padding="{TemplateBinding Padding}">
+
+							<!--
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="{TemplateBinding BorderThickness}"
+								Background="{TemplateBinding Background}"
+								CornerRadius="5"
+								Opacity="1"
+								Padding="{TemplateBinding Padding}"
+							-->
+							
+							<Grid x:Name="WatermarkContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+
+								<Border x:Name="ContentElement"
+										BorderBrush="{StaticResource WordBlueBrush}"
+										BorderThickness="0 0 0 1"/>
+
+								<Border x:Name="watermark_decorator"
+										BorderBrush="{StaticResource WordBlueBrush}" 
+										BorderThickness="0 0 0 1">
+
+									<!--
+										CornerRadius="5"
+										BorderBrush="#FFFFFFFF" 
+										BorderThickness="1"
+									-->
+									
+									<ContentControl x:Name="PART_Watermark" 
+													Focusable="False"
+													IsHitTestVisible="False" 
+													Opacity="0">
+
+										<ContentControl.Template>
+											<ControlTemplate>
+												<TextBlock Text="Date picker" 
+														   FontSize="{StaticResource FontSizeLarge}"
+														   FontFamily="{StaticResource LatoRegular}" />
+												
+											</ControlTemplate>
+										</ContentControl.Template>
+
+									</ContentControl>
+
+								</Border>
+								<ScrollViewer x:Name="PART_ContentHost" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+								<Border x:Name="FocusVisual" BorderBrush="#FF45D6FA" CornerRadius="1" IsHitTestVisible="False" Opacity="0"/>
+							</Grid>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="FocusVisual">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF"/>
+	<SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070"/>
+	<Style x:Key="OptionMarkFocusVisual">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle Margin="14,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFF3F9FF"/>
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF5593FF"/>
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF212121"/>
+	<SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6"/>
+	<SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC"/>
+	<SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070"/>
+	<SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FFD9ECFF"/>
+	<SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF3C77DD"/>
+	<SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FF212121"/>
+	<SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121"/>
+	<Style TargetType="{x:Type RadioButton}">
+		<Setter Property="Margin" Value="0 0 10 0" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+		<Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type RadioButton}">
+					<Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<Border x:Name="radioButtonBorder" 
+								BorderBrush="{TemplateBinding BorderBrush}" 
+								BorderThickness="{TemplateBinding BorderThickness}" 
+								Background="{TemplateBinding Background}"
+								CornerRadius="100" 
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								Margin="5,5,0,0"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+
+							<Grid x:Name="markGrid" Margin="2">
+								<Ellipse x:Name="optionMark" Fill="{StaticResource RadioButton.Static.Glyph}" MinWidth="6" MinHeight="6" Opacity="0"/>
+							</Grid>
+
+						</Border>
+
+						<ContentPresenter x:Name="contentPresenter"
+										  Grid.Column="1" 
+										  Focusable="False"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Margin="{TemplateBinding Padding}"
+										  RecognizesAccessKey="True"
+										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+
+							<ContentPresenter.Resources>
+								<Style TargetType="TextBlock">
+									<Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+									<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+								</Style>
+							</ContentPresenter.Resources>
+
+						</ContentPresenter>
+
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="HasContent" Value="true">
+							<Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+							<Setter Property="Padding" Value="4,-1,0,0"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="true">
+							<Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+							<Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.MouseOver.Border}"/>
+							<Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.MouseOver.Glyph}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="false">
+							<Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>
+							<Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Border}"/>
+							<Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.Disabled.Glyph}"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="true">
+							<Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Background}"/>
+							<Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Border}"/>
+							<Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="true">
+							<Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="{x:Null}">
+							<Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 
 </ResourceDictionary>
