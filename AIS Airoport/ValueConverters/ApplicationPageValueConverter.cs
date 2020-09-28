@@ -24,7 +24,7 @@ namespace AIS_Airoport
                     return new MainMenuPage();
 
                 case ApplicationPage.TicketSelling:
-                    throw new NotImplementedException("Implement TicketSelling Page");
+                    return new TicketSellingPage();
 
                 case ApplicationPage.FlightList:
                     return new FlightListPage();
