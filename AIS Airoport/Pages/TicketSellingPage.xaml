@@ -83,7 +83,7 @@
 
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 
-				<RadioButton Command="{Binding SortByNumberCommand}" Content="By number"/>
+				<RadioButton Command="{Binding SortByTicketNumberCommand}" Content="By ticket number"/>
 				<RadioButton Command="{Binding SortByStartDateCommand}" Content="By start date" />
 				<RadioButton Command="{Binding DoNotSortCommand}" Content="Do not sort" />
 
@@ -102,12 +102,15 @@
 			<StackPanel>
 
 				<Button FontSize="{StaticResource FontSizeLarge}" 
-						Content="Create"/>
+						Command="{Binding CreateCommand}"
+						Content="Create new"/>
 
 				<Button FontSize="{StaticResource FontSizeLarge}"
-						Content="Change" />
+						Command="{Binding ChangeCommand}"
+						Content="Change this" />
 
 				<Button FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding GenerateCommand}"
 						Content="Generate a ticket" />
 			
 			</StackPanel>

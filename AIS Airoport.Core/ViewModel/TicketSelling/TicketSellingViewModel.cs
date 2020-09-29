@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace AIS_Airoport.Core
 {
@@ -55,6 +57,157 @@ namespace AIS_Airoport.Core
         /// The date to filter by
         /// </summary>
         public DateTime? FilterBy { get; set; } = null;
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// The command to sort <see cref="FlightListItems"/> by number
+        /// </summary>
+        public ICommand SortByTicketNumberCommand { get; set; }
+
+        /// <summary>
+        /// The command to sort <see cref="FlightListItems"/> by start date
+        /// </summary>
+        public ICommand SortByStartDateCommand { get; set; }
+
+        /// <summary>
+        /// The command to disable <see cref="FlightListItems"/> sorting
+        /// </summary>
+        public ICommand DoNotSortCommand { get; set; }
+
+        /// <summary>
+        /// The command to filter <see cref="FlightListItems"/>
+        /// </summary>
+        public ICommand FilterCommand { get; set; }
+
+        /// <summary>
+        /// The command to go back to the main menu
+        /// </summary>
+        public ICommand BackCommand { get; set; }
+
+
+        /// <summary>
+        /// The command to create a new ticket
+        /// </summary>
+        public ICommand CreateCommand { get; set; }
+
+        /// <summary>
+        /// The command to change this ticket
+        /// </summary>
+        public ICommand ChangeCommand { get; set; }
+
+        /// <summary>
+        /// The command to generate a ticket for print
+        /// </summary>
+        public ICommand GenerateCommand { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public TicketSellingViewModel()
+        {
+            // Create commands
+            FilterCommand = new RelayCommand(Filter);
+            BackCommand = new RelayCommand(Back);
+
+            SortByTicketNumberCommand = new RelayCommand(SortByTicketNumber);
+            SortByStartDateCommand = new RelayCommand(SortByStartDate);
+            DoNotSortCommand = new RelayCommand(DisableSorting);
+
+            CreateCommand = new RelayCommand(Create);
+            ChangeCommand = new RelayCommand(Change);
+            GenerateCommand = new RelayCommand(Generate);
+        }
+
+        #endregion
+
+        #region Command Methods
+
+        /// <summary>
+        /// Filter <see cref="FlightListItems"/>
+        /// </summary>
+        public void Filter()
+        {
+            // Make sure we don't search empty date
+            if ((string.IsNullOrEmpty(FilterFrom.ToString()) && string.IsNullOrEmpty(FilterBy.ToString())) ||
+                (FilterFrom > FilterBy))
+                return;
+
+            // If we have no search text, or no items
+            if (Items == null || Items.Count <= 0)
+            {
+                // Make filtered list the same
+                FilteredIAndSortedtems = new ObservableCollection<TicketSellingItemViewModel>(Items ?? Enumerable.Empty<TicketSellingItemViewModel>());
+
+                return;
+            }
+
+            // Find all items that contain the given text 
+            // TODO: Make more efficient search
+            FilteredIAndSortedtems = new ObservableCollection<TicketSellingItemViewModel>(Items.Where(item => item.DepartureDate > FilterFrom && item.DepartureDate < FilterBy));
+        }
+
+        /// <summary>
+        /// Go back to main menu page
+        /// </summary>
+        public void Back()
+        {
+            IoC.Application.GoToPage(ApplicationPage.MainMenu);
+        }
+
+        /// <summary>
+        /// Sorting <see cref="FlightListItems"/> by number
+        /// </summary>
+        public void SortByTicketNumber()
+        {
+            FilteredIAndSortedtems = new ObservableCollection<TicketSellingItemViewModel>(Items.OrderBy(item => item.FlightNumber));
+        }
+
+        /// <summary>
+        /// Sorting <see cref="FlightListItems"/> by start date
+        /// </summary>
+        public void SortByStartDate()
+        {
+            FilteredIAndSortedtems = new ObservableCollection<TicketSellingItemViewModel>(Items.OrderBy(item => item.DepartureDate));
+        }
+
+        /// <summary>
+        /// Disable <see cref="FlightListItems"/> sorting
+        /// </summary>
+        public void DisableSorting()
+        {
+            FilteredIAndSortedtems = new ObservableCollection<TicketSellingItemViewModel>(Items);
+        }
+
+        /// <summary>
+        /// Create a new ticket
+        /// </summary>
+        public void Create()
+        {
+            // TODO: Implement ticket crate command with popup menu
+        }
+
+        /// <summary>
+        /// Change this ticket
+        /// </summary>
+        public void Change()
+        {
+            // TODO: Implement ticket chenge command with popup menu
+        }
+
+        /// <summary>
+        /// Generate a ticket for print
+        /// </summary>
+        public void Generate()
+        {
+            // TODO: Implement ticket generate command
+        }
 
         #endregion
     }
