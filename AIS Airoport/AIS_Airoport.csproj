@@ -94,6 +94,9 @@
     <Compile Include="Pages\MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PassengersListPage.xaml.cs">
+      <DependentUpon>PassengersListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TicketSellingPage.xaml.cs">
       <DependentUpon>TicketSellingPage.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MainMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PassengersListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -36,7 +36,7 @@ namespace AIS_Airoport
                     return new FlightListPage(viewModel as FlightListViewModel);
 
                 case ApplicationPage.Passengers:
-                    throw new NotImplementedException("Implement Passengers Page");
+                    return new PassengersPage(viewModel as PassengersListViewModel);
 
                 case ApplicationPage.Statistics:
                     throw new NotImplementedException("Implement Statistics Page");

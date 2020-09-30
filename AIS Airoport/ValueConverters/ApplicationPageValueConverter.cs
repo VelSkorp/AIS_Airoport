@@ -30,7 +30,7 @@ namespace AIS_Airoport
                     return new FlightListPage();
 
                 case ApplicationPage.Passengers:
-                    throw new NotImplementedException("Implement Passengers Page");
+                    return new PassengersPage();
 
                 case ApplicationPage.Statistics:
                     throw new NotImplementedException("Implement Statistics Page");
