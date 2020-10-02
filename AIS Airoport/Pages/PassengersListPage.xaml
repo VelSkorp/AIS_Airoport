@@ -23,12 +23,15 @@
 			<StackPanel Orientation="Horizontal">
 				
 				<Button Content="Add new"
+						Command="{Binding AddCommand}"
 						FontSize="{StaticResource FontSizeLarge}" />
 
 				<Button Content="Change this"
+						Command="{Binding ChangeCommand}"
 						FontSize="{StaticResource FontSizeLarge}"  />
 
 				<Button Content="Back" 
+						Command="{Binding BackCommand}"
 						FontSize="{StaticResource FontSizeLarge}" />
 			
 			</StackPanel>

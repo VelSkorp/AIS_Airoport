@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace AIS_Airoport.Core
 {
@@ -48,6 +49,22 @@ namespace AIS_Airoport.Core
         #endregion
 
         #region Commands
+
+        /// <summary>
+        /// The command to add a new passenger
+        /// </summary>
+        public ICommand AddCommand { get; set; }
+
+        /// <summary>
+        /// The command to change data about the current passenger
+        /// </summary>
+        public ICommand ChangeCommand { get; set; }
+
+        /// <summary>
+        /// The command to go back to the main menu
+        /// </summary>
+        public ICommand BackCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -58,11 +75,39 @@ namespace AIS_Airoport.Core
         public PassengersListViewModel()
         {
             // Create commands
+            AddCommand = new RelayCommand(AddNewPassenger);
+            ChangeCommand = new RelayCommand(ChangeCurrentPassenger);
+            BackCommand = new RelayCommand(Back);
         }
 
         #endregion
 
         #region Command Methods
+
+        /// <summary>
+        /// Go back to main menu page
+        /// </summary>
+        public void Back()
+        {
+            IoC.Application.GoToPage(ApplicationPage.MainMenu);
+        }
+
+        /// <summary>
+        /// Adds information about the new passenger
+        /// </summary>
+        public void AddNewPassenger()
+        {
+            // TODO: Implement method to add information about the new passenger
+        }
+
+        /// <summary>
+        /// Changes data about the current passenger
+        /// </summary>
+        public void ChangeCurrentPassenger()
+        {
+            // TODO: Implement method to change data about the current passenger
+        }
+
         #endregion
     }
 }
