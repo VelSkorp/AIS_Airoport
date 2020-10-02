@@ -3,7 +3,7 @@
 namespace AIS_Airoport.Core
 {
     /// <summary>
-    /// The View Model for a flight list screen
+    /// The View Model for a passengers list screen
     /// </summary>
     public class PassengersListViewModel : BaseViewModel
     {
@@ -12,7 +12,7 @@ namespace AIS_Airoport.Core
         /// <summary>
         /// The flight list items for the list
         /// </summary>
-        protected ObservableCollection<FlightListItemViewModel> mItems;
+        protected ObservableCollection<PassengerViewModel> mItems;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace AIS_Airoport.Core
         /// NOTE: Do not call Items.Add to add messages to this list
         ///		  as it will make the FilteredIAndSortedtems out of sync
         /// </summary>
-        public ObservableCollection<FlightListItemViewModel> Items
+        public ObservableCollection<PassengerViewModel> Items
         {
             get => mItems;
             set
@@ -36,14 +36,14 @@ namespace AIS_Airoport.Core
                 mItems = value;
 
                 // Update filtered list to match
-                FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(mItems);
+                FilteredIAndSortedtems = new ObservableCollection<PassengerViewModel>(mItems);
             }
         }
 
         /// <summary>
         /// The flight list items for the list that include search filtering
         /// </summary>
-        public ObservableCollection<FlightListItemViewModel> FilteredIAndSortedtems { get; set; }
+        public ObservableCollection<PassengerViewModel> FilteredIAndSortedtems { get; set; }
 
         #endregion
 
