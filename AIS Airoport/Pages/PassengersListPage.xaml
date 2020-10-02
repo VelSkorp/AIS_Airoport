@@ -10,5 +10,51 @@
 
 	<Grid>
 
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<Border Background="White"
+				HorizontalAlignment="Center"
+				Margin="0 20 0 10"
+				CornerRadius="10" >
+
+			<StackPanel Orientation="Horizontal">
+				
+				<Button Content="Add new"
+						FontSize="{StaticResource FontSizeLarge}" />
+
+				<Button Content="Change this"
+						FontSize="{StaticResource FontSizeLarge}"  />
+
+				<Button Content="Back" 
+						FontSize="{StaticResource FontSizeLarge}" />
+			
+			</StackPanel>
+
+		</Border>
+
+		<Border Grid.Row="1"
+				Background="White"
+				HorizontalAlignment="Center"
+				CornerRadius="10" >
+
+			<ListView ItemsSource="{Binding FilteredIAndSortedtems}" >
+				<ListView.View>
+					<GridView>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Surname</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=FirstName}">First Name</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Patronymic}">Patronymic</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Phone}">Phone</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Address}">Address</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Passport}">Passport</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Discount}">Discount</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+
+		</Border>
+
 	</Grid>
 </local:BasePage>
