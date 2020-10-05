@@ -13,7 +13,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// The flight list items for the list
 		/// </summary>
-		protected ObservableCollection<PassengerViewModel> mItems;
+		protected ObservableCollection<Passenger> mItems;
 
 		#endregion
 
@@ -24,7 +24,7 @@ namespace AIS_Airoport.Core
 		/// NOTE: Do not call Items.Add to add messages to this list
 		///		  as it will make the FilteredIAndSortedtems out of sync
 		/// </summary>
-		public ObservableCollection<PassengerViewModel> Items
+		public ObservableCollection<Passenger> Items
 		{
 			get => mItems;
 			set
@@ -37,14 +37,14 @@ namespace AIS_Airoport.Core
 				mItems = value;
 
 				// Update filtered list to match
-				FilteredIAndSortedtems = new ObservableCollection<PassengerViewModel>(mItems);
+				FilteredIAndSortedtems = new ObservableCollection<Passenger>(mItems);
 			}
 		}
 
 		/// <summary>
 		/// The flight list items for the list that include search filtering
 		/// </summary>
-		public ObservableCollection<PassengerViewModel> FilteredIAndSortedtems { get; set; }
+		public ObservableCollection<Passenger> FilteredIAndSortedtems { get; set; }
 
 		#endregion
 

@@ -25,9 +25,9 @@ namespace AIS_Airoport.Core
         /// </summary>
         public TicketSellingDesignModel()
         {
-            Items = new ObservableCollection<TicketSellingItemViewModel>
+            Items = new ObservableCollection<Ticket>
             {
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="1a11",
                     DepartureDate=DateTime.Parse("25.07.2020"),
@@ -35,7 +35,7 @@ namespace AIS_Airoport.Core
                     Passenger="Иванов",
                     Employee="Мухин",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="2a11",
                     DepartureDate=DateTime.Parse("08.03.2020"),
@@ -43,7 +43,7 @@ namespace AIS_Airoport.Core
                     Passenger="Тимофеева",
                     Employee="Савельев",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="3a11",
                     DepartureDate=DateTime.Parse("6.10.2020"),
@@ -51,7 +51,7 @@ namespace AIS_Airoport.Core
                     Passenger="Гостева",
                     Employee="Чернов",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="1a11",
                     DepartureDate=DateTime.Parse("25.07.2020"),
@@ -59,7 +59,7 @@ namespace AIS_Airoport.Core
                     Passenger="Иванов",
                     Employee="Мухин",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="2a11",
                     DepartureDate=DateTime.Parse("08.03.2020"),
@@ -67,7 +67,7 @@ namespace AIS_Airoport.Core
                     Passenger="Тимофеева",
                     Employee="Савельев",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="3a11",
                     DepartureDate=DateTime.Parse("6.10.2020"),
@@ -75,7 +75,7 @@ namespace AIS_Airoport.Core
                     Passenger="Гостева",
                     Employee="Чернов",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="1a11",
                     DepartureDate=DateTime.Parse("25.07.2020"),
@@ -83,7 +83,7 @@ namespace AIS_Airoport.Core
                     Passenger="Иванов",
                     Employee="Мухин",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="2a11",
                     DepartureDate=DateTime.Parse("08.03.2020"),
@@ -91,7 +91,7 @@ namespace AIS_Airoport.Core
                     Passenger="Тимофеева",
                     Employee="Савельев",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="3a11",
                     DepartureDate=DateTime.Parse("6.10.2020"),
@@ -99,7 +99,7 @@ namespace AIS_Airoport.Core
                     Passenger="Гостева",
                     Employee="Чернов",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="1a11",
                     DepartureDate=DateTime.Parse("25.07.2020"),
@@ -107,7 +107,7 @@ namespace AIS_Airoport.Core
                     Passenger="Иванов",
                     Employee="Мухин",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="2a11",
                     DepartureDate=DateTime.Parse("08.03.2020"),
@@ -115,7 +115,7 @@ namespace AIS_Airoport.Core
                     Passenger="Тимофеева",
                     Employee="Савельев",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="3a11",
                     DepartureDate=DateTime.Parse("6.10.2020"),
@@ -123,7 +123,7 @@ namespace AIS_Airoport.Core
                     Passenger="Гостева",
                     Employee="Чернов",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="1a11",
                     DepartureDate=DateTime.Parse("25.07.2020"),
@@ -131,7 +131,7 @@ namespace AIS_Airoport.Core
                     Passenger="Иванов",
                     Employee="Мухин",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="2a11",
                     DepartureDate=DateTime.Parse("08.03.2020"),
@@ -139,7 +139,7 @@ namespace AIS_Airoport.Core
                     Passenger="Тимофеева",
                     Employee="Савельев",
                 },
-                new TicketSellingItemViewModel
+                new Ticket
                 {
                     TicketNumber="3a11",
                     DepartureDate=DateTime.Parse("6.10.2020"),

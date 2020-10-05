@@ -15,7 +15,7 @@ namespace AIS_Airoport.Core
         /// <summary>
         /// The flight list items for the list
         /// </summary>
-        protected ObservableCollection<FlightListItemViewModel> mItems;
+        protected ObservableCollection<Flight> mItems;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace AIS_Airoport.Core
         /// NOTE: Do not call Items.Add to add messages to this list
         ///		  as it will make the FilteredIAndSortedtems out of sync
         /// </summary>
-        public ObservableCollection<FlightListItemViewModel> Items
+        public ObservableCollection<Flight> Items
         {
             get => mItems;
             set
@@ -39,14 +39,14 @@ namespace AIS_Airoport.Core
                 mItems = value;
 
                 // Update filtered list to match
-                FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(mItems);
+                FilteredIAndSortedtems = new ObservableCollection<Flight>(mItems);
             }
         }
 
         /// <summary>
         /// The flight list items for the list that include search filtering
         /// </summary>
-        public ObservableCollection<FlightListItemViewModel> FilteredIAndSortedtems { get; set; }
+        public ObservableCollection<Flight> FilteredIAndSortedtems { get; set; }
 
         /// <summary>
         /// The date to filter from
@@ -128,14 +128,14 @@ namespace AIS_Airoport.Core
             if (Items == null || Items.Count <= 0)
             {
                 // Make filtered list the same
-                FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(Items ?? Enumerable.Empty<FlightListItemViewModel>());
+                FilteredIAndSortedtems = new ObservableCollection<Flight>(Items ?? Enumerable.Empty<Flight>());
 
                 return;
             }
 
             // Find all items that contain the given text 
             // TODO: Make more efficient search
-            FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(Items.Where(item => item.StartDate > FilterFrom && item.StartDate < FilterBy));
+            FilteredIAndSortedtems = new ObservableCollection<Flight>(Items.Where(item => item.StartDate > FilterFrom && item.StartDate < FilterBy));
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace AIS_Airoport.Core
         /// </summary>
         public void SortByNumber()
         {
-            FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(Items.OrderBy(item => item.FlightNumber));
+            FilteredIAndSortedtems = new ObservableCollection<Flight>(Items.OrderBy(item => item.FlightNumber));
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace AIS_Airoport.Core
         /// </summary>
         public void SortByTicketPrice()
         {
-            FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(Items.OrderBy(item => item.TicketPrice));
+            FilteredIAndSortedtems = new ObservableCollection<Flight>(Items.OrderBy(item => item.TicketPrice));
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace AIS_Airoport.Core
         /// </summary>
         public void SortByStartDate()
         {
-            FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(Items.OrderBy(item => item.StartDate));
+            FilteredIAndSortedtems = new ObservableCollection<Flight>(Items.OrderBy(item => item.StartDate));
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace AIS_Airoport.Core
         /// </summary>
         public void DisableSorting()
         {
-            FilteredIAndSortedtems = new ObservableCollection<FlightListItemViewModel>(Items);
+            FilteredIAndSortedtems = new ObservableCollection<Flight>(Items);
         }
 
         #endregion

@@ -3,9 +3,9 @@
 namespace AIS_Airoport.Core
 {
     /// <summary>
-    /// A ticket selling item
+    /// A ticket information
     /// </summary>
-    public class TicketSellingItemViewModel
+    public class Ticket
     {
         /// <summary>
         /// The number of flight

@@ -1,9 +1,9 @@
 ﻿namespace AIS_Airoport.Core
 {
     /// <summary>
-    /// Passenger information for passengers page
+    /// A passenger information
     /// </summary>
-    public class PassengerViewModel
+    public class Passenger
     {
         /// <summary>
         /// The passenger surname

@@ -3,9 +3,9 @@
 namespace AIS_Airoport.Core
 {
     /// <summary>
-    /// A flight list item
+    /// A flight information
     /// </summary>
-    public class FlightListItemViewModel : BaseViewModel
+    public class Flight
     {
         /// <summary>
         /// The code of flight

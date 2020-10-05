@@ -25,9 +25,9 @@ namespace AIS_Airoport.Core
         /// </summary>
         public FlightListDesignModel()
         {
-            Items = new ObservableCollection<FlightListItemViewModel>
+            Items = new ObservableCollection<Flight>
             {
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "11",
                     FlightNumber = "230C",
@@ -37,7 +37,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "14502",
                     Destination = "Новгород"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "22",
                     FlightNumber = "23С8",
@@ -47,7 +47,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "5446",
                     Destination = "Сочи"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "39",
                     FlightNumber = "21BA",
@@ -57,7 +57,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "11344",
                     Destination = "Сочи"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "42",
                     FlightNumber = "17E0",
@@ -67,7 +67,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "7753",
                     Destination = "Пермь"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "11",
                     FlightNumber = "230C",
@@ -77,7 +77,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "14502",
                     Destination = "Новгород"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "22",
                     FlightNumber = "23С8",
@@ -87,7 +87,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "5446",
                     Destination = "Сочи"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "39",
                     FlightNumber = "21BA",
@@ -97,7 +97,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "11344",
                     Destination = "Сочи"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "42",
                     FlightNumber = "17E0",
@@ -107,7 +107,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "7753",
                     Destination = "Пермь"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "11",
                     FlightNumber = "230C",
@@ -117,7 +117,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "14502",
                     Destination = "Новгород"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "22",
                     FlightNumber = "23С8",
@@ -127,7 +127,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "5446",
                     Destination = "Сочи"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "39",
                     FlightNumber = "21BA",
@@ -137,7 +137,7 @@ namespace AIS_Airoport.Core
                     TicketPrice = "11344",
                     Destination = "Сочи"
                 },
-                new FlightListItemViewModel
+                new Flight
                 {
                     Code = "42",
                     FlightNumber = "17E0",

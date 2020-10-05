@@ -23,9 +23,9 @@ namespace AIS_Airoport.Core
         /// </summary>
         public PassengersListDesignModel()
         {
-            Items = new ObservableCollection<PassengerViewModel>()
+            Items = new ObservableCollection<Passenger>()
             {
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Иванов",
                     FirstName = "Иван",
@@ -35,7 +35,7 @@ namespace AIS_Airoport.Core
                     Passport = "3425425",
                     Discount = "Начальная"
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Петров",
                     FirstName = "Петр",
@@ -45,7 +45,7 @@ namespace AIS_Airoport.Core
                     Passport = "632252342",
                     Discount = "Партнер"
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Сидоров",
                     FirstName = "Елена",
@@ -55,7 +55,7 @@ namespace AIS_Airoport.Core
                     Passport = "23421312",
                     Discount = ""
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Иванов",
                     FirstName = "Иван",
@@ -65,7 +65,7 @@ namespace AIS_Airoport.Core
                     Passport = "3425425",
                     Discount = "Начальная"
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Петров",
                     FirstName = "Петр",
@@ -75,7 +75,7 @@ namespace AIS_Airoport.Core
                     Passport = "632252342",
                     Discount = "Партнер"
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Сидоров",
                     FirstName = "Елена",
@@ -85,7 +85,7 @@ namespace AIS_Airoport.Core
                     Passport = "23421312",
                     Discount = ""
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Иванов",
                     FirstName = "Иван",
@@ -95,7 +95,7 @@ namespace AIS_Airoport.Core
                     Passport = "3425425",
                     Discount = "Начальная"
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Петров",
                     FirstName = "Петр",
@@ -105,7 +105,7 @@ namespace AIS_Airoport.Core
                     Passport = "632252342",
                     Discount = "Партнер"
                 },
-                new PassengerViewModel
+                new Passenger
                 {
                     Surname = "Сидоров",
                     FirstName = "Елена",
