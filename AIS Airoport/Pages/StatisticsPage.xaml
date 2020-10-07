@@ -5,9 +5,80 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
+	  xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
 	  mc:Ignorable="d">
 
 	<Grid>
 
+		<TabControl>
+			
+			<TabItem Header="Transportation">
+				<TabControl>
+
+					<TabItem Header="Profit by destination">
+						<StackPanel HorizontalAlignment="Left">
+
+							<dvc:Chart />
+
+							<ListView>
+								<ListView.View>
+									<GridView>
+										<GridViewColumn>Name</GridViewColumn>
+										<GridViewColumn>Profit</GridViewColumn>
+									</GridView>
+								</ListView.View>
+							</ListView>
+
+							<Button FontSize="{StaticResource FontSizeLarge}"
+									Content="Обновить" />
+
+						</StackPanel>
+					</TabItem>
+
+					<TabItem Header="Profit on transportation">
+						
+					</TabItem>
+					
+				</TabControl>
+			</TabItem>
+
+			<TabItem Header="Passengers">
+				<TabControl>
+
+					<TabItem Header="Profit from ticket sales by passenger">
+						
+					</TabItem>
+
+					<TabItem Header="Number of use of ticket discounts by type">
+						
+					</TabItem>
+
+				</TabControl>
+			</TabItem>
+			
+			<TabItem Header="Routes">
+				<TabControl>
+
+					<TabItem Header="Get a list of flights for a period">
+						
+					</TabItem>
+
+					<TabItem Header="Find average ticket prices">
+						
+					</TabItem>
+
+					<TabItem Header="Destinations">
+						
+					</TabItem>
+
+					<TabItem Header="Airlines">
+						
+					</TabItem>
+					
+				</TabControl>
+			</TabItem>
+			
+		</TabControl>
+		
 	</Grid>
 </local:BasePage>

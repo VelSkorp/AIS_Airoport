@@ -39,7 +39,7 @@ namespace AIS_Airoport
 					return new PassengersPage(viewModel as PassengersListViewModel);
 
 				case ApplicationPage.Statistics:
-					throw new NotImplementedException("Implement Statistics Page");
+					return new StatisticsPage(viewModel as StatisticsViewModel);
 
 				default:
 					Debugger.Break();
@@ -67,6 +67,9 @@ namespace AIS_Airoport
 
 			if (page is TicketSellingPage)
 				return ApplicationPage.TicketSelling;
+
+			if (page is StatisticsPage)
+				return ApplicationPage.Statistics;
 
 			if (page is LoginPage)
 				return ApplicationPage.Login;
