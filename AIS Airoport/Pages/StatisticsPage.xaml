@@ -6,7 +6,8 @@
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
 	  xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-	  mc:Ignorable="d">
+	  mc:Ignorable="d"
+	  DataContext="{x:Static core:StatisticsDesignModel.Instance}">
 
 	<Grid>
 
@@ -16,23 +17,44 @@
 				<TabControl>
 
 					<TabItem Header="Profit by destination">
-						<StackPanel HorizontalAlignment="Left">
+						<Grid>
 
-							<dvc:Chart />
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 
-							<ListView>
+							<dvc:Chart>
+
+								<dvc:ColumnSeries ItemsSource="{Binding DestinationItems}" 
+												  DependentValuePath="Value" 
+												  IndependentValuePath="Name" />
+
+							</dvc:Chart>
+							
+							<ListView HorizontalAlignment="Left" 
+									  ItemsSource="{Binding DestinationItems}" Grid.Row="1">
 								<ListView.View>
 									<GridView>
-										<GridViewColumn>Name</GridViewColumn>
-										<GridViewColumn>Profit</GridViewColumn>
+										<GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Name</GridViewColumn>
+										<GridViewColumn DisplayMemberBinding="{Binding Path=Value}">Profit</GridViewColumn>
 									</GridView>
 								</ListView.View>
 							</ListView>
 
-							<Button FontSize="{StaticResource FontSizeLarge}"
-									Content="Обновить" />
+							<StackPanel Grid.Row="2" 
+										Orientation="Horizontal">
+								
+								<Button FontSize="{StaticResource FontSizeLarge}"
+										Content="Refresh" />
 
-						</StackPanel>
+								<Button FontSize="{StaticResource FontSizeLarge}"
+										Content="Back" />
+							
+							</StackPanel>
+
+						</Grid>
 					</TabItem>
 
 					<TabItem Header="Profit on transportation">

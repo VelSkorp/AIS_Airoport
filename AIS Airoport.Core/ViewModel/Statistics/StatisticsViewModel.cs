@@ -1,23 +1,32 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 
 namespace AIS_Airoport.Core
 {
-    /// <summary>
-    /// The View Model for a ticket statistics screen
-    /// </summary>
-    public class StatisticsViewModel : BaseViewModel
-    {
-        #region Constructor
+	/// <summary>
+	/// The View Model for a statistics screen
+	/// </summary>
+	public class StatisticsViewModel : BaseViewModel
+	{
+		#region Public Properties
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public StatisticsViewModel()
-        {
-            // Create commands
+		/// <summary>
+		/// Data on profit from transportation by destination
+		/// </summary>
+		public ObservableCollection<DataItem> DestinationItems { get; set; }
 
-        }
+		#endregion
 
-        #endregion
-    }
+		#region Constructor
+
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public StatisticsViewModel()
+		{
+			// Create commands
+			
+		}
+
+		#endregion
+	}
 }
