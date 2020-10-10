@@ -87,6 +87,9 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FilterByDate.xaml.cs">
+      <DependentUpon>FilterByDate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FlightListPage.xaml.cs">
       <DependentUpon>FlightListPage.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Controls\FilterByDate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\FlightListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
