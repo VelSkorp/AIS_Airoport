@@ -27,6 +27,46 @@ namespace AIS_Airoport.Core
             {
                 new DataItem()
                 {
+                    Name = "Береза",
+                    Value = 1234
+                },
+                new DataItem()
+                {
+                    Name = "Москва",
+                    Value = 4321
+                },
+                new DataItem()
+                {
+                    Name = "Лондон",
+                    Value = 5677
+                },
+                new DataItem()
+                {
+                    Name = "Воронеж",
+                    Value = 8765
+                },
+                new DataItem()
+                {
+                    Name = "Менск",
+                    Value = 3244
+                },
+                new DataItem()
+                {
+                    Name = "Гродно",
+                    Value = 6432
+                },
+                new DataItem()
+                {
+                    Name = "Вороново",
+                    Value = 3423
+                },
+                new DataItem()
+                {
+                    Name = "Кобрин",
+                    Value = 6432
+                },
+                new DataItem()
+                {
                     Name = "Новгород",
                     Value = 1234
                 },
