@@ -14,6 +14,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public ObservableCollection<DataItem> DestinationItems { get; set; }
 
+		/// <summary>
+		/// Shipping Profit Data
+		/// </summary>
+		public ObservableCollection<DataItem> TransportationItems { get; set; }
+
 		#endregion
 
 		#region Constructor

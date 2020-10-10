@@ -106,6 +106,40 @@ namespace AIS_Airoport.Core
                     Value = 6432
                 },
             };
+
+            TransportationItems = new ObservableCollection<DataItem>()
+            {
+                new DataItem()
+                {
+                    Name = "2AF",
+                    Value = 144000
+                },
+                new DataItem()
+                {
+                    Name = "3DD",
+                    Value = 60000
+                },
+                new DataItem()
+                {
+                    Name = "4CD",
+                    Value = 70000
+                },
+                new DataItem()
+                {
+                    Name = "1AF",
+                    Value = 120000
+                },
+                new DataItem()
+                {
+                    Name = "12DS",
+                    Value = 144000
+                },
+                new DataItem()
+                {
+                    Name = "2AD",
+                    Value = 20000
+                },
+            };
         }
 
         #endregion
