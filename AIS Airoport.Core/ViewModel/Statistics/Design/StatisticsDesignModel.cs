@@ -257,6 +257,167 @@ namespace AIS_Airoport.Core
 			};
 		}
 
+		/// <summary>
+		/// Setting data in the airline tab
+		/// </summary>
+		public override void RefreshAirlines()
+		{
+			Data = new ObservableCollection<DataItem>()
+			{
+				new DataItem()
+				{
+					Name = "EuroAir",
+					Value = 4
+				},
+				new DataItem()
+				{
+					Name = "Аэрофлот",
+					Value = 10
+				},
+				new DataItem()
+				{
+					Name = "Домодедовские авиалинии",
+					Value = 7
+				},
+				new DataItem()
+				{
+					Name = "Сибирь",
+					Value = 13
+				},
+			};
+		}
+
+		/// <summary>
+		/// Setting data in the table and on the graph 
+		/// in the tab of ticket sales by passengers
+		/// </summary>
+		public override void RefreshProfitFromTicketSalesByPassenger()
+		{
+			Data = new ObservableCollection<DataItem>()
+			{
+				new DataItem()
+				{
+					Name = "Иванов",
+					Value = 10085
+				},
+				new DataItem()
+				{
+					Name = "Петров",
+					Value = 7917
+				},
+				new DataItem()
+				{
+					Name = "Сидоров",
+					Value = 8733
+				},
+				new DataItem()
+				{
+					Name = "Сухов",
+					Value = 7893
+				},
+				new DataItem()
+				{
+					Name = "Николашин",
+					Value = 10085
+				},
+				new DataItem()
+				{
+					Name = "Тимофеева",
+					Value = 7917
+				},
+				new DataItem()
+				{
+					Name = "Гостева",
+					Value = 8733
+				},
+				new DataItem()
+				{
+					Name = "Цыбочкин",
+					Value = 7893
+				},
+				new DataItem()
+				{
+					Name = "Легошина",
+					Value = 10085
+				},
+				new DataItem()
+				{
+					Name = "Пигалёва",
+					Value = 7917
+				},
+				new DataItem()
+				{
+					Name = "Арбузова",
+					Value = 8733
+				},
+				new DataItem()
+				{
+					Name = "Свистунова",
+					Value = 7893
+				},
+				new DataItem()
+				{
+					Name = "Тараскина",
+					Value = 10085
+				},
+				new DataItem()
+				{
+					Name = "Гусева",
+					Value = 7917
+				},
+				new DataItem()
+				{
+					Name = "Каменева",
+					Value = 8733
+				},
+				new DataItem()
+				{
+					Name = "Филатов",
+					Value = 7893
+				},
+				new DataItem()
+				{
+					Name = "Калмыкова",
+					Value = 10085
+				},
+				new DataItem()
+				{
+					Name = "Кособоков",
+					Value = 7917
+				},
+				new DataItem()
+				{
+					Name = "Шафеева",
+					Value = 8733
+				},
+				new DataItem()
+				{
+					Name = "Мусаков",
+					Value = 7893
+				},
+				new DataItem()
+				{
+					Name = "Акишина",
+					Value = 10085
+				},
+				new DataItem()
+				{
+					Name = "Гурова",
+					Value = 7917
+				},
+				new DataItem()
+				{
+					Name = "Зайкова",
+					Value = 8733
+				},
+				new DataItem()
+				{
+					Name = "Тележкин",
+					Value = 7893
+				},
+			};
+		}
+
 		#endregion
 	}
 }

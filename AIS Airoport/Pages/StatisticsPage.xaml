@@ -17,16 +17,16 @@
 
 					<TabItem Header="Profit by destination">
 						<local:ColumnStatistic Text="Name"
-										 Tag="Profit"
-										 RefreshCommand="{Binding ProfitByDestinationRefreshCommand}"
-										 DataContext="{Binding}" />
+											   Tag="Profit"
+											   RefreshCommand="{Binding ProfitByDestinationRefreshCommand}"
+											   DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Profit on transportation">
 						<local:ColumnStatistic Text="Flight number"
-										 Tag="Profit"
-										 RefreshCommand="{Binding ProfitOnTransportationRefreshCommand}"
-										 DataContext="{Binding}" />
+											   Tag="Profit"
+											   RefreshCommand="{Binding ProfitOnTransportationRefreshCommand}"
+											   DataContext="{Binding}" />
 					</TabItem>
 					
 				</TabControl>
@@ -36,14 +36,17 @@
 				<TabControl>
 
 					<TabItem Header="Profit from ticket sales by passenger">
-						
+						<local:CircularStatistic Text="Surname"
+												 Tag="Amount"
+												 RefreshCommand="{Binding ProfitFromTicketSalesByPassengerRefreshCommand}"
+												 DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Number of use of ticket discounts by type">
 						<local:ColumnStatistic Text="Name"
-										 Tag="Amount"
-										 RefreshCommand="{Binding TicketDiscountsRefreshCommand}"
-										 DataContext="{Binding}" />
+											   Tag="Amount"
+											   RefreshCommand="{Binding TicketDiscountsRefreshCommand}"
+											   DataContext="{Binding}" />
 					</TabItem>
 
 				</TabControl>
@@ -58,20 +61,23 @@
 
 					<TabItem Header="Find average ticket prices">
 						<local:ColumnStatistic Text="Name"
-										 Tag="Average cost"
-										 RefreshCommand="{Binding AverageTicketPricesRefreshCommand}"
-										 DataContext="{Binding}" />
+											   Tag="Average cost"
+											   RefreshCommand="{Binding AverageTicketPricesRefreshCommand}"
+											   DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Destinations">
 						<local:ColumnStatistic Text="Name"
-										 Tag="Count of flights"
-										 RefreshCommand="{Binding DestinationsRefreshCommand}"
-										 DataContext="{Binding}" />
+											   Tag="Count of flights"
+											   RefreshCommand="{Binding DestinationsRefreshCommand}"
+											   DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Airlines">
-						
+						<local:CircularStatistic Text="Name"
+												 Tag="Count of flights"
+												 RefreshCommand="{Binding AirlinesRefreshCommand}"
+												 DataContext="{Binding}" />
 					</TabItem>
 					
 				</TabControl>

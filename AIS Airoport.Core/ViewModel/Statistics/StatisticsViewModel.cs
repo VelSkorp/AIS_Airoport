@@ -20,6 +20,17 @@ namespace AIS_Airoport.Core
 		#region Commands
 
 		/// <summary>
+		/// The сommand to update data in the table and on the graph in the airline tab
+		/// </summary>
+		public ICommand AirlinesRefreshCommand { get; set; }
+
+		/// <summary>
+		/// The command to update the data in the table and on the graph
+		/// in the tab of ticket sales by passengers
+		/// </summary>
+		public ICommand ProfitFromTicketSalesByPassengerRefreshCommand { get; set; }
+
+		/// <summary>
 		/// The сommand for updating data in the table and on the graph 
 		/// in the tab for finding the average cost of tickets
 		/// </summary>
@@ -68,6 +79,8 @@ namespace AIS_Airoport.Core
 			TicketDiscountsRefreshCommand = new RelayCommand(RefreshTicketDiscounts);
 			AverageTicketPricesRefreshCommand = new RelayCommand(RefreshAverageTicketPrices);
 			DestinationsRefreshCommand = new RelayCommand(RefreshDestinations);
+			AirlinesRefreshCommand = new RelayCommand(RefreshAirlines);
+			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayCommand(RefreshProfitFromTicketSalesByPassenger);
 			BackCommand = new RelayCommand(Back);
 		}
 
@@ -125,6 +138,23 @@ namespace AIS_Airoport.Core
 		public virtual void RefreshDestinations()
 		{
 			// TODO: Implement method to refresh data in the destinations tab
+		}
+
+		/// <summary>
+		/// Updating data in the airline tab
+		/// </summary>
+		public virtual void RefreshAirlines()
+		{
+			// TODO: Implement method to refresh data in the airline tab
+		}
+
+		/// <summary>
+		/// Updating data in the table and on the graph 
+		/// in the tab of ticket sales by passengers
+		/// </summary>
+		public virtual void RefreshProfitFromTicketSalesByPassenger()
+		{
+			// TODO: Implement method to refresh data in the tab of ticket sales by passengers
 		}
 
 		#endregion
