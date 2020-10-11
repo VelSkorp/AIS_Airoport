@@ -25,6 +25,21 @@ namespace AIS_Airoport
         public static readonly DependencyProperty TextProperty =
          DependencyProperty.Register("Text", typeof(string), typeof(Statistic));
 
+        /// <summary>
+        /// The command to refresh data in table and in chart
+        /// </summary>
+        public object RefreshCommand
+        {
+            get => GetValue(RefreshCommandProperty);
+            set => SetValue(RefreshCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Registers refresh command dependency property
+        /// </summary>
+        public static readonly DependencyProperty RefreshCommandProperty =
+         DependencyProperty.Register("RefreshCommand", typeof(object), typeof(Statistic));
+
         #endregion
 
         #region Constructor

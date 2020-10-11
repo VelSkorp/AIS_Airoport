@@ -6,6 +6,7 @@
 			 xmlns:local="clr-namespace:AIS_Airoport"
 			 xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
 			 mc:Ignorable="d" >
+	
 	<Grid>
 
 		<Grid.RowDefinitions>
@@ -16,20 +17,25 @@
 
 		<dvc:Chart>
 
-			<dvc:ColumnSeries ItemsSource="{Binding}" 
+			<dvc:ColumnSeries ItemsSource="{Binding Data}" 
 							  DependentValuePath="Value"
 							  IndependentValuePath="Name" />
 
 		</dvc:Chart>
 
 		<ListView HorizontalAlignment="Left" 
-				  ItemsSource="{Binding}" Grid.Row="1">
+				  ItemsSource="{Binding Path=Data}"
+				  Grid.Row="1">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn DisplayMemberBinding="{Binding Path=Name}"
-									Header="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Statistic}, Path=Text}" />
+									Header="{Binding Path=Text, 
+													 RelativeSource={RelativeSource Mode=FindAncestor, 
+																					AncestorType=local:Statistic}}" />
 					<GridViewColumn DisplayMemberBinding="{Binding Path=Value}" 
-									Header="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Statistic}, Path=Tag}" />
+									Header="{Binding Path=Tag, 
+													 RelativeSource={RelativeSource Mode=FindAncestor, 
+																					AncestorType=local:Statistic}}" />
 				</GridView>
 			</ListView.View>
 		</ListView>
@@ -38,9 +44,14 @@
 					Orientation="Horizontal">
 
 			<Button FontSize="{StaticResource FontSizeLarge}"
+					Command="{Binding Path=RefreshCommand, 
+									  Mode=TwoWay,
+									  RelativeSource={RelativeSource Mode=FindAncestor, 
+																	AncestorType=local:Statistic}}"
 					Content="Refresh" />
 
 			<Button FontSize="{StaticResource FontSizeLarge}"
+					Command="{Binding BackCommand}"
 					Content="Back" />
 
 		</StackPanel>

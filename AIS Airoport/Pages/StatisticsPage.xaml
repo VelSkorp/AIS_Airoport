@@ -18,13 +18,15 @@
 					<TabItem Header="Profit by destination">
 						<local:Statistic Text="Name"
 										 Tag="Profit"
-										 DataContext="{Binding DestinationItems}" />
+										 RefreshCommand="{Binding DestinationRefreshCommand}"
+										 DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Profit on transportation">
 						<local:Statistic Text="Flight number"
 										 Tag="Profit"
-										 DataContext="{Binding TransportationItems}" />
+										 RefreshCommand="{Binding TransportationRefreshCommand}"
+										 DataContext="{Binding}" />
 					</TabItem>
 					
 				</TabControl>

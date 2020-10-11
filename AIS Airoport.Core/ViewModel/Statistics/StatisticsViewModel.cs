@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace AIS_Airoport.Core
 {
@@ -10,14 +11,30 @@ namespace AIS_Airoport.Core
 		#region Public Properties
 
 		/// <summary>
-		/// Data on profit from transportation by destination
+		/// Data in tables and in charts
 		/// </summary>
-		public ObservableCollection<DataItem> DestinationItems { get; set; }
+		public ObservableCollection<DataItem> Data { get; set; }
+
+		#endregion
+
+		#region Commands
 
 		/// <summary>
-		/// Shipping Profit Data
+		/// The сommand for updating data in the table
+		/// and on the chart in the profit tab by directions
 		/// </summary>
-		public ObservableCollection<DataItem> TransportationItems { get; set; }
+		public ICommand DestinationRefreshCommand { get; set; }
+
+		/// <summary>
+		/// The command for updating data in the table 
+		/// and on the diagram in the profit by transportation tab
+		/// </summary>
+		public ICommand TransportationRefreshCommand { get; set; }
+
+		/// <summary>
+		/// The command to go back to the main menu
+		/// </summary>
+		public ICommand BackCommand { get; set; }
 
 		#endregion
 
@@ -29,7 +46,39 @@ namespace AIS_Airoport.Core
 		public StatisticsViewModel()
 		{
 			// Create commands
-			
+			DestinationRefreshCommand = new RelayCommand(RefreshDestination);
+			TransportationRefreshCommand = new RelayCommand(RefreshTransportation);
+			BackCommand = new RelayCommand(Back);
+		}
+
+		#endregion
+
+		#region Command Methods
+
+		/// <summary>
+		/// Go back to main menu page
+		/// </summary>
+		public void Back()
+		{
+			IoC.Application.GoToPage(ApplicationPage.MainMenu);
+		}
+
+		/// <summary>
+		/// Refresh data in table and chart
+		/// in the profit tab by directions
+		/// </summary>
+		public virtual void RefreshDestination()
+		{
+			// TODO: Implement method to refresh data in table and chart in the profit tab by directions
+		}
+
+		/// <summary>
+		/// Updating data in the table 
+		/// and on the diagram in the profit by transportation tab
+		/// </summary>
+		public virtual void RefreshTransportation()
+		{
+			// TODO: Implement method to refresh data in table and chart in the profit by transportation tab
 		}
 
 		#endregion

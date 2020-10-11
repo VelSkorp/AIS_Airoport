@@ -23,7 +23,19 @@ namespace AIS_Airoport.Core
         /// </summary>
         public StatisticsDesignModel()
         {
-            DestinationItems = new ObservableCollection<DataItem>()
+        }
+
+        #endregion
+
+        #region Overrided Command Methods
+
+        /// <summary>
+        /// Refresh data in table and chart
+        /// in the profit tab by directions
+        /// </summary>
+        public override void RefreshDestination()
+        {
+            Data = new ObservableCollection<DataItem>()
             {
                 new DataItem()
                 {
@@ -106,8 +118,15 @@ namespace AIS_Airoport.Core
                     Value = 6432
                 },
             };
+        }
 
-            TransportationItems = new ObservableCollection<DataItem>()
+        /// <summary>
+        /// Updating data in the table 
+        /// and on the diagram in the profit by transportation tab
+        /// </summary>
+        public override void RefreshTransportation()
+        {
+            Data = new ObservableCollection<DataItem>()
             {
                 new DataItem()
                 {
