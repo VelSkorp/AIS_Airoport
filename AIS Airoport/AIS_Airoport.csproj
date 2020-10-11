@@ -109,8 +109,8 @@
     <Compile Include="Pages\StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Statistic.xaml.cs">
-      <DependentUpon>Statistic.xaml</DependentUpon>
+    <Compile Include="Controls\ColumnStatistic.xaml.cs">
+      <DependentUpon>ColumnStatistic.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageHelpers.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
@@ -160,7 +160,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Statistic.xaml">
+    <Page Include="Controls\ColumnStatistic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

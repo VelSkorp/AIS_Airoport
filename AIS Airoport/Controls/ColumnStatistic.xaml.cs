@@ -6,7 +6,7 @@ namespace AIS_Airoport
     /// <summary>
     /// Логика взаимодействия для Statistic.xaml
     /// </summary>
-    public partial class Statistic : UserControl
+    public partial class ColumnStatistic : UserControl
     {
         #region Dependency Properties
 
@@ -23,7 +23,7 @@ namespace AIS_Airoport
         /// Registers text dependency property
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-         DependencyProperty.Register("Text", typeof(string), typeof(Statistic));
+         DependencyProperty.Register("Text", typeof(string), typeof(ColumnStatistic));
 
         /// <summary>
         /// The command to refresh data in table and in chart
@@ -38,7 +38,7 @@ namespace AIS_Airoport
         /// Registers refresh command dependency property
         /// </summary>
         public static readonly DependencyProperty RefreshCommandProperty =
-         DependencyProperty.Register("RefreshCommand", typeof(object), typeof(Statistic));
+         DependencyProperty.Register("RefreshCommand", typeof(object), typeof(ColumnStatistic));
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace AIS_Airoport
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Statistic()
+        public ColumnStatistic()
         {
             InitializeComponent();
         }

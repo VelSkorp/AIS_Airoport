@@ -20,16 +20,33 @@ namespace AIS_Airoport.Core
 		#region Commands
 
 		/// <summary>
+		/// The сommand for updating data in the table and on the graph 
+		/// in the tab for finding the average cost of tickets
+		/// </summary>
+		public ICommand AverageTicketPricesRefreshCommand { get; set; }
+
+		/// <summary>
+		/// The сommand to update data in the table and on the graph in the destinations tab
+		/// </summary>
+		public ICommand DestinationsRefreshCommand { get; set; }
+
+		/// <summary>
+		/// The сommand to update data in the table and on the graph 
+		/// in the tab for the number of used ticket discounts by type
+		/// </summary>
+		public ICommand TicketDiscountsRefreshCommand { get; set; }
+
+		/// <summary>
 		/// The сommand for updating data in the table
 		/// and on the chart in the profit tab by directions
 		/// </summary>
-		public ICommand DestinationRefreshCommand { get; set; }
+		public ICommand ProfitByDestinationRefreshCommand { get; set; }
 
 		/// <summary>
 		/// The command for updating data in the table 
 		/// and on the diagram in the profit by transportation tab
 		/// </summary>
-		public ICommand TransportationRefreshCommand { get; set; }
+		public ICommand ProfitOnTransportationRefreshCommand { get; set; }
 
 		/// <summary>
 		/// The command to go back to the main menu
@@ -46,8 +63,11 @@ namespace AIS_Airoport.Core
 		public StatisticsViewModel()
 		{
 			// Create commands
-			DestinationRefreshCommand = new RelayCommand(RefreshDestination);
-			TransportationRefreshCommand = new RelayCommand(RefreshTransportation);
+			ProfitByDestinationRefreshCommand = new RelayCommand(RefreshProfitByDestination);
+			ProfitOnTransportationRefreshCommand = new RelayCommand(RefreshProfitOnTransportation);
+			TicketDiscountsRefreshCommand = new RelayCommand(RefreshTicketDiscounts);
+			AverageTicketPricesRefreshCommand = new RelayCommand(RefreshAverageTicketPrices);
+			DestinationsRefreshCommand = new RelayCommand(RefreshDestinations);
 			BackCommand = new RelayCommand(Back);
 		}
 
@@ -67,7 +87,7 @@ namespace AIS_Airoport.Core
 		/// Refresh data in table and chart
 		/// in the profit tab by directions
 		/// </summary>
-		public virtual void RefreshDestination()
+		public virtual void RefreshProfitByDestination()
 		{
 			// TODO: Implement method to refresh data in table and chart in the profit tab by directions
 		}
@@ -76,9 +96,35 @@ namespace AIS_Airoport.Core
 		/// Updating data in the table 
 		/// and on the diagram in the profit by transportation tab
 		/// </summary>
-		public virtual void RefreshTransportation()
+		public virtual void RefreshProfitOnTransportation()
 		{
 			// TODO: Implement method to refresh data in table and chart in the profit by transportation tab
+		}
+
+		/// <summary>
+		/// Updating data in the table and on the graph 
+		/// in the tab for the number of used ticket discounts by type
+		/// </summary>
+		public virtual void RefreshTicketDiscounts()
+		{
+			// TODO: Implement method to refresh data in the tab for the number of used ticket discounts by type
+		}
+
+		/// <summary>
+		/// Updating data in the table and on the graph 
+		/// in the tab for finding the average cost of tickets
+		/// </summary>
+		public virtual void RefreshAverageTicketPrices()
+		{
+			// TODO: Implement method to refresh data in the tab for finding the average cost of tickets
+		}
+
+		/// <summary>
+		/// Updating data in the table and on the graph in the destinations tab
+		/// </summary>
+		public virtual void RefreshDestinations()
+		{
+			// TODO: Implement method to refresh data in the destinations tab
 		}
 
 		#endregion

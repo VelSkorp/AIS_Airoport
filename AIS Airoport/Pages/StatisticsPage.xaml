@@ -16,16 +16,16 @@
 				<TabControl>
 
 					<TabItem Header="Profit by destination">
-						<local:Statistic Text="Name"
+						<local:ColumnStatistic Text="Name"
 										 Tag="Profit"
-										 RefreshCommand="{Binding DestinationRefreshCommand}"
+										 RefreshCommand="{Binding ProfitByDestinationRefreshCommand}"
 										 DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Profit on transportation">
-						<local:Statistic Text="Flight number"
+						<local:ColumnStatistic Text="Flight number"
 										 Tag="Profit"
-										 RefreshCommand="{Binding TransportationRefreshCommand}"
+										 RefreshCommand="{Binding ProfitOnTransportationRefreshCommand}"
 										 DataContext="{Binding}" />
 					</TabItem>
 					
@@ -40,7 +40,10 @@
 					</TabItem>
 
 					<TabItem Header="Number of use of ticket discounts by type">
-						
+						<local:ColumnStatistic Text="Name"
+										 Tag="Amount"
+										 RefreshCommand="{Binding TicketDiscountsRefreshCommand}"
+										 DataContext="{Binding}" />
 					</TabItem>
 
 				</TabControl>
@@ -54,11 +57,17 @@
 					</TabItem>
 
 					<TabItem Header="Find average ticket prices">
-						
+						<local:ColumnStatistic Text="Name"
+										 Tag="Average cost"
+										 RefreshCommand="{Binding AverageTicketPricesRefreshCommand}"
+										 DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Destinations">
-						
+						<local:ColumnStatistic Text="Name"
+										 Tag="Count of flights"
+										 RefreshCommand="{Binding DestinationsRefreshCommand}"
+										 DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Airlines">
