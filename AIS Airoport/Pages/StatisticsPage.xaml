@@ -55,10 +55,6 @@
 			<TabItem Header="Routes">
 				<TabControl>
 
-					<TabItem Header="Get a list of flights for a period">
-						
-					</TabItem>
-
 					<TabItem Header="Find average ticket prices">
 						<local:ColumnStatistic Text="Name"
 											   Tag="Average cost"

@@ -15,7 +15,7 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<dvc:Chart>
+		<dvc:Chart Style="{StaticResource ColumnChartStyle}">
 
 			<dvc:ColumnSeries ItemsSource="{Binding Data}" 
 							  DependentValuePath="Value"

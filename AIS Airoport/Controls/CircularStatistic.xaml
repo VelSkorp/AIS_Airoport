@@ -15,9 +15,10 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<dvc:Chart>
+		<dvc:Chart Style="{StaticResource CircularChartStyle}">
 
 			<dvc:PieSeries ItemsSource="{Binding Data}" 
+						   LegendItemStyle="{StaticResource LegendItemStyle}"
 						   DependentValuePath="Value"
 						   IndependentValuePath="Name" />
 
