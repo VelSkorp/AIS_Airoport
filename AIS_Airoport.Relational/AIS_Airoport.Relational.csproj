@@ -13,4 +13,10 @@
     <ProjectReference Include="..\AIS_Airoport.Core\AIS_Airoport.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="AiroportDataBase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

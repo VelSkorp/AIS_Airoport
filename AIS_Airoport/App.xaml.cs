@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using AIS_Airoport.Core;
+using AIS_Airoport.Relational;
+using Dna;
 
 namespace AIS_Airoport
 {
@@ -12,13 +15,13 @@ namespace AIS_Airoport
 		/// Custom startup so we load our IoC immediately before anything else
 		/// </summary>
 		/// <param name="e"></param>
-		protected override void OnStartup(StartupEventArgs e)
+		protected override async void OnStartup(StartupEventArgs e)
 		{
 			// Let the base application do what it needs
 			base.OnStartup(e);
 
 			// Setup the main application
-			ApplicationSetup();
+			await ApplicationSetupAsync();
 
 			//Log it
 			IoC.Logger.Log("Application starting up...", LogLevel.Debug);
@@ -27,8 +30,14 @@ namespace AIS_Airoport
 		/// <summary>
 		/// Configures our application ready for use
 		/// </summary>
-		private void ApplicationSetup()
+		private async Task ApplicationSetupAsync()
 		{
+			// Setup the Dna Framework
+			Framework.Construct<DefaultFrameworkConstruction>()
+				.AddFileLogger()
+				.UseClientDataStore()
+				.Build();
+
 			// Setup IoC
 			IoC.Setup();
 
@@ -45,6 +54,9 @@ namespace AIS_Airoport
 
 			// Bind a file manager
 			IoC.Kernel.Bind<IFileManager>().ToConstant(new FileManager());
+
+			// Ensure the client data store 
+			await IoC.DataStore.EnsureDataStoreAsync();
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using Dna;
+using Ninject;
 
 namespace AIS_Airoport.Core
 {
@@ -32,6 +33,11 @@ namespace AIS_Airoport.Core
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
         public static ApplicationViewModel Application => IoC.Get<ApplicationViewModel>();
+
+        /// <summary>
+        /// A shortcut to access toe <see cref="IClientDataStore"/> service
+        /// </summary>
+        public static IDataStore DataStore => Framework.Service<IDataStore>();
 
         #endregion
 
