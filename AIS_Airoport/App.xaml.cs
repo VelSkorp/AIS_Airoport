@@ -55,6 +55,9 @@ namespace AIS_Airoport
 			// Bind a file manager
 			IoC.Kernel.Bind<IFileManager>().ToConstant(new FileManager());
 
+			// Bind a UI Manager
+			IoC.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
+
 			// Ensure the client data store 
 			await IoC.DataStore.EnsureDataStoreAsync();
 		}

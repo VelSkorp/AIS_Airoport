@@ -39,6 +39,11 @@ namespace AIS_Airoport.Core
         /// </summary>
         public static IDataStore DataStore => Framework.Service<IDataStore>();
 
+        /// <summary>
+        /// A shortcut to access the <see cref="IUIManager"/>
+        /// </summary>
+        public static IUIManager UI => IoC.Get<IUIManager>();
+
         #endregion
 
         #region Construction

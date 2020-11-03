@@ -232,6 +232,10 @@
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
+    <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
+      <DependentUpon>DialogMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BaseDialogUserControl.cs" />
     <Compile Include="Controls\CircularStatistic.xaml.cs">
       <DependentUpon>CircularStatistic.xaml</DependentUpon>
     </Compile>
@@ -241,6 +245,11 @@
     <Compile Include="Controls\FilterByDate.xaml.cs">
       <DependentUpon>FilterByDate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IoC\UIManager.cs" />
+    <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="Pages\FlightListPage.xaml.cs">
       <DependentUpon>FlightListPage.xaml</DependentUpon>
     </Compile>
@@ -276,6 +285,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FilterByDate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DialogMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
