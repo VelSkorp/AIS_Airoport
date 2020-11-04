@@ -11,9 +11,9 @@ namespace AIS_Airoport.Relational
         #region DbSets 
 
         /// <summary>
-        /// The client login credentials
+        /// The employee credentials
         /// </summary>
-        public DbSet<LoginCredentialsDataModel> LoginCredentials { get; set; }
+        public DbSet<EmployeeCredentials> Staff { get; set; }
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace AIS_Airoport.Relational
             // --------------------------
             //
             // Set Id as primary key
-            modelBuilder.Entity<LoginCredentialsDataModel>().HasKey(a => a.Id);
+            modelBuilder.Entity<EmployeeCredentials>().HasKey(a => a.Id);
 
             // TODO: Set up limits
             //modelBuilder.Entity<LoginCredentialsDataModel>().Property(a => a.FirstName).HasMaxLength(50);

@@ -5,72 +5,88 @@ using System.Windows.Input;
 
 namespace AIS_Airoport.Core
 {
-    /// <summary>
-    /// The View Model for a login screen
-    /// </summary>
-    public class LoginViewModel : BaseViewModel
-    {
-        #region Public Properties
+	/// <summary>
+	/// The View Model for a login screen
+	/// </summary>
+	public class LoginViewModel : BaseViewModel
+	{
+		#region Public Properties
 
-        /// <summary>
-        /// The email of the user
-        /// </summary>
-        public string Username { get; set; }
+		/// <summary>
+		/// The email of the user
+		/// </summary>
+		public string Username { get; set; }
 
-        /// <summary>
-        /// A flag indicating if the login command is running
-        /// </summary>
-        public bool LoginIsRunning { get; set; }
+		/// <summary>
+		/// A flag indicating if the login command is running
+		/// </summary>
+		public bool LoginIsRunning { get; set; }
 
-        #endregion
+		#endregion
 
-        #region Commands
+		#region Commands
 
-        /// <summary>
-        /// The command to login
-        /// </summary>
-        public ICommand LoginCommand { get; set; }
+		/// <summary>
+		/// The command to login
+		/// </summary>
+		public ICommand LoginCommand { get; set; }
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public LoginViewModel()
-        {
-            // Create commands
-            LoginCommand = new RelayParameterizedCommand(async (parameter) => await LoginAsync(parameter));
-        }
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public LoginViewModel()
+		{
+			// Create commands
+			LoginCommand = new RelayParameterizedCommand(async (parameter) => await LoginAsync(parameter));
+		}
 
-        #endregion
+		#endregion
 
-        /// <summary>
-        /// Attempts to log the user in
-        /// </summary>
-        /// <param name="parameter">The <see cref="SecureString"/> passed in from the view for the users password</param>
-        /// <returns></returns>
-        public async Task LoginAsync(object parameter)
-        {
-            await RunCommandAsync(() => LoginIsRunning, async () =>
-            {
-                // TODO: Fake a loginll...
-                await Task.Delay(1000);
+		/// <summary>
+		/// Attempts to log the user in
+		/// </summary>
+		/// <param name="parameter">The <see cref="SecureString"/> passed in from the view for the users password</param>
+		/// <returns></returns>
+		public async Task LoginAsync(object parameter)
+		{
+			await RunCommandAsync(() => LoginIsRunning, async () =>
+			{
+				await Task.Delay(1000);
 
-                if (string.IsNullOrEmpty(Username))
-                {
-                    await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-                    {
-                        Title = "Empty usernmae",
-                        Message = "The current username is empty"
-                    });
+				var loginCredentials = new LoginCredentialsApiModel
+				{
+					Surname = Username,
+					Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+				};
 
-                    return;
-                }
-                
-                IoC.Application.GoToPage(ApplicationPage.MainMenu);
-            });
-        }
-    }
+				if (string.IsNullOrEmpty(loginCredentials.Surname))
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty usernmae",
+						Message = "The current username is invalid or empty"
+					});
+
+					return;
+				}
+
+				if (await IoC.DataStore.LoginAsync(loginCredentials) == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty password",
+						Message = "The current password is invalid or empty"
+					});
+
+					return;
+				}
+
+				IoC.Application.GoToPage(ApplicationPage.MainMenu);
+			});
+		}
+	}
 }
