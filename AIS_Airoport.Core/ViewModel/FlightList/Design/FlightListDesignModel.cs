@@ -33,8 +33,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "230C",
                     StartDate = new DateTime(2020,8,9),
                     StartTime = "18:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "14502",
+                    Airline = "Сибирь",
+                    TicketPrice = 14502,
                     Destination = "Новгород"
                 },
                 new Flight
@@ -43,8 +43,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "23С8",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "17:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "5446",
+                    Airline = "Сибирь",
+                    TicketPrice = 5446,
                     Destination = "Сочи"
                 },
                 new Flight
@@ -53,8 +53,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "21BA",
                     StartDate = new DateTime(2020,3,10),
                     StartTime = "19:00",
-                    Airline = "Сибирь",
-                    TicketPrice = "11344",
+                    Airline = "Аэрофлот",
+                    TicketPrice = 11344,
                     Destination = "Сочи"
                 },
                 new Flight
@@ -63,8 +63,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "17E0",
                     StartDate = new DateTime(2020,10,25),
                     StartTime = "16:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "7753",
+                    Airline = "Сибирь",
+                    TicketPrice = 7753,
                     Destination = "Пермь"
                 },
                 new Flight
@@ -73,8 +73,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "230C",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "18:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "14502",
+                    Airline = "Сибирь",
+                    TicketPrice = 14502,
                     Destination = "Новгород"
                 },
                 new Flight
@@ -83,8 +83,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "23С8",
                     StartDate = new DateTime(2018,10,5),
                     StartTime = "17:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "5446",
+                    Airline = "Сибирь",
+                    TicketPrice = 5446,
                     Destination = "Сочи"
                 },
                 new Flight
@@ -93,8 +93,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "21BA",
                     StartDate = new DateTime(2020,1,10),
                     StartTime = "19:00",
-                    Airline = "Сибирь",
-                    TicketPrice = "11344",
+                    Airline = "Аэрофлот",
+                    TicketPrice = 11344,
                     Destination = "Сочи"
                 },
                 new Flight
@@ -103,8 +103,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "17E0",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "16:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "7753",
+                    Airline = "Сибирь",
+                    TicketPrice = 7753,
                     Destination = "Пермь"
                 },
                 new Flight
@@ -113,8 +113,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "230C",
                     StartDate = new DateTime(2019,5,1),
                     StartTime = "18:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "14502",
+                    Airline = "Сибирь",
+                    TicketPrice = 14502,
                     Destination = "Новгород"
                 },
                 new Flight
@@ -123,8 +123,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "23С8",
                     StartDate = new DateTime(2020,12,5),
                     StartTime = "17:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "5446",
+                    Airline = "Сибирь",
+                    TicketPrice = 5446,
                     Destination = "Сочи"
                 },
                 new Flight
@@ -133,8 +133,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "21BA",
                     StartDate = new DateTime(2020,10,10),
                     StartTime = "19:00",
-                    Airline = "Сибирь",
-                    TicketPrice = "11344",
+                    Airline = "Аэрофлот",
+                    TicketPrice = 11344,
                     Destination = "Сочи"
                 },
                 new Flight
@@ -143,8 +143,8 @@ namespace AIS_Airoport.Core
                     FlightNumber = "17E0",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "16:00",
-                    Airline = "Аэрофлот",
-                    TicketPrice = "7753",
+                    Airline = "Сибирь",
+                    TicketPrice = 7753,
                     Destination = "Пермь"
                 },
             };

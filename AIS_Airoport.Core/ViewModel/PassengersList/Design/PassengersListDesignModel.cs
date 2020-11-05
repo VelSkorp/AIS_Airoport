@@ -32,7 +32,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Иванович",
                     Phone = "123-456-789",
                     Address = "улица Центральная 1",
-                    Passport = "3425425",
+                    Passport = 3425425,
                     Discount = "Начальная"
                 },
                 new Passenger
@@ -42,7 +42,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Петрович",
                     Phone = "3231-434-2134",
                     Address = "проспект Космонавтов 213-12",
-                    Passport = "632252342",
+                    Passport = 632252342,
                     Discount = "Партнер"
                 },
                 new Passenger
@@ -52,7 +52,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Сергеевна",
                     Phone = "34-43-432",
                     Address = "улица Мира 45-4",
-                    Passport = "23421312",
+                    Passport = 23421312,
                     Discount = ""
                 },
                 new Passenger
@@ -62,7 +62,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Иванович",
                     Phone = "123-456-789",
                     Address = "улица Центральная 1",
-                    Passport = "3425425",
+                    Passport = 3425425,
                     Discount = "Начальная"
                 },
                 new Passenger
@@ -72,7 +72,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Петрович",
                     Phone = "3231-434-2134",
                     Address = "проспект Космонавтов 213-12",
-                    Passport = "632252342",
+                    Passport = 632252342,
                     Discount = "Партнер"
                 },
                 new Passenger
@@ -82,7 +82,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Сергеевна",
                     Phone = "34-43-432",
                     Address = "улица Мира 45-4",
-                    Passport = "23421312",
+                    Passport = 23421312,
                     Discount = ""
                 },
                 new Passenger
@@ -92,7 +92,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Иванович",
                     Phone = "123-456-789",
                     Address = "улица Центральная 1",
-                    Passport = "3425425",
+                    Passport = 3425425,
                     Discount = "Начальная"
                 },
                 new Passenger
@@ -102,7 +102,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Петрович",
                     Phone = "3231-434-2134",
                     Address = "проспект Космонавтов 213-12",
-                    Passport = "632252342",
+                    Passport = 632252342,
                     Discount = "Партнер"
                 },
                 new Passenger
@@ -112,7 +112,7 @@ namespace AIS_Airoport.Core
                     Patronymic = "Сергеевна",
                     Phone = "34-43-432",
                     Address = "улица Мира 45-4",
-                    Passport = "23421312",
+                    Passport = 23421312,
                     Discount = ""
                 },
             };

@@ -3,51 +3,99 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AIS_Airoport.Relational
 {
-    /// <summary>
-    /// The database context for the client data store
-    /// </summary>
-    public class DataStoreDbContext : DbContext
-    {
-        #region DbSets 
+	/// <summary>
+	/// The database context for the client data store
+	/// </summary>
+	public class DataStoreDbContext : DbContext
+	{
+		#region DbSets 
 
-        /// <summary>
-        /// The employee credentials
-        /// </summary>
-        public DbSet<EmployeeCredentials> Staff { get; set; }
+		/// <summary>
+		/// Airlines data table
+		/// </summary>
+		public DbSet<Airline> Airlines { get; set; }
 
-        #endregion
+		/// <summary>
+		/// Airplanes data table
+		/// </summary>
+		public DbSet<Airplane> Airplanes { get; set; }
 
-        #region Constructor
+		/// <summary>
+		/// Destinations data table
+		/// </summary>
+		public DbSet<Destination> Destinations { get; set; }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public DataStoreDbContext(DbContextOptions<DataStoreDbContext> options) : base(options) { }
+		/// <summary>
+		/// Discounts data table
+		/// </summary>
+		public DbSet<Discount> Discounts { get; set; }
 
-        #endregion
+		/// <summary>
+		/// Flights data table
+		/// </summary>
+		public DbSet<Flight> Flights { get; set; }
 
-        #region Model Creating
+		/// <summary>
+		/// Passengers data table
+		/// </summary>
+		public DbSet<Passenger> Passengers { get; set; }
 
-        /// <summary>
-        /// Configures the database structure and relationships
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+		/// <summary>
+		/// Positions data table
+		/// </summary>
+		public DbSet<Position> Positions { get; set; }
 
-            // Fluent API
+		/// <summary>
+		/// Staff data table
+		/// </summary>
+		public DbSet<EmployeeCredentials> Staff { get; set; }
 
-            // Configure LoginCredentials
-            // --------------------------
-            //
-            // Set Id as primary key
-            modelBuilder.Entity<EmployeeCredentials>().HasKey(a => a.Id);
+		/// <summary>
+		/// Tickets data table
+		/// </summary>
+		public DbSet<Ticket> Tickets { get; set; }
 
-            // TODO: Set up limits
-            //modelBuilder.Entity<LoginCredentialsDataModel>().Property(a => a.FirstName).HasMaxLength(50);
-        }
+		#endregion
 
-        #endregion
-    }
+		#region Constructor
+
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public DataStoreDbContext(DbContextOptions<DataStoreDbContext> options) : base(options) { }
+
+		#endregion
+
+		#region Model Creating
+
+		/// <summary>
+		/// Configures the database structure and relationships
+		/// </summary>
+		/// <param name="modelBuilder"></param>
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			// Fluent API
+
+			// Configure
+			// --------------------------
+			//
+			// Set primary keys
+			modelBuilder.Entity<Airline>().HasKey(a => a.Code);
+			modelBuilder.Entity<Airplane>().HasKey(a => a.Code);
+			modelBuilder.Entity<Destination>().HasKey(a => a.Code);
+			modelBuilder.Entity<Discount>().HasKey(a => a.DiscountName);
+			modelBuilder.Entity<Flight>().HasKey(a => a.Code);
+			modelBuilder.Entity<Passenger>().HasKey(a => a.ID);
+			modelBuilder.Entity<Position>().HasKey(a => a.Code);
+			modelBuilder.Entity<EmployeeCredentials>().HasKey(a => a.ID);
+			modelBuilder.Entity<Ticket>().HasKey(a => a.TicketNumber);
+
+			// TODO: Set up limits
+			//modelBuilder.Entity<LoginCredentialsDataModel>().Property(a => a.FirstName).HasMaxLength(50);
+		}
+
+		#endregion
+	}
 }
