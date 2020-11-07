@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace AIS_Airoport.Core
 {
@@ -21,10 +22,15 @@ namespace AIS_Airoport.Core
 		Task EnsureDataStoreAsync();
 
 		/// <summary>
+		/// Gets the stored ticket information
+		/// </summary>
+		Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync();
+
+		/// <summary>
 		/// Gets the stored employee credentials for this client
 		/// </summary>
 		/// <returns>Returns the employee credentials if they exist, or null if none exist</returns>
-		Task<EmployeeCredentials> GetEmployeeCredentialsAsync(string username);
+		Task<EmployeeCredentials> GetEmployeeCredentialsAsync();
 
 		/// <summary>
 		/// Stores the given login credentials to the backing data store

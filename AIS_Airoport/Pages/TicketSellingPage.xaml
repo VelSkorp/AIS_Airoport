@@ -6,7 +6,7 @@
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
 	  mc:Ignorable="d" 
-	  DataContext="{x:Static core:TicketSellingDesignModel.Instance}">
+	  d:DataContext="{x:Static core:TicketSellingDesignModel.Instance}">
 
 	<Grid HorizontalAlignment="Center">
 		
@@ -80,6 +80,11 @@
 				HorizontalAlignment="Center" >
 
 			<StackPanel>
+
+				<Button FontSize="{StaticResource FontSizeLarge}" 
+						Command="{Binding RefreshCommand}"
+						Padding="40 10"
+						Content="Refresh"/>
 
 				<Button FontSize="{StaticResource FontSizeLarge}" 
 						Command="{Binding CreateCommand}"

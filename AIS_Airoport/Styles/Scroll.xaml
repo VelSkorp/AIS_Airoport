@@ -175,7 +175,9 @@
 							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 
 								<ItemsPresenter.Resources>
-									<Style TargetType="TextBlock" BasedOn="{StaticResource RegularText}"/>
+									<Style TargetType="TextBlock" BasedOn="{StaticResource RegularText}">
+										<Setter Property="Padding" Value="0 10" />
+									</Style>
 								</ItemsPresenter.Resources>
 								
 							</ItemsPresenter>
