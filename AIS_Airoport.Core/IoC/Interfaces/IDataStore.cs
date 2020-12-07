@@ -22,6 +22,41 @@ namespace AIS_Airoport.Core
 		Task EnsureDataStoreAsync();
 
 		/// <summary>
+		/// Gets the stored airlines information
+		/// </summary>
+		Task<ObservableCollection<Airline>> GetCollectionOfAirlinesAsync();
+
+		/// <summary>
+		/// Gets the stored airplanes information
+		/// </summary>
+		Task<ObservableCollection<Airplane>> GetCollectionOfAirplanesAsync();
+
+		/// <summary>
+		/// Gets the stored destinations information
+		/// </summary>
+		Task<ObservableCollection<Destination>> GetCollectionOfDestinationsAsync();
+
+		/// <summary>
+		/// Gets the stored discounts information
+		/// </summary>
+		Task<ObservableCollection<Discount>> GetCollectionOfDiscountsAsync();
+
+		/// <summary>
+		/// Gets the stored flights information
+		/// </summary>
+		Task<ObservableCollection<Flight>> GetCollectionOfFlightsAsync();
+
+		/// <summary>
+		/// Gets the stored passengers information
+		/// </summary>
+		Task<ObservableCollection<Passenger>> GetCollectionOfPassengersAsync();
+
+		/// <summary>
+		/// Gets the stored positions information
+		/// </summary>
+		Task<ObservableCollection<Position>> GetCollectionOfPositionsAsync();
+
+		/// <summary>
 		/// Gets the stored ticket information
 		/// </summary>
 		Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync();

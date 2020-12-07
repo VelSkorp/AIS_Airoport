@@ -148,7 +148,7 @@
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
 		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
-		<Setter Property="Padding" Value="50 10" />
+		<Setter Property="Padding" Value="40 10" />
 		<Setter Property="Margin" Value="10" />
 
 		<Setter Property="local:IsBusyProperty.Value" Value="False" />

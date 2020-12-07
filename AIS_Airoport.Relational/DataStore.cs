@@ -80,7 +80,89 @@ namespace AIS_Airoport.Relational
 		}
 
 		/// <summary>
-		/// Gets the stored ticket information
+		/// Gets the stored airlines information
+		/// </summary>
+		public Task<ObservableCollection<Airline>> GetCollectionOfAirlinesAsync()
+		{
+			return Task.FromResult(new ObservableCollection<Airline>(mDbContext.Airlines));
+		}
+
+		/// <summary>
+		/// Gets the stored destinations information
+		/// </summary>
+		public Task<ObservableCollection<Destination>> GetCollectionOfDestinationsAsync()
+		{
+			return Task.FromResult(new ObservableCollection<Destination>(mDbContext.Destinations));
+		}
+
+		/// <summary>
+		/// Gets the stored airplanes information
+		/// </summary>
+		public Task<ObservableCollection<Airplane>> GetCollectionOfAirplanesAsync()
+		{
+			return Task.FromResult(new ObservableCollection<Airplane>(mDbContext.Airplanes));
+		}
+
+		/// <summary>
+		/// Gets the stored discounts information
+		/// </summary>
+		public Task<ObservableCollection<Discount>> GetCollectionOfDiscountsAsync()
+		{
+			return Task.FromResult(new ObservableCollection<Discount>(mDbContext.Discounts));
+		}
+
+		/// <summary>
+		/// Gets the stored flights information
+		/// </summary>
+		public Task<ObservableCollection<Flight>> GetCollectionOfFlightsAsync()
+		{
+			var flights = new ObservableCollection<Flight>(mDbContext.Flights);
+
+			if (flights.First().Airline.IsInt())
+			{
+				foreach (Flight flight in flights)
+				{
+					flight.Airline = mDbContext.Airlines.First((item) => item.Code == flight.Airline).Nomination;
+				}
+			}
+
+			if (flights.First().Destination.IsInt())
+			{
+				foreach (Flight flight in flights)
+				{
+					flight.Destination = mDbContext.Destinations.First((item) => item.Code == flight.Destination).Nomination;
+				}
+			}
+
+			if (flights.First().Airplane.IsInt())
+			{
+				foreach (Flight flight in flights)
+				{
+					flight.Airplane = mDbContext.Airplanes.First((item) => item.Code == flight.Airplane).Model;
+				}
+			}
+
+			return Task.FromResult(flights);
+		}
+
+		/// <summary>
+		/// Gets the stored passengers information
+		/// </summary>
+		public Task<ObservableCollection<Passenger>> GetCollectionOfPassengersAsync()
+		{
+			return Task.FromResult(new ObservableCollection<Passenger>(mDbContext.Passengers));
+		}
+
+		/// <summary>
+		/// Gets the stored positions information
+		/// </summary>
+		public Task<ObservableCollection<Position>> GetCollectionOfPositionsAsync()
+		{
+			return Task.FromResult(new ObservableCollection<Position>(mDbContext.Positions));
+		}
+
+		/// <summary>
+		/// Gets the stored tickets information
 		/// </summary>
 		public Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync()
 		{

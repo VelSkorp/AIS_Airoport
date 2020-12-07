@@ -214,10 +214,10 @@ namespace AIS_Airoport.Core
 			// TODO: Implement ticket generate command
 		}
 
-		/// <summary>
-		/// Generate a ticket for print
-		/// </summary>
-		public async void RefreshAsync()
+        /// <summary>
+        /// Refresh a list of tickets
+        /// </summary>
+        public async void RefreshAsync()
 		{
 			Items = await IoC.DataStore.GetCollectionOfTicketsAsync();
 		}

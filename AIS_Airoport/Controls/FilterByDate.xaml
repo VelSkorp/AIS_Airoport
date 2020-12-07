@@ -25,6 +25,10 @@
 				Content="Filter"/>
 
 		<Button FontSize="{StaticResource FontSizeLarge}" 
+				Command="{Binding RefreshCommand}"
+				Content="Refresh"/>
+
+		<Button FontSize="{StaticResource FontSizeLarge}" 
 				Command="{Binding BackCommand}"
 				Content="Back"/>
 

@@ -6,7 +6,7 @@
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
 	  mc:Ignorable="d" 
-	  DataContext="{x:Static core:FlightListDesignModel.Instance}">
+	  d:DataContext="{x:Static core:FlightListDesignModel.Instance}">
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -21,7 +21,7 @@
 				CornerRadius="10">
 			
 			<local:FilterByDate />
-		
+
 		</Border>
 
 				<!--Background="{StaticResource ForegroundLightBrush}"-->

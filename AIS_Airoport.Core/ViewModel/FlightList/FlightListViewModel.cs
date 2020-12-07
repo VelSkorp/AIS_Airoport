@@ -88,6 +88,11 @@ namespace AIS_Airoport.Core
         public ICommand FilterCommand { get; set; }
 
         /// <summary>
+        /// The command to refresh a list of flights
+        /// </summary>
+        public ICommand RefreshCommand { get; set; }
+
+        /// <summary>
         /// The command to go back to the main menu
         /// </summary>
         public ICommand BackCommand { get; set; }
@@ -108,6 +113,7 @@ namespace AIS_Airoport.Core
             SortByTicketPriceCommand = new RelayCommand(SortByTicketPrice);
             SortByStartDateCommand = new RelayCommand(SortByStartDate);
             DoNotSortCommand = new RelayCommand(DisableSorting);
+            RefreshCommand = new RelayCommand(RefreshAsync);
         }
 
         #endregion
@@ -176,6 +182,14 @@ namespace AIS_Airoport.Core
         public void DisableSorting()
         {
             FilteredIAndSortedtems = new ObservableCollection<Flight>(Items);
+        }
+
+        /// <summary>
+        /// The command to refresh a list of flights
+        /// </summary>
+        public async void RefreshAsync()
+        {
+            Items = await IoC.DataStore.GetCollectionOfFlightsAsync();
         }
 
         #endregion

@@ -36,7 +36,6 @@
 				Background="{StaticResource ForegroundLightBrush}"
 				Margin="10 0 0 0"
 				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
 				CornerRadius="10" >
 
 			<ListView ItemsSource="{Binding FilteredIAndSortedtems}" >
@@ -80,11 +79,6 @@
 				HorizontalAlignment="Center" >
 
 			<StackPanel>
-
-				<Button FontSize="{StaticResource FontSizeLarge}" 
-						Command="{Binding RefreshCommand}"
-						Padding="40 10"
-						Content="Refresh"/>
 
 				<Button FontSize="{StaticResource FontSizeLarge}" 
 						Command="{Binding CreateCommand}"

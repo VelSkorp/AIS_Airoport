@@ -6,7 +6,7 @@
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  mc:Ignorable="d" 
-	  DataContext="{x:Static core:PassengersListDesignModel.Instance}">
+	  d:DataContext="{x:Static core:PassengersListDesignModel.Instance}">
 
 	<Grid>
 
@@ -29,6 +29,10 @@
 				<Button Content="Change this"
 						Command="{Binding ChangeCommand}"
 						FontSize="{StaticResource FontSizeLarge}"  />
+
+				<Button FontSize="{StaticResource FontSizeLarge}" 
+						Command="{Binding RefreshCommand}"
+						Content="Refresh"/>
 
 				<Button Content="Back" 
 						Command="{Binding BackCommand}"

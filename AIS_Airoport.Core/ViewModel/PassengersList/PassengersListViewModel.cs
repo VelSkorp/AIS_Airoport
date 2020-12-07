@@ -65,6 +65,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public ICommand BackCommand { get; set; }
 
+		/// <summary>
+		/// The command to refresh a list of passengers
+		/// </summary>
+		public ICommand RefreshCommand { get; set; }
+
 		#endregion
 
 		#region Constructor
@@ -78,6 +83,7 @@ namespace AIS_Airoport.Core
 			AddCommand = new RelayCommand(AddNewPassenger);
 			ChangeCommand = new RelayCommand(ChangeCurrentPassenger);
 			BackCommand = new RelayCommand(Back);
+			RefreshCommand = new RelayCommand(RefreshAsync);
 		}
 
 		#endregion
@@ -106,6 +112,14 @@ namespace AIS_Airoport.Core
 		public void ChangeCurrentPassenger()
 		{
 			// TODO: Implement method to change data about the current passenger
+		}
+
+		/// <summary>
+		/// The command to refresh a list of passengers
+		/// </summary>
+		public async void RefreshAsync()
+		{
+			Items = await IoC.DataStore.GetCollectionOfPassengersAsync();
 		}
 
 		#endregion
