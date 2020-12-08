@@ -195,7 +195,7 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public void Create()
 		{
-			// TODO: Implement ticket crate command with popup menu
+			IoC.Application.GoToPage(ApplicationPage.CreateNewTicket);
 		}
 
 		/// <summary>
@@ -214,10 +214,10 @@ namespace AIS_Airoport.Core
 			// TODO: Implement ticket generate command
 		}
 
-        /// <summary>
-        /// Refresh a list of tickets
-        /// </summary>
-        public async void RefreshAsync()
+		/// <summary>
+		/// Refresh a list of tickets
+		/// </summary>
+		public async void RefreshAsync()
 		{
 			Items = await IoC.DataStore.GetCollectionOfTicketsAsync();
 		}

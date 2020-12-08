@@ -33,7 +33,10 @@ namespace AIS_Airoport
                     return new PassengersPage();
 
                 case ApplicationPage.Statistics:
-                    throw new NotImplementedException("Implement Statistics Page");
+                    return new StatisticsPage();
+
+                case ApplicationPage.CreateNewTicket:
+                    return new CreateNewTicketPage();
 
                 default:
                     Debugger.Break();

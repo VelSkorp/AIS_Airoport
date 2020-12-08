@@ -41,6 +41,9 @@ namespace AIS_Airoport
 				case ApplicationPage.Statistics:
 					return new StatisticsPage(viewModel as StatisticsViewModel);
 
+				case ApplicationPage.CreateNewTicket:
+					return new CreateNewTicketPage(viewModel as CreateNewTicketViewModel);
+
 				default:
 					Debugger.Break();
 					return null;
@@ -73,6 +76,9 @@ namespace AIS_Airoport
 
 			if (page is LoginPage)
 				return ApplicationPage.Login;
+
+			if (page is CreateNewTicketPage)
+				return ApplicationPage.CreateNewTicket;
 
 			//if (page is RegisterPage)
 			//    return ApplicationPage.Register;

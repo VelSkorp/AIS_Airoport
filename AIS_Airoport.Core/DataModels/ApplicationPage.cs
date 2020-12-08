@@ -39,5 +39,10 @@
 		/// The Statistics page
 		/// </summary>
 		Statistics = 6,
+
+		/// <summary>
+		/// The CreateNewTicket page
+		/// </summary>
+		CreateNewTicket = 7,
 	}
 }

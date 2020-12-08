@@ -249,6 +249,9 @@
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="IoC\UIManager.cs" />
+    <Compile Include="Pages\CreateNewTicketPage.xaml.cs">
+      <DependentUpon>CreateNewTicketPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="Pages\FlightListPage.xaml.cs">
       <DependentUpon>FlightListPage.xaml</DependentUpon>
@@ -295,6 +298,10 @@
     <Page Include="DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CreateNewTicketPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\FlightListPage.xaml">
       <SubType>Designer</SubType>
