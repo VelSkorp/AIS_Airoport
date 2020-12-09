@@ -5,7 +5,7 @@ namespace AIS_Airoport.Core
 	/// <summary>
 	/// A flight information
 	/// </summary>
-	public class Flight
+	public class FlightApiModel
 	{
 		/// <summary>
 		/// The code of flight
@@ -30,7 +30,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// An airline serving the plane
 		/// </summary>
-		public string Airline { get; set; }
+		public int Airline { get; set; }
 
 		/// <summary>
 		/// A ticket price
@@ -40,11 +40,11 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// A arrival point
 		/// </summary>
-		public string Destination { get; set; }
+		public int Destination { get; set; }
 
 		/// <summary>
 		/// Airplane used for flight
 		/// </summary>
-		public string Airplane { get; set; }
+		public int Airplane { get; set; }
 	}
 }

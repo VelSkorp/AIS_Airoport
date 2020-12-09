@@ -3,7 +3,7 @@
 	/// <summary>
 	/// The data model for the login credentials of a employee
 	/// </summary>
-	public class EmployeeCredentials
+	public class EmployeeCredentialsApiModel
 	{
 		/// <summary>
 		/// The unique Id
@@ -43,6 +43,6 @@
 		/// <summary>
 		/// The position occupied by the employee
 		/// </summary>
-		public string Position { get; set; }
+		public int Position { get; set; }
 	}
 }

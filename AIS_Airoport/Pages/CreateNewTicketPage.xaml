@@ -29,9 +29,6 @@
 						  SelectedItem="{Binding Passenger}" 
 						  ItemsSource="{Binding ListOfPassengers}"/>
 
-				<DatePicker Grid.Column="3"
-							SelectedDate="{Binding DepartureDate}" />
-
 			</StackPanel>
 		</Border>
 

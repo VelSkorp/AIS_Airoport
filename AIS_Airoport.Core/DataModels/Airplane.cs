@@ -10,7 +10,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// The code of airplane
 		/// </summary>
-		public string Code { get; set; }
+		public int Code { get; set; }
 
 		/// <summary>
 		/// Airplane tail number
@@ -25,7 +25,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Airplane capacity
 		/// </summary>
-		public string Capacity { get; set; }
+		public int Capacity { get; set; }
 
 		/// <summary>
 		/// Date of introduction into use

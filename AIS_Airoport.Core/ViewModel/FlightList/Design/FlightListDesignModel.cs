@@ -29,7 +29,7 @@ namespace AIS_Airoport.Core
             {
                 new Flight
                 {
-                    Code = "11",
+                    Code = 11,
                     FlightNumber = "230C",
                     StartDate = new DateTime(2020,8,9),
                     StartTime = "18:00",
@@ -39,7 +39,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "22",
+                    Code = 22,
                     FlightNumber = "23С8",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "17:00",
@@ -49,7 +49,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "39",
+                    Code = 39,
                     FlightNumber = "21BA",
                     StartDate = new DateTime(2020,3,10),
                     StartTime = "19:00",
@@ -59,7 +59,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "42",
+                    Code = 42,
                     FlightNumber = "17E0",
                     StartDate = new DateTime(2020,10,25),
                     StartTime = "16:00",
@@ -69,7 +69,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "11",
+                    Code = 11,
                     FlightNumber = "230C",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "18:00",
@@ -79,7 +79,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "22",
+                    Code = 22,
                     FlightNumber = "23С8",
                     StartDate = new DateTime(2018,10,5),
                     StartTime = "17:00",
@@ -89,7 +89,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "39",
+                    Code = 39,
                     FlightNumber = "21BA",
                     StartDate = new DateTime(2020,1,10),
                     StartTime = "19:00",
@@ -99,7 +99,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "42",
+                    Code = 42,
                     FlightNumber = "17E0",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "16:00",
@@ -109,7 +109,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "11",
+                    Code = 11,
                     FlightNumber = "230C",
                     StartDate = new DateTime(2019,5,1),
                     StartTime = "18:00",
@@ -119,7 +119,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "22",
+                    Code = 22,
                     FlightNumber = "23С8",
                     StartDate = new DateTime(2020,12,5),
                     StartTime = "17:00",
@@ -129,7 +129,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "39",
+                    Code = 39,
                     FlightNumber = "21BA",
                     StartDate = new DateTime(2020,10,10),
                     StartTime = "19:00",
@@ -139,7 +139,7 @@ namespace AIS_Airoport.Core
                 },
                 new Flight
                 {
-                    Code = "42",
+                    Code = 42,
                     FlightNumber = "17E0",
                     StartDate = new DateTime(2020,10,5),
                     StartTime = "16:00",

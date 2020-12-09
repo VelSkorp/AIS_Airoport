@@ -72,6 +72,62 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		/// <param name="employeeCredentials">The login credentials to save</param>
 		/// <returns>Returns a task that will finish once the save is complete</returns>
-		Task SaveLoginCredentialsAsync(EmployeeCredentials employeeCredentials);
+		Task<bool> SaveLoginCredentialsAsync(EmployeeCredentials employeeCredentials);
+
+		/// <summary>
+		/// Stores the given airline credentials to the backing data store
+		/// </summary>
+		/// <param name="airlineCredentials">The airline credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SaveAirlineCredentialsAsync(Airline airlineCredentials);
+
+		/// <summary>
+		/// Stores the given airplane credentials to the backing data store
+		/// </summary>
+		/// <param name="airplaneCredentials">The airplane credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SaveAirplaneCredentialsAsync(Airplane airplaneCredentials);
+
+		/// <summary>
+		/// Stores the given destination credentials to the backing data store
+		/// </summary>
+		/// <param name="destinationCredentials">The destination credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SaveDestinationCredentialsAsync(Destination destinationCredentials);
+
+		/// <summary>
+		/// Stores the given discount credentials to the backing data store
+		/// </summary>
+		/// <param name="discountCredentials">The discount credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SaveDiscountCredentialsAsync(Discount discountCredentials);
+
+		/// <summary>
+		/// Stores the given flight credentials to the backing data store
+		/// </summary>
+		/// <param name="flightCredentials">The flight credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SaveFlightCredentialsAsync(Flight flightCredentials);
+
+		/// <summary>
+		/// Stores the given passenger credentials to the backing data store
+		/// </summary>
+		/// <param name="passengerCredentials">The passenger credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SavePassengerCredentialsAsync(Passenger passengerCredentials);
+
+		/// <summary>
+		/// Stores the given position credentials to the backing data store
+		/// </summary>
+		/// <param name="positionCredentials">The position credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SavePositionCredentialsAsync(Position positionCredentials);
+
+		/// <summary>
+		/// Stores the given ticket credentials to the backing data store
+		/// </summary>
+		/// <param name="ticketCredentials">The ticket credentials to save</param>
+		/// <returns>Returns a task that will finish once the save is complete</returns>
+		Task<bool> SaveTicketCredentialsAsync(Ticket ticketCredentials);
 	}
 }

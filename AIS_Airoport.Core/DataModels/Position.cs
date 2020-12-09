@@ -8,7 +8,7 @@
         /// <summary>
         /// Position code
         /// </summary>
-        public string Code { get; set; }
+        public int Code { get; set; }
 
         /// <summary>
         /// Job Title

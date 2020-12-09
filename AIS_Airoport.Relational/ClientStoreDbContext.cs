@@ -33,7 +33,7 @@ namespace AIS_Airoport.Relational
 		/// <summary>
 		/// Flights data table
 		/// </summary>
-		public DbSet<Flight> Flights { get; set; }
+		public DbSet<FlightApiModel> Flights { get; set; }
 
 		/// <summary>
 		/// Passengers data table
@@ -48,12 +48,12 @@ namespace AIS_Airoport.Relational
 		/// <summary>
 		/// Staff data table
 		/// </summary>
-		public DbSet<EmployeeCredentials> Staff { get; set; }
+		public DbSet<EmployeeCredentialsApiModel> Staff { get; set; }
 
 		/// <summary>
 		/// Tickets data table
 		/// </summary>
-		public DbSet<Ticket> Tickets { get; set; }
+		public DbSet<TicketApiModel> Tickets { get; set; }
 
 		#endregion
 
@@ -86,11 +86,11 @@ namespace AIS_Airoport.Relational
 			modelBuilder.Entity<Airplane>().HasKey(a => a.Code);
 			modelBuilder.Entity<Destination>().HasKey(a => a.Code);
 			modelBuilder.Entity<Discount>().HasKey(a => a.DiscountName);
-			modelBuilder.Entity<Flight>().HasKey(a => a.Code);
+			modelBuilder.Entity<FlightApiModel>().HasKey(a => a.Code);
 			modelBuilder.Entity<Passenger>().HasKey(a => a.ID);
 			modelBuilder.Entity<Position>().HasKey(a => a.Code);
-			modelBuilder.Entity<EmployeeCredentials>().HasKey(a => a.ID);
-			modelBuilder.Entity<Ticket>().HasKey(a => a.TicketNumber);
+			modelBuilder.Entity<EmployeeCredentialsApiModel>().HasKey(a => a.ID);
+			modelBuilder.Entity<TicketApiModel>().HasKey(a => a.TicketNumber);
 
 			// TODO: Set up limits
 			//modelBuilder.Entity<LoginCredentialsDataModel>().Property(a => a.FirstName).HasMaxLength(50);

@@ -8,7 +8,7 @@
 		/// <summary>
 		/// The code of destination
 		/// </summary>
-		public string Code { get; set; }
+		public int Code { get; set; }
 
 		/// <summary>
 		/// The destination name

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -27,11 +26,6 @@ namespace AIS_Airoport.Core
 		/// The passenger who bought the ticket
 		/// </summary>
 		public string Passenger { get; set; }
-
-		/// <summary>
-		/// A departure date
-		/// </summary>
-		public DateTime? DepartureDate { get; set; }
 
 		/// <summary>
 		/// A departure date
@@ -72,7 +66,7 @@ namespace AIS_Airoport.Core
 		public CreateNewTicketViewModel()
 		{
 			// Create commands
-			SaveCommand = new RelayCommand(Save);
+			SaveCommand = new RelayCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayCommand(RefreshAsync);
 		}
@@ -84,8 +78,40 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new ticket
 		/// </summary>
-		public void Save()
+		public async void SaveAsync()
 		{
+			if (TicketNumber == null || FlightNumber == null || Passenger == null)
+			{
+				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				{
+					Title = "Empty ticket form",
+					Message = "Fill out the ticket form"
+				});
+
+				return;
+			}
+
+			EmployeeCredentials employee = await IoC.DataStore.GetEmployeeCredentialsAsync();
+
+			bool isSaved = await IoC.DataStore.SaveTicketCredentialsAsync(new Ticket
+			{
+				TicketNumber = TicketNumber,
+				FlightNumber = FlightNumber,
+				Passenger = Passenger,
+				Employee = employee.Surname,
+			});
+
+			if (isSaved)
+			{
+				IoC.Application.GoToPage(ApplicationPage.TicketSelling);
+				return;
+			}
+
+			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+			{
+				Title = "Ticket exist",
+				Message = "Ticket already exist"
+			});
 		}
 
 		/// <summary>
