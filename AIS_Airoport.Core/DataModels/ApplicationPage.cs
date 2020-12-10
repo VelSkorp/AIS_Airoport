@@ -44,5 +44,10 @@
 		/// The CreateNewTicket page
 		/// </summary>
 		CreateNewTicket = 7,
+
+		/// <summary>
+		/// The AddNewPassenger page
+		/// </summary>
+		AddNewPassenger = 8,
 	}
 }

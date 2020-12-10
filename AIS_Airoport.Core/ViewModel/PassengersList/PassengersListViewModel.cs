@@ -103,7 +103,7 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public void AddNewPassenger()
 		{
-			// TODO: Implement method to add information about the new passenger
+			IoC.Application.GoToPage(ApplicationPage.AddNewPassenger);
 		}
 
 		/// <summary>

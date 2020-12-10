@@ -222,6 +222,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\AddNewPassengerPage.xaml.cs">
+      <DependentUpon>AddNewPassengerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Animation\AnimationSlideInDirection.cs" />
     <Compile Include="Animation\FrameworkElementAnimations.cs" />
     <Compile Include="Animation\PageAnimation.cs" />
@@ -283,6 +286,10 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Pages\AddNewPassengerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CircularStatistic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

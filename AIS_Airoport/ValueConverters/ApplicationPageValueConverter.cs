@@ -38,6 +38,9 @@ namespace AIS_Airoport
                 case ApplicationPage.CreateNewTicket:
                     return new CreateNewTicketPage();
 
+                case ApplicationPage.AddNewPassenger:
+                    return new AddNewPassengerPage();
+
                 default:
                     Debugger.Break();
                     return null;

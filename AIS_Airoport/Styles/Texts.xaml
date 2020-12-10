@@ -480,6 +480,7 @@
 						 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 						 IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
 						 Margin="{TemplateBinding Padding}"
+						 BorderThickness="0"
 						 FontFamily="{StaticResource LatoRegular}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -517,7 +518,7 @@
 	<Style TargetType="{x:Type ComboBox}">
 		<Setter Property="IsReadOnly" Value="True" />
 		<Setter Property="IsEditable" Value="True" />
-		<Setter Property="Margin" Value="5" />
+		<Setter Property="Margin" Value="1 5" />
 		<Setter Property="BorderThickness" Value="0" />
 
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
