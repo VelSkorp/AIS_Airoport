@@ -47,6 +47,9 @@ namespace AIS_Airoport
 				case ApplicationPage.AddNewPassenger:
 					return new AddNewPassengerPage(viewModel as AddNewPassengerViewModel);
 
+				case ApplicationPage.AddNewFlight:
+					return new AddNewFlightPage(viewModel as AddNewFlightViewModel);
+
 				default:
 					Debugger.Break();
 					return null;
@@ -85,6 +88,9 @@ namespace AIS_Airoport
 
 			if (page is AddNewPassengerPage)
 				return ApplicationPage.AddNewPassenger;
+
+			if (page is AddNewFlightPage)
+				return ApplicationPage.AddNewFlight;
 
 			//if (page is RegisterPage)
 			//    return ApplicationPage.Register;

@@ -222,6 +222,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\AddNewFlightPage.xaml.cs">
+      <DependentUpon>AddNewFlightPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AddNewPassengerPage.xaml.cs">
       <DependentUpon>AddNewPassengerPage.xaml</DependentUpon>
     </Compile>
@@ -286,6 +289,10 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Pages\AddNewFlightPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddNewPassengerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

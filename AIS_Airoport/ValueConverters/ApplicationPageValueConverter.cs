@@ -41,6 +41,9 @@ namespace AIS_Airoport
                 case ApplicationPage.AddNewPassenger:
                     return new AddNewPassengerPage();
 
+                case ApplicationPage.AddNewFlight:
+                    return new AddNewFlightPage();
+
                 default:
                     Debugger.Break();
                     return null;

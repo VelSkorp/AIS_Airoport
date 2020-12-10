@@ -251,15 +251,6 @@
 								Opacity="1"
 								Padding="{TemplateBinding Padding}">
 
-							<!--
-								BorderBrush="{TemplateBinding BorderBrush}"
-								BorderThickness="{TemplateBinding BorderThickness}"
-								Background="{TemplateBinding Background}"
-								CornerRadius="5"
-								Opacity="1"
-								Padding="{TemplateBinding Padding}"
-							-->
-
 							<Grid x:Name="WatermarkContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
 
 								<Border x:Name="ContentElement"
@@ -270,12 +261,6 @@
 										BorderBrush="{StaticResource WordBlueBrush}" 
 										BorderThickness="0 0 0 1">
 
-									<!--
-										CornerRadius="5"
-										BorderBrush="#FFFFFFFF" 
-										BorderThickness="1"
-									-->
-
 									<ContentControl x:Name="PART_Watermark" 
 													Focusable="False"
 													IsHitTestVisible="False" 
@@ -283,7 +268,7 @@
 
 										<ContentControl.Template>
 											<ControlTemplate>
-												<TextBlock Text="Date picker" 
+												<TextBlock Text="Pick date" 
 														   FontSize="{StaticResource FontSizeLarge}"
 														   FontFamily="{StaticResource LatoRegular}" />
 

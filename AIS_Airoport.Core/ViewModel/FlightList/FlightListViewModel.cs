@@ -97,6 +97,11 @@ namespace AIS_Airoport.Core
         /// </summary>
         public ICommand BackCommand { get; set; }
 
+        /// <summary>
+        /// The command to add a new flight
+        /// </summary>
+        public ICommand AddNewCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -109,6 +114,7 @@ namespace AIS_Airoport.Core
             // Create commands
             FilterCommand = new RelayCommand(Filter);
             BackCommand = new RelayCommand(Back);
+            AddNewCommand = new RelayCommand(AddNewFlight);
             SortByNumberCommand = new RelayCommand(SortByNumber);
             SortByTicketPriceCommand = new RelayCommand(SortByTicketPrice);
             SortByStartDateCommand = new RelayCommand(SortByStartDate);
@@ -150,6 +156,14 @@ namespace AIS_Airoport.Core
         public void Back()
         {
             IoC.Application.GoToPage(ApplicationPage.MainMenu);
+        }
+
+        /// <summary>
+        /// The command to refresh a list of flights
+        /// </summary>
+        public void AddNewFlight()
+        {
+            IoC.Application.GoToPage(ApplicationPage.AddNewFlight);
         }
 
         /// <summary>

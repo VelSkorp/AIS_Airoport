@@ -5,7 +5,7 @@ using System.Windows.Input;
 namespace AIS_Airoport.Core
 {
 	/// <summary>
-	/// The View Model for a create new ticket screen
+	/// The View Model for a add new passenger screen
 	/// </summary>
 	public class AddNewPassengerViewModel : BaseViewModel
 	{
