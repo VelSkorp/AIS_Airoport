@@ -73,6 +73,21 @@ namespace AIS_Airoport.Core
 		Task<EmployeeCredentials> GetEmployeeCredentialsAsync();
 
 		/// <summary>
+		/// Gets the stored employee right to add new flights information
+		/// </summary>
+		Task<bool> GetEmployeeRightToAddNewFlightsAsync();
+
+		/// <summary>
+		/// Gets the stored employee right to sell tickets
+		/// </summary>
+		Task<bool> GetEmployeeRightToSellTicketsAsync();
+
+		/// <summary>
+		/// Gets the stored employee right to add new employees 
+		/// </summary>
+		Task<bool> GetEmployeeRightToAddNewEmployeesAsync();
+
+		/// <summary>
 		/// Stores the given login credentials to the backing data store
 		/// </summary>
 		/// <param name="employeeCredentials">The login credentials to save</param>

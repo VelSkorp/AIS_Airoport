@@ -57,7 +57,8 @@
 
 				<Button Style="{StaticResource IconAndTextButton}" 
 						Content="Add new employee"
-						Command="{Binding AddNewEmployeeCommand}">
+						Command="{Binding AddNewEmployeeCommand}"
+						Visibility="{Binding HasRightToAddNewEmployees, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}">
 					<Button.Tag>
 						<ImageSource>/Images/Samples/Administrator.png</ImageSource>
 					</Button.Tag>

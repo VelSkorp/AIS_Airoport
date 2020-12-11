@@ -58,6 +58,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public DateTime? FilterBy { get; set; } = null;
 
+		/// <summary>
+		/// The right to sell tickets
+		/// </summary>
+		public bool HasRightToSellTickets { get; set; } = IoC.DataStore.GetEmployeeRightToSellTicketsAsync().Result;
+
 		#endregion
 
 		#region Commands

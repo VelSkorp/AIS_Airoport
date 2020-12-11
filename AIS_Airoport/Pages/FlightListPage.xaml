@@ -67,11 +67,12 @@
 
 			<Border Background="White"
 					Margin="20 10 0 20"
-					CornerRadius="10">
+					CornerRadius="10"
+					Visibility="{Binding HasRightToAddNewFlights, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}">
 
 				<Button FontSize="{StaticResource FontSizeLarge}" 
 						Command="{Binding AddNewCommand}"
-						Content="Add new"/>
+						Content="Add new" />
 
 			</Border>
 		</StackPanel>

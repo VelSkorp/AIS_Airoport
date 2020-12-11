@@ -7,6 +7,15 @@ namespace AIS_Airoport.Core
     /// </summary>
     public class MainMenuViewModel : BaseViewModel
     {
+        #region Public Properties
+
+        /// <summary>
+        /// The right to add new employees 
+        /// </summary>
+        public bool HasRightToAddNewEmployees { get; set; } = IoC.DataStore.GetEmployeeRightToAddNewEmployeesAsync().Result;
+
+        #endregion
+
         #region Commands
 
         /// <summary>

@@ -138,9 +138,9 @@ namespace AIS_Airoport.Core
 			{
 				Code = position.Count + 1,
 				Nomination = PositionNomination,
-				RightToSellTickets = RightToSellTickets.Value,
-				RightToAddNewFlights = RightToAddNewFlights.Value,
-				RightToAddNewEmployees = RightToAddNewEmployees.Value,
+				RightToSellTickets = RightToSellTickets.Value ? 1 : 0,
+				RightToAddNewFlights = RightToAddNewFlights.Value ? 1 : 0,
+				RightToAddNewEmployees = RightToAddNewEmployees.Value ? 1 : 0,
 			});
 
 			if (isSaved == false)

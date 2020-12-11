@@ -212,6 +212,36 @@ namespace AIS_Airoport.Relational
 		}
 
 		/// <summary>
+		/// Gets the stored employee right to add new flights 
+		/// </summary>
+		public async Task<bool> GetEmployeeRightToAddNewFlightsAsync()
+		{
+			var employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname);
+
+			return await Task.FromResult(mDbContext.Positions.First((item) => item.Code == employee.Position).RightToAddNewFlights) == 1;
+		}
+
+		/// <summary>
+		/// Gets the stored employee right to sell tickets
+		/// </summary>
+		public async Task<bool> GetEmployeeRightToSellTicketsAsync()
+		{
+			var employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname);
+
+			return await Task.FromResult(mDbContext.Positions.First((item) => item.Code == employee.Position).RightToSellTickets) == 1;
+		}
+
+		/// <summary>
+		/// Gets the stored employee right to add new employees 
+		/// </summary>
+		public async Task<bool> GetEmployeeRightToAddNewEmployeesAsync()
+		{
+			var employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname);
+
+			return await Task.FromResult(mDbContext.Positions.First((item) => item.Code == employee.Position).RightToAddNewEmployees) == 1;
+		}
+
+		/// <summary>
 		/// Stores the given login credentials to the backing data store
 		/// </summary>
 		/// <param name="employeeCredentials">The login credentials to save</param>

@@ -16,18 +16,18 @@
         public string Nomination { get; set; }
 
         /// <summary>
-        /// Right to sell tickets
+        /// Right to sell tickets (1 or 0)
         /// </summary>
-        public bool RightToSellTickets { get; set; }
+        public int RightToSellTickets { get; set; }
 
         /// <summary>
-        /// Right to add new flights
+        /// Right to add new flights (1 or 0)
         /// </summary>
-        public bool RightToAddNewFlights { get; set; }
+        public int RightToAddNewFlights { get; set; }
 
         /// <summary>
-        /// Right to add new employees
+        /// Right to add new employees (1 or 0)
         /// </summary>
-        public bool RightToAddNewEmployees { get; set; }
+        public int RightToAddNewEmployees { get; set; }
     }
 }
