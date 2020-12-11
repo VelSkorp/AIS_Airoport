@@ -11,48 +11,48 @@
 		Login = 0,
 
 		/// <summary>
-		/// The register page
-		/// </summary>
-		Register = 1,
-
-		/// <summary>
 		/// The main menu page
 		/// </summary>
-		MainMenu = 2,
+		MainMenu = 1,
 
 		/// <summary>
 		/// The ticket selling page
 		/// </summary>
-		TicketSelling = 3,
+		TicketSelling = 2,
 
 		/// <summary>
 		/// The flight list page
 		/// </summary>
-		FlightList = 4,
+		FlightList = 3,
 
 		/// <summary>
 		/// The passengers page
 		/// </summary>
-		Passengers = 5,
+		Passengers = 4,
 
 		/// <summary>
 		/// The statistics page
 		/// </summary>
-		Statistics = 6,
+		Statistics = 5,
 
 		/// <summary>
 		/// The create new ticket page
 		/// </summary>
-		CreateNewTicket = 7,
+		CreateNewTicket = 6,
 
 		/// <summary>
 		/// The add new passenger page
 		/// </summary>
-		AddNewPassenger = 8,
+		AddNewPassenger = 7,
 
 		/// <summary>
 		/// The add new flight page
 		/// </summary>
-		AddNewFlight = 9,
+		AddNewFlight = 8,
+
+		/// <summary>
+		/// The add new employee page
+		/// </summary>
+		AddNewEmployee = 9,
 	}
 }

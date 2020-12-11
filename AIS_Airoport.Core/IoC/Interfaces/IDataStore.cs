@@ -62,6 +62,11 @@ namespace AIS_Airoport.Core
 		Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync();
 
 		/// <summary>
+		/// Gets the stored employee information
+		/// </summary>
+		Task<ObservableCollection<EmployeeCredentials>> GetCollectionOfEmployeesAsync();
+
+		/// <summary>
 		/// Gets the stored employee credentials for this client
 		/// </summary>
 		/// <returns>Returns the employee credentials if they exist, or null if none exist</returns>

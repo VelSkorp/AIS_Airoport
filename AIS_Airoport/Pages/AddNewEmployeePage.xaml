@@ -1,0 +1,120 @@
+﻿<local:BasePage x:TypeArguments="core:AddNewEmployeeViewModel" x:Class="AIS_Airoport.AddNewEmployeePage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:AIS_Airoport"
+	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
+	  mc:Ignorable="d" 
+	  d:DesignHeight="500" d:DesignWidth="900">
+
+	<StackPanel VerticalAlignment="Center">
+
+		<!-- Positions table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel>
+				<StackPanel Orientation="Horizontal">
+					
+					<TextBox Tag="Position nomination" 
+							 Margin="1 5"
+							 FontSize="{StaticResource FontSizeLarge}"
+							 Text="{Binding PositionNomination}" />
+
+					<CheckBox Content="Right to sell tickets"
+							  IsChecked="{Binding RightToSellTickets}"/>
+
+					<CheckBox Content="Right to add new flights"
+							  IsChecked="{Binding RightToAddNewFlights}"/>
+					
+				</StackPanel>
+
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center">
+
+					<CheckBox Content="Right to add new employees"
+							  IsChecked="{Binding RightToAddNewEmployees}"/>
+
+					<Button Content="Save"
+							FontSize="{StaticResource FontSizeLarge}"
+							Command="{Binding SavePositionCommand}"/>
+				</StackPanel>
+
+			</StackPanel>
+		</Border>
+
+		<!-- Staff table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="Surname" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding Surname}" />
+
+				<TextBox Tag="First name" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding FirstName}" />
+
+				<TextBox Tag="Patronymic" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding Patronymic}" />
+
+				<TextBox Tag="Phone" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding Phone}" />
+
+				<TextBox Tag="Address" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding Address}" />
+
+				<TextBox Tag="Password" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding Password}" />
+
+				<ComboBox Text="Position"
+						  SelectedItem="{Binding Position}"
+						  ItemsSource="{Binding Positions}" />
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveEmployeeCommand}"/>
+
+			</StackPanel>
+		</Border>
+
+		<!-- Back and Refresh buttons -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<Button Content="Refresh"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding RefreshCommand}"/>
+
+				<Button Content="Back"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding BackCommand}"/>
+
+			</StackPanel>
+		</Border>
+
+	</StackPanel>
+</local:BasePage>

@@ -23,9 +23,6 @@ namespace AIS_Airoport
 				case ApplicationPage.Login:
 					return new LoginPage(viewModel as LoginViewModel);
 
-				case ApplicationPage.Register:
-					throw new NotImplementedException("Implement Register Page");
-
 				case ApplicationPage.MainMenu:
 					return new MainMenuPage(viewModel as MainMenuViewModel);
 
@@ -49,6 +46,9 @@ namespace AIS_Airoport
 
 				case ApplicationPage.AddNewFlight:
 					return new AddNewFlightPage(viewModel as AddNewFlightViewModel);
+
+				case ApplicationPage.AddNewEmployee:
+					return new AddNewEmployeePage(viewModel as AddNewEmployeeViewModel);
 
 				default:
 					Debugger.Break();
@@ -92,8 +92,8 @@ namespace AIS_Airoport
 			if (page is AddNewFlightPage)
 				return ApplicationPage.AddNewFlight;
 
-			//if (page is RegisterPage)
-			//    return ApplicationPage.Register;
+			if (page is AddNewEmployeePage)
+				return ApplicationPage.AddNewEmployee;
 
 			// Alert developer of issue
 			Debugger.Break();

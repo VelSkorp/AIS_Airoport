@@ -6,7 +6,7 @@
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
 	  mc:Ignorable="d" 
-	  x:Name="Page">
+	  d:DesignHeight="500" d:DesignWidth="900">
 
 	<UserControl.Resources>
 		<Image x:Key="UserByingTickets" Source="/Images/Samples/UserByingTickets.png"/>
@@ -52,6 +52,14 @@
 						Command="{Binding StatisticsCommand}">
 					<Button.Tag>
 						<ImageSource>/Images/Samples/CircularBarGraph.png</ImageSource>
+					</Button.Tag>
+				</Button>
+
+				<Button Style="{StaticResource IconAndTextButton}" 
+						Content="Add new employee"
+						Command="{Binding AddNewEmployeeCommand}">
+					<Button.Tag>
+						<ImageSource>/Images/Samples/Administrator.png</ImageSource>
 					</Button.Tag>
 				</Button>
 

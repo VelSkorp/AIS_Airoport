@@ -17,9 +17,6 @@ namespace AIS_Airoport
                 case ApplicationPage.Login:
                     return new LoginPage();
 
-                case ApplicationPage.Register:
-                    throw new NotImplementedException("Implement Register Page");
-
                 case ApplicationPage.MainMenu:
                     return new MainMenuPage();
 
@@ -43,6 +40,9 @@ namespace AIS_Airoport
 
                 case ApplicationPage.AddNewFlight:
                     return new AddNewFlightPage();
+
+                case ApplicationPage.AddNewEmployee:
+                    return new AddNewEmployeePage();
 
                 default:
                     Debugger.Break();

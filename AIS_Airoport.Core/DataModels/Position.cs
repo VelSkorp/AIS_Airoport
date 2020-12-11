@@ -19,5 +19,15 @@
         /// Right to sell tickets
         /// </summary>
         public bool RightToSellTickets { get; set; }
+
+        /// <summary>
+        /// Right to add new flights
+        /// </summary>
+        public bool RightToAddNewFlights { get; set; }
+
+        /// <summary>
+        /// Right to add new employees
+        /// </summary>
+        public bool RightToAddNewEmployees { get; set; }
     }
 }

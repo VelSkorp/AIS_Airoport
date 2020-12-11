@@ -73,12 +73,12 @@ namespace AIS_Airoport.Relational
 		/// Gets the stored login credentials for this client
 		/// </summary>
 		/// <returns>Returns the login credentials if they exist, or null if none exist</returns>
-		public Task<EmployeeCredentials> GetEmployeeCredentialsAsync()
+		public async Task<EmployeeCredentials> GetEmployeeCredentialsAsync()
 		{
 			EmployeeCredentialsApiModel employee = mDbContext.Staff.FirstOrDefault((item) => item.Surname == mEmployeeSurname);
 
 			// Get the first column in the login credentials table, or null if none exist
-			return Task.FromResult(new EmployeeCredentials
+			return await Task.FromResult(new EmployeeCredentials
 			{
 				ID = employee.ID,
 				Surname = employee.Surname,
@@ -94,39 +94,39 @@ namespace AIS_Airoport.Relational
 		/// <summary>
 		/// Gets the stored airlines information
 		/// </summary>
-		public Task<ObservableCollection<Airline>> GetCollectionOfAirlinesAsync()
+		public async Task<ObservableCollection<Airline>> GetCollectionOfAirlinesAsync()
 		{
-			return Task.FromResult(new ObservableCollection<Airline>(mDbContext.Airlines));
+			return await Task.FromResult(new ObservableCollection<Airline>(mDbContext.Airlines));
 		}
 
 		/// <summary>
 		/// Gets the stored airplanes information
 		/// </summary>
-		public Task<ObservableCollection<Airplane>> GetCollectionOfAirplanesAsync()
+		public async Task<ObservableCollection<Airplane>> GetCollectionOfAirplanesAsync()
 		{
-			return Task.FromResult(new ObservableCollection<Airplane>(mDbContext.Airplanes));
+			return await Task.FromResult(new ObservableCollection<Airplane>(mDbContext.Airplanes));
 		}
 
 		/// <summary>
 		/// Gets the stored destinations information
 		/// </summary>
-		public Task<ObservableCollection<Destination>> GetCollectionOfDestinationsAsync()
+		public async Task<ObservableCollection<Destination>> GetCollectionOfDestinationsAsync()
 		{
-			return Task.FromResult(new ObservableCollection<Destination>(mDbContext.Destinations));
+			return await Task.FromResult(new ObservableCollection<Destination>(mDbContext.Destinations));
 		}
 
 		/// <summary>
 		/// Gets the stored discounts information
 		/// </summary>
-		public Task<ObservableCollection<Discount>> GetCollectionOfDiscountsAsync()
+		public async Task<ObservableCollection<Discount>> GetCollectionOfDiscountsAsync()
 		{
-			return Task.FromResult(new ObservableCollection<Discount>(mDbContext.Discounts));
+			return await Task.FromResult(new ObservableCollection<Discount>(mDbContext.Discounts));
 		}
 
 		/// <summary>
 		/// Gets the stored flights information
 		/// </summary>
-		public Task<ObservableCollection<Flight>> GetCollectionOfFlightsAsync()
+		public async Task<ObservableCollection<Flight>> GetCollectionOfFlightsAsync()
 		{
 			var flights = new ObservableCollection<Flight>();
 
@@ -145,29 +145,54 @@ namespace AIS_Airoport.Relational
 				});
 			}
 
-			return Task.FromResult(flights);
+			return await Task.FromResult(flights);
 		}
 
 		/// <summary>
 		/// Gets the stored passengers information
 		/// </summary>
-		public Task<ObservableCollection<Passenger>> GetCollectionOfPassengersAsync()
+		public async Task<ObservableCollection<Passenger>> GetCollectionOfPassengersAsync()
 		{
-			return Task.FromResult(new ObservableCollection<Passenger>(mDbContext.Passengers));
+			return await Task.FromResult(new ObservableCollection<Passenger>(mDbContext.Passengers));
 		}
 
 		/// <summary>
 		/// Gets the stored positions information
 		/// </summary>
-		public Task<ObservableCollection<Position>> GetCollectionOfPositionsAsync()
+		public async Task<ObservableCollection<Position>> GetCollectionOfPositionsAsync()
 		{
-			return Task.FromResult(new ObservableCollection<Position>(mDbContext.Positions));
+			return await Task.FromResult(new ObservableCollection<Position>(mDbContext.Positions));
+		}
+
+		/// <summary>
+		/// Gets the stored employee information
+		/// </summary>
+		public async Task<ObservableCollection<EmployeeCredentials>> GetCollectionOfEmployeesAsync()
+		{
+			var employees = new ObservableCollection<EmployeeCredentials>();
+
+			foreach (EmployeeCredentialsApiModel employee in mDbContext.Staff)
+			{
+				employees.Add(new EmployeeCredentials
+				{
+					ID = employee.ID,
+					Surname = employee.Surname,
+					FirstName = employee.FirstName,
+					Patronymic = employee.Patronymic,
+					Phone = employee.Phone,
+					Address = employee.Address,
+					Password = employee.Password,
+					Position = mDbContext.Positions.First((item) => item.Code == employee.Position).Nomination,
+				});
+			}
+
+			return await Task.FromResult(employees);
 		}
 
 		/// <summary>
 		/// Gets the stored tickets information
 		/// </summary>
-		public Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync()
+		public async Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync()
 		{
 			var tickets = new ObservableCollection<Ticket>();
 
@@ -183,7 +208,7 @@ namespace AIS_Airoport.Relational
 				});
 			}
 
-			return Task.FromResult(tickets);
+			return await Task.FromResult(tickets);
 		}
 
 		/// <summary>
@@ -199,6 +224,7 @@ namespace AIS_Airoport.Relational
 				Surname = employeeCredentials.Surname,
 				FirstName = employeeCredentials.FirstName,
 				Patronymic = employeeCredentials.Patronymic,
+				Phone = employeeCredentials.Phone,
 				Address = employeeCredentials.Address,
 				Password = employeeCredentials.Password,
 				Position = mDbContext.Positions.First((item) => item.Nomination == employeeCredentials.Position).Code

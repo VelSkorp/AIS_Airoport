@@ -29,6 +29,11 @@ namespace AIS_Airoport.Core
         /// </summary>
         public ICommand StatisticsCommand { get; set; }
 
+        /// <summary>
+        /// The command add new employee
+        /// </summary>
+        public ICommand AddNewEmployeeCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -43,6 +48,7 @@ namespace AIS_Airoport.Core
             FlightListCommand = new RelayCommand(FlightList);
             PassengersCommand = new RelayCommand(Passengers);
             StatisticsCommand = new RelayCommand(Statistics);
+            AddNewEmployeeCommand = new RelayCommand(AddNewEmployee);
         }
 
         #endregion
@@ -83,6 +89,15 @@ namespace AIS_Airoport.Core
         {
             // Go to Statistics page
             IoC.Application.GoToPage(ApplicationPage.Statistics);
+        }
+
+        /// <summary>
+        /// Go to the page for adding a new employee
+        /// </summary>
+        public void AddNewEmployee()
+        {
+            // Go to Statistics page
+            IoC.Application.GoToPage(ApplicationPage.AddNewEmployee);
         } 
 
         #endregion
