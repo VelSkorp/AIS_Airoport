@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace AIS_Airoport.Core
 {
@@ -37,6 +38,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public ObservableCollection<string> ListOfPassengers { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -68,7 +74,7 @@ namespace AIS_Airoport.Core
 			// Create commands
 			SaveCommand = new RelayCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(RefreshAsync);
+			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
 
 		#endregion
@@ -125,13 +131,16 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new ticket
 		/// </summary>
-		public async void RefreshAsync()
+		public async Task RefreshAsync()
 		{
-			ObservableCollection<Flight> flights = await IoC.DataStore.GetCollectionOfFlightsAsync();
-			ListOfFlights = new ObservableCollection<string>(flights.Select((item) => item.FlightNumber));
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+				ObservableCollection<Flight> flights = await IoC.DataStore.GetCollectionOfFlightsAsync();
+				ListOfFlights = new ObservableCollection<string>(flights.Select((item) => item.FlightNumber));
 
-			ObservableCollection<Passenger> passenger = await IoC.DataStore.GetCollectionOfPassengersAsync();
-			ListOfPassengers = new ObservableCollection<string>(passenger.Select((item) => item.Surname));
+				ObservableCollection<Passenger> passenger = await IoC.DataStore.GetCollectionOfPassengersAsync();
+				ListOfPassengers = new ObservableCollection<string>(passenger.Select((item) => item.Surname));
+			});
 		}
 
 		#endregion

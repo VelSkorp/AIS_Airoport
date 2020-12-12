@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace AIS_Airoport.Core
 {
@@ -71,6 +72,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public ObservableCollection<string> Positions { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -108,7 +114,7 @@ namespace AIS_Airoport.Core
 			SavePositionCommand = new RelayCommand(SavePositionAsync);
 			SaveEmployeeCommand = new RelayCommand(SaveEmployeeAsync);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(RefreshAsync);
+			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
 
 		#endregion
@@ -232,10 +238,13 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Refresh lists of Positions
 		/// </summary>
-		public async void RefreshAsync()
+		public async Task RefreshAsync()
 		{
-			ObservableCollection<Position> positions = await IoC.DataStore.GetCollectionOfPositionsAsync();
-			Positions = new ObservableCollection<string>(positions.Select((item) => item.Nomination));
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+				ObservableCollection<Position> positions = await IoC.DataStore.GetCollectionOfPositionsAsync();
+				Positions = new ObservableCollection<string>(positions.Select((item) => item.Nomination));
+			});
 		}
 
 		#endregion

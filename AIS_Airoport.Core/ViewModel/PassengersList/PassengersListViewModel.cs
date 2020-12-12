@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AIS_Airoport.Core
@@ -46,6 +47,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public ObservableCollection<Passenger> FilteredIAndSortedtems { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -83,7 +89,7 @@ namespace AIS_Airoport.Core
 			AddCommand = new RelayCommand(AddNewPassenger);
 			ChangeCommand = new RelayCommand(ChangeCurrentPassenger);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(RefreshAsync);
+			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
 
 		#endregion
@@ -117,9 +123,12 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// The command to refresh a list of passengers
 		/// </summary>
-		public async void RefreshAsync()
+		public async Task RefreshAsync()
 		{
-			Items = await IoC.DataStore.GetCollectionOfPassengersAsync();
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+				Items = await IoC.DataStore.GetCollectionOfPassengersAsync();
+			});
 		}
 
 		#endregion

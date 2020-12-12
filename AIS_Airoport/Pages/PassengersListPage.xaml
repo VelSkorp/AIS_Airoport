@@ -32,7 +32,8 @@
 
 				<Button FontSize="{StaticResource FontSizeLarge}" 
 						Command="{Binding RefreshCommand}"
-						Content="Refresh"/>
+						Content="Refresh"
+						local:IsBusyProperty.Value="{Binding RefreshIsRunning}"/>
 
 				<Button Content="Back" 
 						Command="{Binding BackCommand}"

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AIS_Airoport.Core
@@ -14,6 +15,11 @@ namespace AIS_Airoport.Core
 		/// Data in tables and in charts
 		/// </summary>
 		public ObservableCollection<DataItem> Data { get; set; }
+
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
 
 		#endregion
 
@@ -74,13 +80,13 @@ namespace AIS_Airoport.Core
 		public StatisticsViewModel()
 		{
 			// Create commands
-			ProfitByDestinationRefreshCommand = new RelayCommand(RefreshProfitByDestination);
-			ProfitOnTransportationRefreshCommand = new RelayCommand(RefreshProfitOnTransportation);
-			TicketDiscountsRefreshCommand = new RelayCommand(RefreshTicketDiscounts);
-			AverageTicketPricesRefreshCommand = new RelayCommand(RefreshAverageTicketPrices);
-			DestinationsRefreshCommand = new RelayCommand(RefreshDestinations);
-			AirlinesRefreshCommand = new RelayCommand(RefreshAirlines);
-			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayCommand(RefreshProfitFromTicketSalesByPassenger);
+			ProfitByDestinationRefreshCommand = new RelayCommand(async () => await RefreshProfitByDestinationAsync());
+			ProfitOnTransportationRefreshCommand = new RelayCommand(async () => await RefreshProfitOnTransportationAsync());
+			TicketDiscountsRefreshCommand = new RelayCommand(async () => await RefreshTicketDiscountsAsync());
+			AverageTicketPricesRefreshCommand = new RelayCommand(async () => await RefreshAverageTicketPricesAsync());
+			DestinationsRefreshCommand = new RelayCommand(async () => await RefreshDestinationsAsync());
+			AirlinesRefreshCommand = new RelayCommand(async () => await RefreshAirlinesAsync());
+			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayCommand(async () => await RefreshProfitFromTicketSalesByPassengerAsync());
 			BackCommand = new RelayCommand(Back);
 		}
 
@@ -100,61 +106,89 @@ namespace AIS_Airoport.Core
 		/// Refresh data in table and chart
 		/// in the profit tab by directions
 		/// </summary>
-		public virtual void RefreshProfitByDestination()
+		public virtual async Task RefreshProfitByDestinationAsync()
 		{
 			// TODO: Implement method to refresh data in table and chart in the profit tab by directions
+			
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		/// <summary>
 		/// Updating data in the table 
 		/// and on the diagram in the profit by transportation tab
 		/// </summary>
-		public virtual void RefreshProfitOnTransportation()
+		public virtual async Task RefreshProfitOnTransportationAsync()
 		{
 			// TODO: Implement method to refresh data in table and chart in the profit by transportation tab
+
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		/// <summary>
 		/// Updating data in the table and on the graph 
 		/// in the tab for the number of used ticket discounts by type
 		/// </summary>
-		public virtual void RefreshTicketDiscounts()
+		public virtual async Task RefreshTicketDiscountsAsync()
 		{
 			// TODO: Implement method to refresh data in the tab for the number of used ticket discounts by type
+
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		/// <summary>
 		/// Updating data in the table and on the graph 
 		/// in the tab for finding the average cost of tickets
 		/// </summary>
-		public virtual void RefreshAverageTicketPrices()
+		public virtual async Task RefreshAverageTicketPricesAsync()
 		{
 			// TODO: Implement method to refresh data in the tab for finding the average cost of tickets
+
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		/// <summary>
 		/// Updating data in the table and on the graph in the destinations tab
 		/// </summary>
-		public virtual void RefreshDestinations()
+		public virtual async Task RefreshDestinationsAsync()
 		{
 			// TODO: Implement method to refresh data in the destinations tab
+
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		/// <summary>
 		/// Updating data in the airline tab
 		/// </summary>
-		public virtual void RefreshAirlines()
+		public virtual async Task RefreshAirlinesAsync()
 		{
 			// TODO: Implement method to refresh data in the airline tab
+
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		/// <summary>
 		/// Updating data in the table and on the graph 
 		/// in the tab of ticket sales by passengers
 		/// </summary>
-		public virtual void RefreshProfitFromTicketSalesByPassenger()
+		public virtual async Task RefreshProfitFromTicketSalesByPassengerAsync()
 		{
 			// TODO: Implement method to refresh data in the tab of ticket sales by passengers
+
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+			});
 		}
 
 		#endregion

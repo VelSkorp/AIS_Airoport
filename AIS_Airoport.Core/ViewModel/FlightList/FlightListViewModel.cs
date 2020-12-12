@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AIS_Airoport.Core
@@ -63,6 +64,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public bool HasRightToAddNewFlights { get; set; } = IoC.DataStore.GetEmployeeRightToAddNewFlightsAsync().Result;
 
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -124,7 +130,7 @@ namespace AIS_Airoport.Core
 			SortByTicketPriceCommand = new RelayCommand(SortByTicketPrice);
 			SortByStartDateCommand = new RelayCommand(SortByStartDate);
 			DoNotSortCommand = new RelayCommand(DisableSorting);
-			RefreshCommand = new RelayCommand(RefreshAsync);
+			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
 
 		#endregion
@@ -206,9 +212,12 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// The command to refresh a list of flights
 		/// </summary>
-		public async void RefreshAsync()
+		public async Task RefreshAsync()
 		{
-			Items = await IoC.DataStore.GetCollectionOfFlightsAsync();
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+				Items = await IoC.DataStore.GetCollectionOfFlightsAsync();
+			});
 		}
 
 		#endregion

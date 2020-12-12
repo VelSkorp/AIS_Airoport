@@ -120,7 +120,7 @@ namespace AIS_Airoport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Discount>> GetCollectionOfDiscountsAsync()
 		{
-			return await Task.FromResult(new ObservableCollection<Discount>(mDbContext.Discounts));
+			return await Task.Run(() => new ObservableCollection<Discount>(mDbContext.Discounts));
 		}
 
 		/// <summary>
@@ -130,20 +130,23 @@ namespace AIS_Airoport.Relational
 		{
 			var flights = new ObservableCollection<Flight>();
 
-			foreach (FlightApiModel flight in mDbContext.Flights)
+			await Task.Run(() =>
 			{
-				flights.Add(new Flight
+				foreach (FlightApiModel flight in mDbContext.Flights)
 				{
-					Code = flight.Code,
-					FlightNumber = flight.FlightNumber,
-					StartDate = flight.StartDate,
-					StartTime = flight.StartTime,
-					Airline = mDbContext.Airlines.First((item) => item.Code == flight.Airline).Nomination,
-					TicketPrice=flight.TicketPrice,
-					Destination =mDbContext.Destinations.First((item)=>item.Code==flight.Destination).Nomination,
-					Airplane =mDbContext.Airplanes.First((item)=>item.Code==flight.Airplane).BoardNumber,
-				});
-			}
+					flights.Add(new Flight
+					{
+						Code = flight.Code,
+						FlightNumber = flight.FlightNumber,
+						StartDate = flight.StartDate,
+						StartTime = flight.StartTime,
+						Airline = mDbContext.Airlines.First((item) => item.Code == flight.Airline).Nomination,
+						TicketPrice = flight.TicketPrice,
+						Destination = mDbContext.Destinations.First((item) => item.Code == flight.Destination).Nomination,
+						Airplane = mDbContext.Airplanes.First((item) => item.Code == flight.Airplane).BoardNumber,
+					});
+				}
+			});
 
 			return await Task.FromResult(flights);
 		}
@@ -153,7 +156,7 @@ namespace AIS_Airoport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Passenger>> GetCollectionOfPassengersAsync()
 		{
-			return await Task.FromResult(new ObservableCollection<Passenger>(mDbContext.Passengers));
+			return await Task.Run(() => new ObservableCollection<Passenger>(mDbContext.Passengers));
 		}
 
 		/// <summary>
@@ -161,7 +164,7 @@ namespace AIS_Airoport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Position>> GetCollectionOfPositionsAsync()
 		{
-			return await Task.FromResult(new ObservableCollection<Position>(mDbContext.Positions));
+			return await Task.Run(() => new ObservableCollection<Position>(mDbContext.Positions));
 		}
 
 		/// <summary>
@@ -196,17 +199,20 @@ namespace AIS_Airoport.Relational
 		{
 			var tickets = new ObservableCollection<Ticket>();
 
-			foreach (TicketApiModel ticket in mDbContext.Tickets)
+			await Task.Run(() =>
 			{
-				tickets.Add(new Ticket
+				foreach (TicketApiModel ticket in mDbContext.Tickets)
 				{
-					TicketNumber = ticket.TicketNumber,
-					FlightNumber = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).FlightNumber,
-					Passenger = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname,
-					Employee = mEmployeeSurname,
-					DepartureDate = ticket.DepartureDate,
-				});
-			}
+					tickets.Add(new Ticket
+					{
+						TicketNumber = ticket.TicketNumber,
+						FlightNumber = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).FlightNumber,
+						Passenger = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname,
+						Employee = mEmployeeSurname,
+						DepartureDate = ticket.DepartureDate,
+					});
+				}
+			});
 
 			return await Task.FromResult(tickets);
 		}

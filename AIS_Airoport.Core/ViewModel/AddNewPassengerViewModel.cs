@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace AIS_Airoport.Core
 {
@@ -51,6 +52,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public ObservableCollection<string> Discounts { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -82,7 +88,7 @@ namespace AIS_Airoport.Core
 			// Create commands
 			SaveCommand = new RelayCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(RefreshAsync);
+			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
 
 		#endregion
@@ -144,10 +150,13 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new ticket
 		/// </summary>
-		public async void RefreshAsync()
+		public async Task RefreshAsync()
 		{
-			ObservableCollection<Discount> discount = await IoC.DataStore.GetCollectionOfDiscountsAsync();
-			Discounts = new ObservableCollection<string>(discount.Select((item) => item.DiscountName));
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+				ObservableCollection<Discount> discount = await IoC.DataStore.GetCollectionOfDiscountsAsync();
+				Discounts = new ObservableCollection<string>(discount.Select((item) => item.DiscountName));
+			});
 		}
 
 		#endregion

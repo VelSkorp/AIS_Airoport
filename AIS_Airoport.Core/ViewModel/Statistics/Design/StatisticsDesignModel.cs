@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace AIS_Airoport.Core
 {
@@ -32,9 +33,9 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Setting data in table and chart in the profit tab by directions
 		/// </summary>
-		public override void RefreshProfitByDestination()
+		public override Task RefreshProfitByDestinationAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -116,16 +117,16 @@ namespace AIS_Airoport.Core
 					Name = "Могилев",
 					Value = 6432
 				},
-			};
+			});
 		}
 
 		/// <summary>
 		/// Setting data in the table and on the diagram 
 		/// in the profit by transportation tab
 		/// </summary>
-		public override void RefreshProfitOnTransportation()
+		public override Task RefreshProfitOnTransportationAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -157,16 +158,16 @@ namespace AIS_Airoport.Core
 					Name = "2AD",
 					Value = 20000
 				},
-			};
+			});
 		}
 
 		/// <summary>
 		/// Setting data in the table 
 		/// and on the diagram in the profit by transportation tab
 		/// </summary>
-		public override void RefreshTicketDiscounts()
+		public override Task RefreshTicketDiscountsAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -188,16 +189,16 @@ namespace AIS_Airoport.Core
 					Name = "Партнер",
 					Value = 8
 				},
-			};
+			});
 		}
 
 		/// <summary>
 		/// Setting data in the table and on the diagram 
 		/// in the tab for finding the average cost of tickets
 		/// </summary>
-		public override void RefreshAverageTicketPrices()
+		public override Task RefreshAverageTicketPricesAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -219,15 +220,15 @@ namespace AIS_Airoport.Core
 					Name = "Сибирь",
 					Value = 7893
 				},
-			};
+			});
 		}
 
 		/// <summary>
 		/// Setting data in the table and on the diagram in the destinations tab
 		/// </summary>
-		public override void RefreshDestinations()
+		public override Task RefreshDestinationsAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -254,15 +255,15 @@ namespace AIS_Airoport.Core
 					Name = "Сочи",
 					Value = 12
 				},
-			};
+			});
 		}
 
 		/// <summary>
 		/// Setting data in the airline tab
 		/// </summary>
-		public override void RefreshAirlines()
+		public override Task RefreshAirlinesAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -284,16 +285,16 @@ namespace AIS_Airoport.Core
 					Name = "Сибирь",
 					Value = 13
 				},
-			};
+			});
 		}
 
 		/// <summary>
 		/// Setting data in the table and on the graph 
 		/// in the tab of ticket sales by passengers
 		/// </summary>
-		public override void RefreshProfitFromTicketSalesByPassenger()
+		public override Task RefreshProfitFromTicketSalesByPassengerAsync()
 		{
-			Data = new ObservableCollection<DataItem>()
+			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
 				new DataItem()
 				{
@@ -415,7 +416,7 @@ namespace AIS_Airoport.Core
 					Name = "Тележкин",
 					Value = 7893
 				},
-			};
+			});
 		}
 
 		#endregion

@@ -45,6 +45,7 @@
 					Orientation="Horizontal">
 
 			<Button FontSize="{StaticResource FontSizeLarge}"
+					local:IsBusyProperty.Value="{Binding RefreshIsRunning}"
 					Command="{Binding Path=RefreshCommand, 
 									  Mode=TwoWay,
 									  RelativeSource={RelativeSource Mode=FindAncestor, 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AIS_Airoport.Core
@@ -62,6 +63,12 @@ namespace AIS_Airoport.Core
 		/// The right to sell tickets
 		/// </summary>
 		public bool HasRightToSellTickets { get; set; } = IoC.DataStore.GetEmployeeRightToSellTicketsAsync().Result;
+
+		/// <summary>
+		/// A flag indicating if the refresh command is running
+		/// </summary>
+		public bool RefreshIsRunning { get; set; }
+
 
 		#endregion
 
@@ -133,7 +140,7 @@ namespace AIS_Airoport.Core
 			CreateCommand = new RelayCommand(Create);
 			ChangeCommand = new RelayCommand(Change);
 			GenerateCommand = new RelayCommand(Generate);
-			RefreshCommand = new RelayCommand(RefreshAsync);
+			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
 
 		#endregion
@@ -222,9 +229,14 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Refresh a list of tickets
 		/// </summary>
-		public async void RefreshAsync()
+		public async Task RefreshAsync()
 		{
-			Items = await IoC.DataStore.GetCollectionOfTicketsAsync();
+			await RunCommandAsync(() => RefreshIsRunning, async () =>
+			{
+				await Task.Delay(1000);
+
+				Items = await IoC.DataStore.GetCollectionOfTicketsAsync();
+			});
 		}
 
 		#endregion
