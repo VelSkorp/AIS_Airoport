@@ -41,7 +41,8 @@
 
 					<Button Content="Save"
 							FontSize="{StaticResource FontSizeLarge}"
-							Command="{Binding SavePositionCommand}"/>
+							Command="{Binding SavePositionCommand}"
+							local:IsBusyProperty.Value="{Binding SavePositionIsRunning}"/>
 				</StackPanel>
 
 			</StackPanel>
@@ -92,7 +93,8 @@
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveEmployeeCommand}"/>
+						Command="{Binding SaveEmployeeCommand}"
+						local:IsBusyProperty.Value="{Binding SaveEmployeeIsRunning}"/>
 
 			</StackPanel>
 		</Border>

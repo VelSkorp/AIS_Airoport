@@ -128,6 +128,31 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the save airline command is running
+		/// </summary>
+		public bool SaveAirlineIsRunning { get; set; }
+
+		/// <summary>
+		/// A flag indicating if the save airplane command is running
+		/// </summary>
+		public bool SaveAirplaneIsRunning { get; set; }
+
+		/// <summary>
+		/// A flag indicating if the save destination command is running
+		/// </summary>
+		public bool SaveDestinationIsRunning { get; set; }
+
+		/// <summary>
+		/// A flag indicating if the save discount command is running
+		/// </summary>
+		public bool SaveDiscountIsRunning { get; set; }
+
+		/// <summary>
+		/// A flag indicating if the save flight command is running
+		/// </summary>
+		public bool SaveFlightIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -177,11 +202,11 @@ namespace AIS_Airoport.Core
 		public AddNewFlightViewModel()
 		{
 			// Create commands
-			SaveAirlineCommand = new RelayCommand(SaveAirlineAsync);
-			SaveAirplaneCommand = new RelayCommand(SaveAirplaneAsync);
-			SaveDestinationCommand = new RelayCommand(SaveDestinationAsync);
-			SaveDiscountCommand = new RelayCommand(SaveDiscountAsync);
-			SaveFlightCommand = new RelayCommand(SaveFlightAsync);
+			SaveAirlineCommand = new RelayCommand(async () => await SaveAirlineAsync());
+			SaveAirplaneCommand = new RelayCommand(async () => await SaveAirplaneAsync());
+			SaveDestinationCommand = new RelayCommand(async () => await SaveDestinationAsync());
+			SaveDiscountCommand = new RelayCommand(async () => await SaveDiscountAsync());
+			SaveFlightCommand = new RelayCommand(async () => await SaveFlightAsync());
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
@@ -193,239 +218,254 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new airline
 		/// </summary>
-		public async void SaveAirlineAsync()
+		public async Task SaveAirlineAsync()
 		{
-			if (AirlineNomination == null || AirlineContacts == null || AirlineHeadOfficeAddress == null)
+			await RunCommandAsync(() => SaveAirlineIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (AirlineNomination == null || AirlineContacts == null || AirlineHeadOfficeAddress == null)
 				{
-					Title = "Empty airline form",
-					Message = "Fill out the airline form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty airline form",
+						Message = "Fill out the airline form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<Airline> airline = await IoC.DataStore.GetCollectionOfAirlinesAsync();
+
+				bool isSaved = await IoC.DataStore.SaveAirlineCredentialsAsync(new Airline
+				{
+					Code = airline.Count + 1,
+					Nomination = AirlineNomination,
+					Сontacts = AirlineContacts,
+					HeadOfficeAddress = AirlineHeadOfficeAddress,
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Airline exist",
+						Message = "Airline already exist"
+					});
 
-			ObservableCollection<Airline> airline = await IoC.DataStore.GetCollectionOfAirlinesAsync();
+					return;
+				}
 
-			bool isSaved = await IoC.DataStore.SaveAirlineCredentialsAsync(new Airline
-			{
-				Code = airline.Count + 1,
-				Nomination = AirlineNomination,
-				Сontacts = AirlineContacts,
-				HeadOfficeAddress = AirlineHeadOfficeAddress,
-			});
+				AirlineNomination = null;
+				AirlineContacts = null;
+				AirlineHeadOfficeAddress = null;
 
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Airline exist",
-					Message = "Airline already exist"
+					Title = "Successful",
+					Message = "Airline successful saved"
 				});
-
-				return;
-			}
-
-			AirlineNomination = null;
-			AirlineContacts = null;
-			AirlineHeadOfficeAddress = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Airline successful saved"
 			});
 		}
 
 		/// <summary>
 		/// Save new airplane
 		/// </summary>
-		public async void SaveAirplaneAsync()
+		public async Task SaveAirplaneAsync()
 		{
-			if (AirplaneBoardNumber == null || AirplaneModel == null || AirplaneCapacity == null || AirplaneDateEntered == null
-				|| int.TryParse(AirplaneCapacity, out int capacity) == false)
+			await RunCommandAsync(() => SaveAirplaneIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (AirplaneBoardNumber == null || AirplaneModel == null || AirplaneCapacity == null || AirplaneDateEntered == null
+					|| int.TryParse(AirplaneCapacity, out int capacity) == false)
 				{
-					Title = "Empty airplane form",
-					Message = "Fill out the airplane form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty airplane form",
+						Message = "Fill out the airplane form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<Airplane> airplane = await IoC.DataStore.GetCollectionOfAirplanesAsync();
+
+				bool isSaved = await IoC.DataStore.SaveAirplaneCredentialsAsync(new Airplane
+				{
+					Code = airplane.Count + 1,
+					BoardNumber = AirplaneBoardNumber,
+					Model = AirplaneModel,
+					Capacity = capacity,
+					DateEntered = AirplaneDateEntered.Value,
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Airplane exist",
+						Message = "Airplane already exist"
+					});
+				}
 
-			ObservableCollection<Airplane> airplane = await IoC.DataStore.GetCollectionOfAirplanesAsync();
+				AirplaneBoardNumber = null;
+				AirplaneModel = null;
+				AirplaneCapacity = null;
+				AirplaneDateEntered = null;
 
-			bool isSaved = await IoC.DataStore.SaveAirplaneCredentialsAsync(new Airplane
-			{
-				Code = airplane.Count + 1,
-				BoardNumber = AirplaneBoardNumber,
-				Model = AirplaneModel,
-				Capacity = capacity,
-				DateEntered = AirplaneDateEntered.Value,
-			});
-
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Airplane exist",
-					Message = "Airplane already exist"
+					Title = "Successful",
+					Message = "Airplane successful saved"
 				});
-			}
-
-			AirplaneBoardNumber = null;
-			AirplaneModel = null;
-			AirplaneCapacity = null;
-			AirplaneDateEntered = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Airplane successful saved"
 			});
 		}
 
 		/// <summary>
 		/// Save new destination
 		/// </summary>
-		public async void SaveDestinationAsync()
+		public async Task SaveDestinationAsync()
 		{
-			if (DestinationNomination == null || DestinationAdress == null || DestinationCoordinates == null)
+			await RunCommandAsync(() => SaveDestinationIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (DestinationNomination == null || DestinationAdress == null || DestinationCoordinates == null)
 				{
-					Title = "Empty destination form",
-					Message = "Fill out the destination form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty destination form",
+						Message = "Fill out the destination form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<Destination> destination = await IoC.DataStore.GetCollectionOfDestinationsAsync();
+
+				bool isSaved = await IoC.DataStore.SaveDestinationCredentialsAsync(new Destination
+				{
+					Code = destination.Count + 1,
+					Nomination = DestinationNomination,
+					Adress = DestinationAdress,
+					Сoordinates = DestinationCoordinates,
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Destination exist",
+						Message = "Destination already exist"
+					});
+				}
 
-			ObservableCollection<Destination> destination = await IoC.DataStore.GetCollectionOfDestinationsAsync();
+				DestinationNomination = null;
+				DestinationAdress = null;
+				DestinationCoordinates = null;
 
-			bool isSaved = await IoC.DataStore.SaveDestinationCredentialsAsync(new Destination
-			{
-				Code = destination.Count + 1,
-				Nomination = DestinationNomination,
-				Adress = DestinationAdress,
-				Сoordinates = DestinationCoordinates,
-			});
-
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Destination exist",
-					Message = "Destination already exist"
+					Title = "Successful",
+					Message = "Destination successful saved"
 				});
-			}
-
-			DestinationNomination = null;
-			DestinationAdress = null;
-			DestinationCoordinates = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Destination successful saved"
 			});
 		}
 
 		/// <summary>
 		/// Save new discount
 		/// </summary>
-		public async void SaveDiscountAsync()
+		public async Task SaveDiscountAsync()
 		{
-			if (DiscountName == null || DiscountPercentage == null || int.TryParse(DiscountPercentage, out int percentage) == false)
+			await RunCommandAsync(() => SaveDiscountIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (DiscountName == null || DiscountPercentage == null || int.TryParse(DiscountPercentage, out int percentage) == false)
 				{
-					Title = "Empty discount form",
-					Message = "Fill out the discount form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty discount form",
+						Message = "Fill out the discount form"
+					});
+
+					return;
+				}
+
+				bool isSaved = await IoC.DataStore.SaveDiscountCredentialsAsync(new Discount
+				{
+					DiscountName = DiscountName,
+					DiscountPercentage = percentage
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Discount exist",
+						Message = "Discount already exist"
+					});
+				}
 
-			bool isSaved = await IoC.DataStore.SaveDiscountCredentialsAsync(new Discount
-			{
-				DiscountName = DiscountName,
-				DiscountPercentage = percentage
-			});
+				DiscountName = null;
+				DiscountPercentage = null;
 
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Discount exist",
-					Message = "Discount already exist"
+					Title = "Successful",
+					Message = "Discount successful saved"
 				});
-			}
-
-			DiscountName = null;
-			DiscountPercentage = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Discount successful saved"
 			});
 		}
 
 		/// <summary>
 		/// Save new flight
 		/// </summary>
-		public async void SaveFlightAsync()
+		public async Task SaveFlightAsync()
 		{
-			if (FlightNumber == null || FlightStartDate == null || FlightStartTime == null || FlightTicketPrice == null || FlightSelectAirline == null 
-				|| FlightSelectDestination == null || FlightSelectAirplane == null || int.TryParse(FlightTicketPrice, out int ticketPrice)==false)
+			await RunCommandAsync(() => SaveFlightIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (FlightNumber == null || FlightStartDate == null || FlightStartTime == null || FlightTicketPrice == null || FlightSelectAirline == null
+					|| FlightSelectDestination == null || FlightSelectAirplane == null || int.TryParse(FlightTicketPrice, out int ticketPrice) == false)
 				{
-					Title = "Empty flight form",
-					Message = "Fill out the flight form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty flight form",
+						Message = "Fill out the flight form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<Flight> flight = await IoC.DataStore.GetCollectionOfFlightsAsync();
+
+				bool isSaved = await IoC.DataStore.SaveFlightCredentialsAsync(new Flight
+				{
+					Code = flight.Count + 1,
+					FlightNumber = FlightNumber,
+					StartDate = FlightStartDate.Value,
+					StartTime = FlightStartTime,
+					TicketPrice = ticketPrice,
+					Airline = FlightSelectAirline,
+					Destination = FlightSelectDestination,
+					Airplane = FlightSelectAirplane,
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Flight exist",
+						Message = "Flight already exist"
+					});
+				}
 
-			ObservableCollection<Flight> flight = await IoC.DataStore.GetCollectionOfFlightsAsync();
+				FlightNumber = null;
+				FlightStartDate = null;
+				FlightStartTime = null;
+				FlightTicketPrice = null;
+				FlightSelectAirline = null;
+				FlightSelectDestination = null;
+				FlightSelectAirplane = null;
 
-			bool isSaved = await IoC.DataStore.SaveFlightCredentialsAsync(new Flight
-			{
-				Code = flight.Count + 1,
-				FlightNumber = FlightNumber,
-				StartDate = FlightStartDate.Value,
-				StartTime = FlightStartTime,
-				TicketPrice = ticketPrice,
-				Airline = FlightSelectAirline,
-				Destination = FlightSelectDestination,
-				Airplane = FlightSelectAirplane,
-			});
-
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Flight exist",
-					Message = "Flight already exist"
+					Title = "Successful",
+					Message = "Flight successful saved"
 				});
-			}
-
-			FlightNumber = null;
-			FlightStartDate = null;
-			FlightStartTime = null;
-			FlightTicketPrice = null;
-			FlightSelectAirline = null;
-			FlightSelectDestination = null;
-			FlightSelectAirplane = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Flight successful saved"
 			});
 		}
 

@@ -50,7 +50,8 @@
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveCommand}"/>
+						Command="{Binding SaveCommand}"
+						local:IsBusyProperty.Value="{Binding SaveIsRunning}"/>
 
 			</StackPanel>
 		</Border>

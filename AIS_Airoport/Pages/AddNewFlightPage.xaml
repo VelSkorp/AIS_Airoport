@@ -36,7 +36,8 @@
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveAirlineCommand}"/>
+						Command="{Binding SaveAirlineCommand}"
+						local:IsBusyProperty.Value="{Binding SaveAirlineIsRunning}"/>
 
 			</StackPanel>
 		</Border>
@@ -70,7 +71,8 @@
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveAirplaneCommand}"/>
+						Command="{Binding SaveAirplaneCommand}"
+						local:IsBusyProperty.Value="{Binding SaveAirplaneIsRunning}"/>
 
 			</StackPanel>
 		</Border>
@@ -101,7 +103,8 @@
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveDestinationCommand}"/>
+						Command="{Binding SaveDestinationCommand}"
+						local:IsBusyProperty.Value="{Binding SaveDestinationIsRunning}"/>
 
 			</StackPanel>
 		</Border>
@@ -127,7 +130,8 @@
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveDiscountCommand}"/>
+						Command="{Binding SaveDiscountCommand}"
+						local:IsBusyProperty.Value="{Binding SaveDiscountIsRunning}"/>
 
 			</StackPanel>
 		</Border>
@@ -181,7 +185,8 @@
 
 					<Button Content="Save"
 							FontSize="{StaticResource FontSizeLarge}"
-							Command="{Binding SaveFlightCommand}"/>
+							Command="{Binding SaveFlightCommand}"
+							local:IsBusyProperty.Value="{Binding SaveFlightIsRunning}"/>
 
 				</StackPanel>
 			</StackPanel>

@@ -433,11 +433,15 @@ namespace AIS_Airoport.Relational
 			var ticket = new TicketApiModel
 			{
 				TicketNumber = ticketCredentials.TicketNumber,
-				FlightNumber = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).Code,
-				Passenger = mDbContext.Passengers.First((item) => item.Surname == ticketCredentials.Passenger).ID,
-				Employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname).ID,
-				DepartureDate = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).StartDate
 			};
+
+			await Task.Run(() =>
+			{
+				ticket.FlightNumber = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).Code;
+				ticket.Passenger = mDbContext.Passengers.First((item) => item.Surname == ticketCredentials.Passenger).ID;
+				ticket.Employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname).ID;
+				ticket.DepartureDate = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).StartDate;
+			});
 
 			if (mDbContext.Tickets.Contains(ticket))
 			{

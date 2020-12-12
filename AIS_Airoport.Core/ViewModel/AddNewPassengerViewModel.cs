@@ -57,6 +57,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the save passenger command is running
+		/// </summary>
+		public bool SaveIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -86,7 +91,7 @@ namespace AIS_Airoport.Core
 		public AddNewPassengerViewModel()
 		{
 			// Create commands
-			SaveCommand = new RelayCommand(SaveAsync);
+			SaveCommand = new RelayCommand(async () => await SaveAsync());
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
@@ -98,44 +103,47 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new ticket
 		/// </summary>
-		public async void SaveAsync()
+		public async Task SaveAsync()
 		{
-			if (Surname == null || FirstName == null || Patronymic == null || Phone == null 
-				|| Address == null || Passport == null || SelectedDiscount == null)
+			await RunCommandAsync(() => SaveIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (Surname == null || FirstName == null || Patronymic == null || Phone == null
+				    || Address == null || Passport == null || SelectedDiscount == null)
 				{
-					Title = "Empty passenger form",
-					Message = "Fill out the passenger form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty passenger form",
+						Message = "Fill out the passenger form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<Passenger> passengers = await IoC.DataStore.GetCollectionOfPassengersAsync();
+
+				bool isSaved = await IoC.DataStore.SavePassengerCredentialsAsync(new Passenger
+				{
+					ID = passengers.Count + 1,
+					Surname = Surname,
+					FirstName = FirstName,
+					Patronymic = Patronymic,
+					Phone = Phone,
+					Address = Address,
+					Passport = Passport.Value,
+					Discount = SelectedDiscount,
 				});
 
-				return;
-			}
+				if (isSaved)
+				{
+					IoC.Application.GoToPage(ApplicationPage.Passengers);
+					return;
+				}
 
-			ObservableCollection<Passenger> passengers = await IoC.DataStore.GetCollectionOfPassengersAsync();
-
-			bool isSaved = await IoC.DataStore.SavePassengerCredentialsAsync(new Passenger
-			{
-				ID = passengers.Count + 1,
-				Surname = Surname,
-				FirstName = FirstName,
-				Patronymic = Patronymic,
-				Phone = Phone,
-				Address = Address,
-				Passport = Passport.Value,
-				Discount = SelectedDiscount,
-			});
-
-			if (isSaved)
-			{
-				IoC.Application.GoToPage(ApplicationPage.Passengers);
-				return;
-			}
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Passenger exist",
-				Message = "Passenger already exist"
+				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				{
+					Title = "Passenger exist",
+					Message = "Passenger already exist"
+				});
 			});
 		}
 

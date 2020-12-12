@@ -77,6 +77,16 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the save position command is running
+		/// </summary>
+		public bool SavePositionIsRunning { get; set; }
+
+		/// <summary>
+		/// A flag indicating if the save employee command is running
+		/// </summary>
+		public bool SaveEmployeeIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -111,8 +121,8 @@ namespace AIS_Airoport.Core
 		public AddNewEmployeeViewModel()
 		{
 			// Create commands
-			SavePositionCommand = new RelayCommand(SavePositionAsync);
-			SaveEmployeeCommand = new RelayCommand(SaveEmployeeAsync);
+			SavePositionCommand = new RelayCommand(async () => await SavePositionAsync());
+			SaveEmployeeCommand = new RelayCommand(async () => await SaveEmployeeAsync());
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
@@ -124,106 +134,112 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new position
 		/// </summary>
-		public async void SavePositionAsync()
+		public async Task SavePositionAsync()
 		{
-			if (PositionNomination == null || RightToSellTickets == null || RightToAddNewFlights == null 
-				|| RightToAddNewEmployees == null)
+			await RunCommandAsync(() => SavePositionIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (PositionNomination == null || RightToSellTickets == null || RightToAddNewFlights == null
+					|| RightToAddNewEmployees == null)
 				{
-					Title = "Empty position form",
-					Message = "Fill out the position form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty position form",
+						Message = "Fill out the position form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<Position> position = await IoC.DataStore.GetCollectionOfPositionsAsync();
+
+				bool isSaved = await IoC.DataStore.SavePositionCredentialsAsync(new Position
+				{
+					Code = position.Count + 1,
+					Nomination = PositionNomination,
+					RightToSellTickets = RightToSellTickets.Value ? 1 : 0,
+					RightToAddNewFlights = RightToAddNewFlights.Value ? 1 : 0,
+					RightToAddNewEmployees = RightToAddNewEmployees.Value ? 1 : 0,
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Position exist",
+						Message = "Position already exist"
+					});
 
-			ObservableCollection<Position> position = await IoC.DataStore.GetCollectionOfPositionsAsync();
+					return;
+				}
 
-			bool isSaved = await IoC.DataStore.SavePositionCredentialsAsync(new Position
-			{
-				Code = position.Count + 1,
-				Nomination = PositionNomination,
-				RightToSellTickets = RightToSellTickets.Value ? 1 : 0,
-				RightToAddNewFlights = RightToAddNewFlights.Value ? 1 : 0,
-				RightToAddNewEmployees = RightToAddNewEmployees.Value ? 1 : 0,
-			});
+				PositionNomination = null;
+				RightToSellTickets = null;
+				RightToAddNewFlights = null;
+				RightToAddNewEmployees = null;
 
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Position exist",
-					Message = "Position already exist"
+					Title = "Successful",
+					Message = "Position successful saved"
 				});
-
-				return;
-			}
-
-			PositionNomination = null;
-			RightToSellTickets = null;
-			RightToAddNewFlights = null;
-			RightToAddNewEmployees = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Position successful saved"
 			});
 		}
 
 		/// <summary>
 		/// Save new employee
 		/// </summary>
-		public async void SaveEmployeeAsync()
+		public async Task SaveEmployeeAsync()
 		{
-			if (Surname == null || FirstName == null || Patronymic == null || Phone == null || Address == null 
-				|| Password == null || Positions == null)
+			await RunCommandAsync(() => SaveEmployeeIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (Surname == null || FirstName == null || Patronymic == null || Phone == null || Address == null
+					|| Password == null || Positions == null)
 				{
-					Title = "Empty employee form",
-					Message = "Fill out the employee form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty employee form",
+						Message = "Fill out the employee form"
+					});
+
+					return;
+				}
+
+				ObservableCollection<EmployeeCredentials> employee = await IoC.DataStore.GetCollectionOfEmployeesAsync();
+
+				bool isSaved = await IoC.DataStore.SaveLoginCredentialsAsync(new EmployeeCredentials
+				{
+					ID = employee.Count + 1,
+					Surname = Surname,
+					FirstName = FirstName,
+					Patronymic = Patronymic,
+					Phone = Phone,
+					Address = Address,
+					Password = Password,
+					Position = Position,
 				});
 
-				return;
-			}
+				if (isSaved == false)
+				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Employee exist",
+						Message = "Employee already exist"
+					});
+				}
 
-			ObservableCollection<EmployeeCredentials> employee = await IoC.DataStore.GetCollectionOfEmployeesAsync();
+				Surname = null;
+				FirstName = null;
+				Patronymic = null;
+				Phone = null;
+				Address = null;
+				Password = null;
+				Position = null;
 
-			bool isSaved = await IoC.DataStore.SaveLoginCredentialsAsync(new EmployeeCredentials
-			{
-				ID = employee.Count + 1,
-				Surname = Surname,
-				FirstName = FirstName,
-				Patronymic = Patronymic,
-				Phone = Phone,
-				Address = Address,
-				Password = Password,
-				Position = Position,
-			});
-
-			if (isSaved == false)
-			{
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Employee exist",
-					Message = "Employee already exist"
+					Title = "Successful",
+					Message = "Employee successful saved"
 				});
-			}
-
-			Surname = null;
-			FirstName = null;
-			Patronymic = null;
-			Phone = null;
-			Address = null;
-			Password = null;
-			Position = null;
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Successful",
-				Message = "Employee successful saved"
 			});
 		}
 

@@ -43,6 +43,11 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the save ticket command is running
+		/// </summary>
+		public bool SaveIsRunning { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -72,7 +77,7 @@ namespace AIS_Airoport.Core
 		public CreateNewTicketViewModel()
 		{
 			// Create commands
-			SaveCommand = new RelayCommand(SaveAsync);
+			SaveCommand = new RelayCommand(async () => await SaveAsync());
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
 		}
@@ -84,39 +89,42 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Save new ticket
 		/// </summary>
-		public async void SaveAsync()
+		public async Task SaveAsync()
 		{
-			if (TicketNumber == null || FlightNumber == null || Passenger == null)
+			await RunCommandAsync(() => SaveIsRunning, async () =>
 			{
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				if (TicketNumber == null || FlightNumber == null || Passenger == null)
 				{
-					Title = "Empty ticket form",
-					Message = "Fill out the ticket form"
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Empty ticket form",
+						Message = "Fill out the ticket form"
+					});
+
+					return;
+				}
+
+				EmployeeCredentials employee = await IoC.DataStore.GetEmployeeCredentialsAsync();
+
+				bool isSaved = await IoC.DataStore.SaveTicketCredentialsAsync(new Ticket
+				{
+					TicketNumber = TicketNumber,
+					FlightNumber = FlightNumber,
+					Passenger = Passenger,
+					Employee = employee.Surname,
 				});
 
-				return;
-			}
+				if (isSaved)
+				{
+					IoC.Application.GoToPage(ApplicationPage.TicketSelling);
+					return;
+				}
 
-			EmployeeCredentials employee = await IoC.DataStore.GetEmployeeCredentialsAsync();
-
-			bool isSaved = await IoC.DataStore.SaveTicketCredentialsAsync(new Ticket
-			{
-				TicketNumber = TicketNumber,
-				FlightNumber = FlightNumber,
-				Passenger = Passenger,
-				Employee = employee.Surname,
-			});
-
-			if (isSaved)
-			{
-				IoC.Application.GoToPage(ApplicationPage.TicketSelling);
-				return;
-			}
-
-			await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-			{
-				Title = "Ticket exist",
-				Message = "Ticket already exist"
+				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				{
+					Title = "Ticket exist",
+					Message = "Ticket already exist"
+				});
 			});
 		}
 
