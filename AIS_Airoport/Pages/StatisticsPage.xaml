@@ -6,7 +6,7 @@
 	  xmlns:local="clr-namespace:AIS_Airoport"
 	  xmlns:core="clr-namespace:AIS_Airoport.Core;assembly=AIS_Airoport.Core"
 	  mc:Ignorable="d"
-	  DataContext="{x:Static core:StatisticsDesignModel.Instance}">
+	  d:DataContext="{x:Static core:StatisticsDesignModel.Instance}">
 
 	<Grid>
 
@@ -45,7 +45,7 @@
 					<TabItem Header="Number of use of ticket discounts by type">
 						<local:ColumnStatistic Text="Name"
 											   Tag="Amount"
-											   RefreshCommand="{Binding TicketDiscountsRefreshCommand}"
+											   RefreshCommand="{Binding NumberOfDiscountedTicketsByDiscountRefreshCommand}"
 											   DataContext="{Binding}" />
 					</TabItem>
 
@@ -65,14 +65,14 @@
 					<TabItem Header="Destinations">
 						<local:ColumnStatistic Text="Name"
 											   Tag="Count of flights"
-											   RefreshCommand="{Binding DestinationsRefreshCommand}"
+											   RefreshCommand="{Binding NumberOfticketsByDestinationsRefreshCommand}"
 											   DataContext="{Binding}" />
 					</TabItem>
 
 					<TabItem Header="Airlines">
 						<local:CircularStatistic Text="Name"
 												 Tag="Count of flights"
-												 RefreshCommand="{Binding AirlinesRefreshCommand}"
+												 RefreshCommand="{Binding NumberOfticketsByAirlinesRefreshCommand}"
 												 DataContext="{Binding}" />
 					</TabItem>
 					

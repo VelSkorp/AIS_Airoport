@@ -73,6 +73,41 @@ namespace AIS_Airoport.Core
 		Task<EmployeeCredentials> GetEmployeeCredentialsAsync();
 
 		/// <summary>
+		/// Gets information about profit from flights
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetProfitOnTransportationAsync();
+
+		/// <summary>
+		/// Gets information about profit from destinations
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetProfitByDestinationAsync();
+
+		/// <summary>
+		/// Gets information about profit from ticket sales by passenger
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetProfitFromTicketSalesByPassengerAsync();
+
+		/// <summary>
+		/// Gets information about number of discounted tickets by discount
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetNumberOfDiscountedTicketsByDiscountAsync();
+
+		/// <summary>
+		/// Gets information about number of tickets by destination
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetNumberOfticketsByDestinationsAsync();
+
+		/// <summary>
+		/// Gets information about number of tickets by airlines
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetNumberOfticketsByAirlinesAsync();
+
+		/// <summary>
+		/// Gets information about average ticket prices by airlines
+		/// </summary>
+		Task<ObservableCollection<DataItem>> GetAverageTicketPricesByAirlinesAsync();
+
+		/// <summary>
 		/// Gets the stored employee right to add new flights information
 		/// </summary>
 		Task<bool> GetEmployeeRightToAddNewFlightsAsync();

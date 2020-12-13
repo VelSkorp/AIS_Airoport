@@ -28,7 +28,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// The сommand to update data in the table and on the graph in the airline tab
 		/// </summary>
-		public ICommand AirlinesRefreshCommand { get; set; }
+		public ICommand NumberOfticketsByAirlinesRefreshCommand { get; set; }
 
 		/// <summary>
 		/// The command to update the data in the table and on the graph
@@ -45,13 +45,13 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// The сommand to update data in the table and on the graph in the destinations tab
 		/// </summary>
-		public ICommand DestinationsRefreshCommand { get; set; }
+		public ICommand NumberOfticketsByDestinationsRefreshCommand { get; set; }
 
 		/// <summary>
 		/// The сommand to update data in the table and on the graph 
 		/// in the tab for the number of used ticket discounts by type
 		/// </summary>
-		public ICommand TicketDiscountsRefreshCommand { get; set; }
+		public ICommand NumberOfDiscountedTicketsByDiscountRefreshCommand { get; set; }
 
 		/// <summary>
 		/// The сommand for updating data in the table
@@ -82,10 +82,10 @@ namespace AIS_Airoport.Core
 			// Create commands
 			ProfitByDestinationRefreshCommand = new RelayCommand(async () => await RefreshProfitByDestinationAsync());
 			ProfitOnTransportationRefreshCommand = new RelayCommand(async () => await RefreshProfitOnTransportationAsync());
-			TicketDiscountsRefreshCommand = new RelayCommand(async () => await RefreshTicketDiscountsAsync());
+			NumberOfDiscountedTicketsByDiscountRefreshCommand = new RelayCommand(async () => await RefreshNumberOfDiscountedTicketsByDiscountAsync());
 			AverageTicketPricesRefreshCommand = new RelayCommand(async () => await RefreshAverageTicketPricesAsync());
-			DestinationsRefreshCommand = new RelayCommand(async () => await RefreshDestinationsAsync());
-			AirlinesRefreshCommand = new RelayCommand(async () => await RefreshAirlinesAsync());
+			NumberOfticketsByDestinationsRefreshCommand = new RelayCommand(async () => await RefreshNumberOfticketsByDestinationsAsync());
+			NumberOfticketsByAirlinesRefreshCommand = new RelayCommand(async () => await RefreshNumberOfticketsByAirlinesAsync());
 			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayCommand(async () => await RefreshProfitFromTicketSalesByPassengerAsync());
 			BackCommand = new RelayCommand(Back);
 		}
@@ -108,10 +108,9 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public virtual async Task RefreshProfitByDestinationAsync()
 		{
-			// TODO: Implement method to refresh data in table and chart in the profit tab by directions
-			
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetProfitByDestinationAsync();
 			});
 		}
 
@@ -121,10 +120,9 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public virtual async Task RefreshProfitOnTransportationAsync()
 		{
-			// TODO: Implement method to refresh data in table and chart in the profit by transportation tab
-
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetProfitOnTransportationAsync();
 			});
 		}
 
@@ -132,12 +130,11 @@ namespace AIS_Airoport.Core
 		/// Updating data in the table and on the graph 
 		/// in the tab for the number of used ticket discounts by type
 		/// </summary>
-		public virtual async Task RefreshTicketDiscountsAsync()
+		public virtual async Task RefreshNumberOfDiscountedTicketsByDiscountAsync()
 		{
-			// TODO: Implement method to refresh data in the tab for the number of used ticket discounts by type
-
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetNumberOfDiscountedTicketsByDiscountAsync();
 			});
 		}
 
@@ -147,34 +144,31 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public virtual async Task RefreshAverageTicketPricesAsync()
 		{
-			// TODO: Implement method to refresh data in the tab for finding the average cost of tickets
-
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetAverageTicketPricesByAirlinesAsync();
 			});
 		}
 
 		/// <summary>
 		/// Updating data in the table and on the graph in the destinations tab
 		/// </summary>
-		public virtual async Task RefreshDestinationsAsync()
+		public virtual async Task RefreshNumberOfticketsByDestinationsAsync()
 		{
-			// TODO: Implement method to refresh data in the destinations tab
-
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetNumberOfticketsByDestinationsAsync();
 			});
 		}
 
 		/// <summary>
 		/// Updating data in the airline tab
 		/// </summary>
-		public virtual async Task RefreshAirlinesAsync()
+		public virtual async Task RefreshNumberOfticketsByAirlinesAsync()
 		{
-			// TODO: Implement method to refresh data in the airline tab
-
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetNumberOfticketsByAirlinesAsync();
 			});
 		}
 
@@ -184,10 +178,9 @@ namespace AIS_Airoport.Core
 		/// </summary>
 		public virtual async Task RefreshProfitFromTicketSalesByPassengerAsync()
 		{
-			// TODO: Implement method to refresh data in the tab of ticket sales by passengers
-
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
+				Data = await IoC.DataStore.GetProfitFromTicketSalesByPassengerAsync();
 			});
 		}
 

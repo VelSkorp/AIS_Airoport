@@ -31,5 +31,10 @@ namespace AIS_Airoport.Core
 		/// A departure date
 		/// </summary>
 		public DateTime DepartureDate { get; set; }
+
+		/// <summary>
+		/// A ticket price
+		/// </summary>
+		public decimal Cost { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AIS_Airoport.Core;
@@ -210,11 +211,234 @@ namespace AIS_Airoport.Relational
 						Passenger = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname,
 						Employee = mEmployeeSurname,
 						DepartureDate = ticket.DepartureDate,
+						Cost = ticket.Cost,
 					});
 				}
 			});
 
 			return await Task.FromResult(tickets);
+		}
+
+		/// <summary>
+		/// Gets information about profit from flights
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetProfitOnTransportationAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var ticket in mDbContext.Tickets)
+				{
+					string flightNumber = mDbContext.Flights.First((flight) => flight.Code == ticket.FlightNumber).FlightNumber;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == flightNumber)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = flightNumber,
+							Value = ticket.Cost
+						});
+					}
+					else
+					{
+						dataItem.Value += ticket.Cost;
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
+		}
+
+		/// <summary>
+		/// Gets information about profit from destinations
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetProfitByDestinationAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var ticket in mDbContext.Tickets)
+				{
+					int destinationCode = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).Destination;
+					string destination = mDbContext.Destinations.First((item) => item.Code == destinationCode).Nomination;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == destination)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = destination,
+							Value = ticket.Cost
+						});
+					}
+					else
+					{
+						dataItem.Value += ticket.Cost;
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
+		}
+
+		/// <summary>
+		/// Gets information about profit from ticket sales by passengers
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetProfitFromTicketSalesByPassengerAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var ticket in mDbContext.Tickets)
+				{
+					string passengerSurname = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == passengerSurname)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = passengerSurname,
+							Value = ticket.Cost
+						});
+					}
+					else
+					{
+						dataItem.Value += ticket.Cost;
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
+		}
+
+		/// <summary>
+		/// Gets information about number of discounted tickets by discounts
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetNumberOfDiscountedTicketsByDiscountAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var ticket in mDbContext.Tickets)
+				{
+					string discount = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Discount;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == discount)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = discount,
+							Value = 1
+						});
+					}
+					else
+					{
+						dataItem.Value += 1;
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
+		}
+
+		/// <summary>
+		/// Gets information about number of tickets by destinations
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetNumberOfticketsByDestinationsAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var flight in mDbContext.Flights)
+				{
+					string destination = mDbContext.Destinations.First((item) => item.Code == flight.Destination).Nomination;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == destination)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = destination,
+							Value = 1
+						});
+					}
+					else
+					{
+						dataItem.Value += 1;
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
+		}
+
+		/// <summary>
+		/// Gets information about number of tickets by airlines
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetNumberOfticketsByAirlinesAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var flight in mDbContext.Flights)
+				{
+					string airline = mDbContext.Airlines.First((item) => item.Code == flight.Airline).Nomination;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == airline)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = airline,
+							Value = 1
+						});
+					}
+					else
+					{
+						dataItem.Value += 1;
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
+		}
+
+		/// <summary>
+		/// Gets information about average ticket prices by airlines
+		/// </summary>
+		public async Task<ObservableCollection<DataItem>> GetAverageTicketPricesByAirlinesAsync()
+		{
+			var data = new ObservableCollection<DataItem>();
+
+			await Task.Run(() =>
+			{
+				foreach (var ticket in mDbContext.Tickets)
+				{
+					int airlineCode = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).Airline;
+					string airline = mDbContext.Airlines.First((item) => item.Code == airlineCode).Nomination;
+					var dataItem = new DataItem();
+
+					if ((dataItem = data.FirstOrDefault((d) => d.Name == airline)) == null)
+					{
+						data.Add(new DataItem
+						{
+							Name = airline,
+							Value = mDbContext.Tickets.Where((item) => item.FlightNumber == ticket.FlightNumber).ToList().Average((item) => item.Cost)
+						});
+					}
+				}
+			});
+
+			return await Task.FromResult(data);
 		}
 
 		/// <summary>
@@ -441,6 +665,13 @@ namespace AIS_Airoport.Relational
 				ticket.Passenger = mDbContext.Passengers.First((item) => item.Surname == ticketCredentials.Passenger).ID;
 				ticket.Employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname).ID;
 				ticket.DepartureDate = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).StartDate;
+
+				decimal ticketPrice = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).TicketPrice;
+				string discount = mDbContext.Passengers.First((item) => item.Surname == ticketCredentials.Passenger).Discount;
+				decimal discountPercentage = mDbContext.Discounts.First((item) => item.DiscountName == discount).DiscountPercentage;
+
+				ticket.Cost = (ticketPrice / 100) * discountPercentage;
+
 			});
 
 			if (mDbContext.Tickets.Contains(ticket))

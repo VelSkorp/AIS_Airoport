@@ -13,6 +13,6 @@
 		/// <summary>
 		/// Chart element value
 		/// </summary>
-		public int Value { get; set; }
+		public decimal Value { get; set; }
 	}
 }

@@ -165,7 +165,7 @@ namespace AIS_Airoport.Core
 		/// Setting data in the table 
 		/// and on the diagram in the profit by transportation tab
 		/// </summary>
-		public override Task RefreshTicketDiscountsAsync()
+		public override Task RefreshNumberOfDiscountedTicketsByDiscountAsync()
 		{
 			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
@@ -226,7 +226,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Setting data in the table and on the diagram in the destinations tab
 		/// </summary>
-		public override Task RefreshDestinationsAsync()
+		public override Task RefreshNumberOfticketsByDestinationsAsync()
 		{
 			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
@@ -261,7 +261,7 @@ namespace AIS_Airoport.Core
 		/// <summary>
 		/// Setting data in the airline tab
 		/// </summary>
-		public override Task RefreshAirlinesAsync()
+		public override Task RefreshNumberOfticketsByAirlinesAsync()
 		{
 			return Task.FromResult(Data = new ObservableCollection<DataItem>()
 			{
