@@ -56,8 +56,10 @@ namespace AIS_Airoport.Relational
 		{
 			mEmployeeSurname = loginCredentialsApiModel.Surname;
 
+			var md5 = new MD5(loginCredentialsApiModel.Password);
+
 			return await Task.FromResult(mDbContext.Staff.FirstOrDefault((item) => item.Surname == loginCredentialsApiModel.Surname
-			&& item.Password == loginCredentialsApiModel.Password) != null);
+			&& item.Password == md5.GetHashCode()) != null);
 		}
 
 		/// <summary>
@@ -478,6 +480,8 @@ namespace AIS_Airoport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveLoginCredentialsAsync(EmployeeCredentials employeeCredentials)
 		{
+			var md5 = new MD5(employeeCredentials.Password);
+
 			var employee = new EmployeeCredentialsApiModel
 			{
 				ID = employeeCredentials.ID,
@@ -486,7 +490,7 @@ namespace AIS_Airoport.Relational
 				Patronymic = employeeCredentials.Patronymic,
 				Phone = employeeCredentials.Phone,
 				Address = employeeCredentials.Address,
-				Password = employeeCredentials.Password,
+				Password = md5.GetHashCode(),
 				Position = mDbContext.Positions.First((item) => item.Nomination == employeeCredentials.Position).Code
 			};
 
