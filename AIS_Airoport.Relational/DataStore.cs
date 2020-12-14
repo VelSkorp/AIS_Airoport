@@ -211,7 +211,7 @@ namespace AIS_Airoport.Relational
 						TicketNumber = ticket.TicketNumber,
 						FlightNumber = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).FlightNumber,
 						Passenger = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname,
-						Employee = mEmployeeSurname,
+						Employee = mDbContext.Staff.First((item) => item.ID == ticket.Employee).Surname,
 						DepartureDate = ticket.DepartureDate,
 						Cost = ticket.Cost,
 					});
