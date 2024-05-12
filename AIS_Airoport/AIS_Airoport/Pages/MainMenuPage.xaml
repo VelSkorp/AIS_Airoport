@@ -1,0 +1,73 @@
+﻿<local:BasePage x:TypeArguments="core:MainMenuViewModel" x:Class="AIS_Airport.MainMenuPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:AIS_Airport"
+	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  mc:Ignorable="d" 
+	  d:DesignHeight="500" d:DesignWidth="900">
+
+	<UserControl.Resources>
+		<Image x:Key="UserByingTickets" Source="/Images/Samples/UserByingTickets.png"/>
+	</UserControl.Resources>
+
+	<!-- Main content scroll -->
+	<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+		<Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+			
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<StackPanel>
+
+				<Button Style="{StaticResource IconAndTextButton}" 
+						Content="Ticket selling"
+						Command="{Binding TicketSellingCommand}">
+					<Button.Tag>
+						<ImageSource>/Images/Samples/UserByingTickets.png</ImageSource>
+					</Button.Tag>
+				</Button>
+
+				<Button Style="{StaticResource IconAndTextButton}" 
+						Content="Flight list"
+						Command="{Binding FlightListCommand}">
+					<Button.Tag>
+						<ImageSource>/Images/Samples/airplane.png</ImageSource>
+					</Button.Tag>
+				</Button>
+
+				<Button Style="{StaticResource IconAndTextButton}" 
+						Content="Passengers"
+						Command="{Binding PassengersCommand}">
+					<Button.Tag>
+						<ImageSource>/Images/Samples/Passenger.png</ImageSource>
+					</Button.Tag>
+				</Button>
+
+				<Button Style="{StaticResource IconAndTextButton}" 
+						Content="Statistics"
+						Command="{Binding StatisticsCommand}">
+					<Button.Tag>
+						<ImageSource>/Images/Samples/CircularBarGraph.png</ImageSource>
+					</Button.Tag>
+				</Button>
+
+				<Button Style="{StaticResource IconAndTextButton}" 
+						Content="Add new employee"
+						Command="{Binding AddNewEmployeeCommand}"
+						Visibility="{Binding HasRightToAddNewEmployees, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}">
+					<Button.Tag>
+						<ImageSource>/Images/Samples/Administrator.png</ImageSource>
+					</Button.Tag>
+				</Button>
+
+			</StackPanel>
+
+			<Image Source="/Images/Samples/airoport.png" Grid.Column="1" VerticalAlignment="Top" Margin="40 10 0 10" />
+
+		</Grid>
+	</ScrollViewer>
+</local:BasePage>

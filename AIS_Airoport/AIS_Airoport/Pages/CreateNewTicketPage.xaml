@@ -1,0 +1,60 @@
+﻿<local:BasePage x:TypeArguments="core:CreateNewTicketViewModel" x:Class="AIS_Airport.CreateNewTicketPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:AIS_Airport"
+	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  mc:Ignorable="d" >
+
+
+	<StackPanel VerticalAlignment="Center">
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="TicketNumber" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding TicketNumber}" />
+
+				<ComboBox Text="Select the flight"
+						  SelectedItem="{Binding FlightNumber}"
+						  ItemsSource="{Binding ListOfFlights}" />
+
+				<ComboBox Text="Select the passenger"
+						  SelectedItem="{Binding Passenger}" 
+						  ItemsSource="{Binding ListOfPassengers}"/>
+
+			</StackPanel>
+		</Border>
+
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<Button Content="Refresh"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding RefreshCommand}"
+						local:IsBusyProperty.Value="{Binding RefreshIsRunning}"/>
+
+				<Button Content="Back"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding BackCommand}"/>
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveCommand}"
+						local:IsBusyProperty.Value="{Binding SaveIsRunning}"/>
+
+			</StackPanel>
+		</Border>
+	</StackPanel>
+
+</local:BasePage>

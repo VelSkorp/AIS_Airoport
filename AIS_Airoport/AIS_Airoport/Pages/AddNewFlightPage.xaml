@@ -1,0 +1,214 @@
+﻿<local:BasePage x:TypeArguments="core:AddNewFlightViewModel" x:Class="AIS_Airport.AddNewFlightPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:AIS_Airport"
+	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  mc:Ignorable="d" 
+	  d:DesignHeight="500" d:DesignWidth="900">
+
+	<StackPanel VerticalAlignment="Center">
+
+		<!-- Airlines table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="Airline nomination" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding AirlineNomination}" />
+
+				<TextBox Tag="Contacts" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding AirlineContacts}" />
+
+				<TextBox Tag="Head office address" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding AirlineHeadOfficeAddress}" />
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveAirlineCommand}"
+						local:IsBusyProperty.Value="{Binding SaveAirlineIsRunning}"/>
+
+			</StackPanel>
+		</Border>
+
+		<!-- Airplanes table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="Airplane board number" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding AirplaneBoardNumber}" />
+
+				<TextBox Tag="Model" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding AirplaneModel}" />
+
+				<TextBox Tag="Capacity" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding AirplaneCapacity}" />
+
+				<DatePicker FontSize="{StaticResource FontSizeLarge}"
+							SelectedDate="{Binding AirplaneDateEntered}" />
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveAirplaneCommand}"
+						local:IsBusyProperty.Value="{Binding SaveAirplaneIsRunning}"/>
+
+			</StackPanel>
+		</Border>
+
+		<!-- Destinations table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="Destination nomination" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DestinationNomination}" />
+
+				<TextBox Tag="Adress" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DestinationAdress}" />
+
+				<TextBox Tag="Coordinates" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DestinationCoordinates}" />
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveDestinationCommand}"
+						local:IsBusyProperty.Value="{Binding SaveDestinationIsRunning}"/>
+
+			</StackPanel>
+		</Border>
+
+		<!-- Discounts table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="Discount name" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DiscountName}" />
+
+				<TextBox Tag="Discount percentage" 
+						 Margin="1 5"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DiscountPercentage}" />
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveDiscountCommand}"
+						local:IsBusyProperty.Value="{Binding SaveDiscountIsRunning}"/>
+
+			</StackPanel>
+		</Border>
+
+		<!-- Flights table  -->
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel>
+
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center">
+
+					<TextBox Tag="Flight number" 
+							 Margin="1 5"
+							 FontSize="{StaticResource FontSizeLarge}"
+							 Text="{Binding FlightNumber}" />
+
+					<DatePicker FontSize="{StaticResource FontSizeLarge}"
+								SelectedDate="{Binding FlightStartDate}" />
+
+					<TextBox Tag="Start time" 
+							 Margin="1 5"
+							 FontSize="{StaticResource FontSizeLarge}"
+							 Text="{Binding FlightStartTime}" />
+
+					<TextBox Tag="Ticket price" 
+							 Margin="1 5"
+							 FontSize="{StaticResource FontSizeLarge}"
+							 Text="{Binding FlightTicketPrice}" />
+
+				</StackPanel>
+
+				<StackPanel Orientation="Horizontal" 
+							Grid.Row="1">
+
+					<ComboBox Text="Select the airline"
+							  SelectedItem="{Binding FlightSelectAirline}"
+							  ItemsSource="{Binding Airlines}" />
+
+					<ComboBox Text="Select the destination"
+							  SelectedItem="{Binding FlightSelectDestination}" 
+							  ItemsSource="{Binding Destinations}"/>
+
+					<ComboBox Text="Select the airplane"
+							  SelectedItem="{Binding FlightSelectAirplane}" 
+							  ItemsSource="{Binding Airplanes}"/>
+
+					<Button Content="Save"
+							FontSize="{StaticResource FontSizeLarge}"
+							Command="{Binding SaveFlightCommand}"
+							local:IsBusyProperty.Value="{Binding SaveFlightIsRunning}"/>
+
+				</StackPanel>
+			</StackPanel>
+		</Border>
+
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<Button Content="Refresh"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding RefreshCommand}"
+						local:IsBusyProperty.Value="{Binding RefreshIsRunning}"/>
+
+				<Button Content="Back"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding BackCommand}"/>
+
+			</StackPanel>
+		</Border>
+	</StackPanel>
+</local:BasePage>

@@ -1,0 +1,85 @@
+﻿<local:BasePage x:TypeArguments="core:StatisticsViewModel" x:Class="AIS_Airport.StatisticsPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:AIS_Airport"
+	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  mc:Ignorable="d"
+	  d:DataContext="{x:Static core:StatisticsDesignModel.Instance}">
+
+	<Grid>
+
+		<TabControl>
+			
+			<TabItem Header="Transportation">
+				<TabControl>
+
+					<TabItem Header="Profit by destination">
+						<local:ColumnStatistic Text="Name"
+											   Tag="Profit"
+											   RefreshCommand="{Binding ProfitByDestinationRefreshCommand}"
+											   DataContext="{Binding}" />
+					</TabItem>
+
+					<TabItem Header="Profit on transportation">
+						<local:ColumnStatistic Text="Flight number"
+											   Tag="Profit"
+											   RefreshCommand="{Binding ProfitOnTransportationRefreshCommand}"
+											   DataContext="{Binding}" />
+					</TabItem>
+					
+				</TabControl>
+			</TabItem>
+
+			<TabItem Header="Passengers">
+				<TabControl>
+
+					<TabItem Header="Profit from ticket sales by passenger">
+						<local:CircularStatistic Text="Surname"
+												 Tag="Amount"
+												 RefreshCommand="{Binding ProfitFromTicketSalesByPassengerRefreshCommand}"
+												 DataContext="{Binding}" />
+					</TabItem>
+
+					<TabItem Header="Number of use of ticket discounts by type">
+						<local:ColumnStatistic Text="Name"
+											   Tag="Amount"
+											   RefreshCommand="{Binding NumberOfDiscountedTicketsByDiscountRefreshCommand}"
+											   DataContext="{Binding}" />
+					</TabItem>
+
+				</TabControl>
+			</TabItem>
+			
+			<TabItem Header="Routes">
+				<TabControl>
+
+					<TabItem Header="Find average ticket prices">
+						<local:ColumnStatistic Text="Name"
+											   Tag="Average cost"
+											   RefreshCommand="{Binding AverageTicketPricesRefreshCommand}"
+											   DataContext="{Binding}" />
+					</TabItem>
+
+					<TabItem Header="Destinations">
+						<local:ColumnStatistic Text="Name"
+											   Tag="Count of flights"
+											   RefreshCommand="{Binding NumberOfticketsByDestinationsRefreshCommand}"
+											   DataContext="{Binding}" />
+					</TabItem>
+
+					<TabItem Header="Airlines">
+						<local:CircularStatistic Text="Name"
+												 Tag="Count of flights"
+												 RefreshCommand="{Binding NumberOfticketsByAirlinesRefreshCommand}"
+												 DataContext="{Binding}" />
+					</TabItem>
+					
+				</TabControl>
+			</TabItem>
+			
+		</TabControl>
+		
+	</Grid>
+</local:BasePage>

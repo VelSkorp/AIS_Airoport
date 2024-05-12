@@ -1,0 +1,69 @@
+﻿<local:BasePage x:TypeArguments="core:PassengersListViewModel"  x:Class="AIS_Airport.PassengersPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  xmlns:local="clr-namespace:AIS_Airport"
+	  mc:Ignorable="d" 
+	  d:DataContext="{x:Static core:PassengersListDesignModel.Instance}">
+
+	<Grid>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Border Background="White"
+				HorizontalAlignment="Center"
+				Margin="0 20 0 10"
+				CornerRadius="10" >
+
+			<StackPanel Orientation="Horizontal">
+				
+				<Button Content="Add new"
+						Command="{Binding AddCommand}"
+						FontSize="{StaticResource FontSizeLarge}" />
+
+				<Button Content="Change this"
+						Command="{Binding ChangeCommand}"
+						FontSize="{StaticResource FontSizeLarge}"  />
+
+				<Button FontSize="{StaticResource FontSizeLarge}" 
+						Command="{Binding RefreshCommand}"
+						Content="Refresh"
+						local:IsBusyProperty.Value="{Binding RefreshIsRunning}"/>
+
+				<Button Content="Back" 
+						Command="{Binding BackCommand}"
+						FontSize="{StaticResource FontSizeLarge}" />
+			
+			</StackPanel>
+
+		</Border>
+
+		<Border Grid.Row="1"
+				Background="White"
+				Margin="20 10 20 20"
+				HorizontalAlignment="Center"
+				CornerRadius="10" >
+
+			<ListView ItemsSource="{Binding FilteredIAndSortedtems}" >
+				<ListView.View>
+					<GridView>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Surname</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=FirstName}">First Name</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Patronymic}">Patronymic</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Phone}">Phone</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Address}">Address</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Passport}">Passport</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Discount}">Discount</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+
+		</Border>
+
+	</Grid>
+</local:BasePage>

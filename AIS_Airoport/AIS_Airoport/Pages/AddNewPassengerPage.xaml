@@ -1,0 +1,81 @@
+﻿<local:BasePage x:TypeArguments="core:AddNewPassengerViewModel" x:Class="AIS_Airport.AddNewPassengerPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:AIS_Airport"
+	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  mc:Ignorable="d" >
+
+	<StackPanel VerticalAlignment="Center">
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<TextBox Tag="Surname" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Margin="1 5"
+						 Text="{Binding Surname}" />
+
+				<TextBox Tag="FirstName" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Margin="1 5"
+						 Text="{Binding FirstName}" />
+				
+				<TextBox Tag="Patronymic" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Margin="1 5"
+						 Text="{Binding Patronymic}" />
+
+				<TextBox Tag="Phone" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Margin="1 5"
+						 Text="{Binding Phone}" />
+
+				<TextBox Tag="Address" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Margin="1 5"
+						 Text="{Binding Address}" />
+
+				<TextBox Tag="Passport number" 
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Margin="1 5"
+						 Text="{Binding Passport}" />
+
+				<ComboBox Text="Select the discount"
+						  SelectedItem="{Binding SelectedDiscount}" 
+						  ItemsSource="{Binding Discounts}"/>
+
+			</StackPanel>
+		</Border>
+
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5">
+
+			<StackPanel Orientation="Horizontal">
+
+				<Button Content="Refresh"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding RefreshCommand}"
+						local:IsBusyProperty.Value="{Binding RefreshIsRunning}"/>
+
+				<Button Content="Back"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding BackCommand}"/>
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveCommand}"
+						local:IsBusyProperty.Value="{Binding SaveIsRunning}"/>
+
+			</StackPanel>
+		</Border>
+	</StackPanel>
+
+	</local:BasePage>

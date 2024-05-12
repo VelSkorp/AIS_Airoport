@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="AIS_Airport.FilterByDate"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:AIS_Airport"
+			 mc:Ignorable="d" >
+
+	<StackPanel Orientation="Horizontal">
+
+		<TextBlock Style="{StaticResource RegularText}" 
+				   Text="FROM" 
+				   HorizontalAlignment="Right" />
+
+		<DatePicker SelectedDate="{Binding FilterFrom}" />
+
+		<TextBlock Style="{StaticResource RegularText}"
+				   Text="BY" 
+				   HorizontalAlignment="Right" />
+
+		<DatePicker SelectedDate="{Binding FilterBy}" />
+
+		<Button FontSize="{StaticResource FontSizeLarge}" 
+				Command="{Binding FilterCommand}"
+				Content="Filter"/>
+
+		<Button FontSize="{StaticResource FontSizeLarge}" 
+				Command="{Binding RefreshCommand}"
+				Content="Refresh"
+				local:IsBusyProperty.Value="{Binding RefreshIsRunning}"/>
+
+		<Button FontSize="{StaticResource FontSizeLarge}" 
+				Command="{Binding BackCommand}"
+				Content="Back"/>
+
+	</StackPanel>
+
+</UserControl>
