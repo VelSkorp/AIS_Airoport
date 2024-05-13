@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace AIS_Airport.Core
+﻿namespace AIS_Airport.Relational
 {
 	/// <summary>
-	/// A ticket information
+	/// A ticket api information
 	/// </summary>
 	public class TicketApiModel
 	{
@@ -16,6 +14,16 @@ namespace AIS_Airport.Core
 		/// The number of flight
 		/// </summary>
 		public int FlightNumber { get; set; }
+
+		/// <summary>
+		/// An airline serving the plane
+		/// </summary>
+		public int Airline { get; set; }
+
+		/// <summary>
+		/// The destination of flight
+		/// </summary>
+		public int Destination { get; set; }
 
 		/// <summary>
 		/// The passenger who bought the ticket

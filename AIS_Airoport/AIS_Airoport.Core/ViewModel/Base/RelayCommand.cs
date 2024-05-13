@@ -1,64 +1,63 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace AIS_Airport.Core
 {
-    /// <summary>
-    /// A basic command that runs an Action
-    /// </summary>
-    public class RelayCommand : ICommand
-    {
-        #region Private Members
+	/// <summary>
+	/// A basic command that runs an Action
+	/// </summary>
+	public class RelayCommand : ICommand
+	{
+		#region Private Members
 
-        /// <summary>
-        /// The action to run
-        /// </summary>
-        private Action mAction;
+		/// <summary>
+		/// The action to run
+		/// </summary>
+		private readonly Action mAction;
 
-        #endregion
+		#endregion
 
-        #region Public Events
+		#region Public Events
 
-        /// <summary>
-        /// The event thats fired when the <see cref="CanExecute(object)"/> value has changed
-        /// </summary>
-        public event EventHandler CanExecuteChanged = (sender, e) => { };
+		/// <summary>
+		/// The event thats fired when the <see cref="CanExecute(object)"/> value has changed
+		/// </summary>
+		public event EventHandler CanExecuteChanged = (sender, e) => { };
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public RelayCommand(Action action)
-        {
-            mAction = action;
-        }
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public RelayCommand(Action action)
+		{
+			mAction = action;
+		}
 
-        #endregion
+		#endregion
 
-        #region Command Methods
+		#region Command Methods
 
-        /// <summary>
-        /// A relay command can always execute
-        /// </summary>
-        /// <param name="parameter"></param>
-        /// <returns></returns>
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
+		/// <summary>
+		/// A relay command can always execute
+		/// </summary>
+		/// <param name="parameter"></param>
+		/// <returns></returns>
+		public bool CanExecute(object parameter)
+		{
+			return true;
+		}
 
-        /// <summary>
-        /// Executes the commands Action
-        /// </summary>
-        /// <param name="parameter"></param>
-        public void Execute(object parameter)
-        {
-            mAction();
-        }
+		/// <summary>
+		/// Executes the commands Action
+		/// </summary>
+		/// <param name="parameter"></param>
+		public async void Execute(object parameter)
+		{
+			await Task.Run(() => mAction());
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

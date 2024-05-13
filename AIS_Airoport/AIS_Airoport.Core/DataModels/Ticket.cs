@@ -18,6 +18,16 @@ namespace AIS_Airport.Core
 		public string FlightNumber { get; set; }
 
 		/// <summary>
+		/// An airline serving the plane
+		/// </summary>
+		public string Airline { get; set; }
+
+		/// <summary>
+		/// The destination of flight
+		/// </summary>
+		public string Destination { get; set; }
+
+		/// <summary>
 		/// The passenger who bought the ticket
 		/// </summary>
 		public string Passenger { get; set; }

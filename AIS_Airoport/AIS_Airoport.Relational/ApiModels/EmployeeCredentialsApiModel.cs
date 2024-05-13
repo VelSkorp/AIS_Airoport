@@ -1,7 +1,7 @@
-﻿namespace AIS_Airport.Core
+﻿namespace AIS_Airport.Relational
 {
 	/// <summary>
-	/// The data model for the login credentials of a employee
+	/// The api data model for the login credentials of a employee
 	/// </summary>
 	public class EmployeeCredentialsApiModel
 	{

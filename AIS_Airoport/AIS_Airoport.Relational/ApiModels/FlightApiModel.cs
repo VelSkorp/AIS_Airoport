@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace AIS_Airport.Core
+﻿namespace AIS_Airport.Relational
 {
 	/// <summary>
-	/// A flight information
+	/// A flight api information
 	/// </summary>
 	public class FlightApiModel
 	{

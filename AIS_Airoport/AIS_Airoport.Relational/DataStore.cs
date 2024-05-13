@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using AIS_Airport.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace AIS_Airport.Relational
 {
@@ -39,7 +37,6 @@ namespace AIS_Airport.Relational
 		/// <param name="dbContext">The database to use</param>
 		public DataStore(DataStoreDbContext dbContext)
 		{
-			// Set local member
 			mDbContext = dbContext;
 		}
 
@@ -56,11 +53,11 @@ namespace AIS_Airport.Relational
 		{
 			mEmployeeSurname = loginCredentialsApiModel.Surname;
 
-			var md5 = new MD5(loginCredentialsApiModel.Password);
-			var password = md5.GetHashCode();
+			var password = MD5.Encrypt(loginCredentialsApiModel.Password);
+			var user = await mDbContext.Staff.AsNoTracking().Where(employee => employee.Surname.Equals(loginCredentialsApiModel.Surname)
+				&& employee.Password.Equals(password)).FirstOrDefaultAsync();
 
-			return await Task.FromResult(mDbContext.Staff.FirstOrDefault((item) => item.Surname == loginCredentialsApiModel.Surname
-			&& item.Password == password) != null);
+			return user != null;
 		}
 
 		/// <summary>
@@ -79,10 +76,10 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns the login credentials if they exist, or null if none exist</returns>
 		public async Task<EmployeeCredentials> GetEmployeeCredentialsAsync()
 		{
-			EmployeeCredentialsApiModel employee = mDbContext.Staff.FirstOrDefault((item) => item.Surname == mEmployeeSurname);
+			var employee = await mDbContext.Staff.AsNoTracking().FirstOrDefaultAsync(employee => employee.Surname.Equals(mEmployeeSurname));
 
 			// Get the first column in the login credentials table, or null if none exist
-			return await Task.FromResult(new EmployeeCredentials
+			return new EmployeeCredentials
 			{
 				ID = employee.ID,
 				Surname = employee.Surname,
@@ -91,8 +88,8 @@ namespace AIS_Airport.Relational
 				Phone = employee.Phone,
 				Address = employee.Address,
 				Password = employee.Password,
-				Position = mDbContext.Positions.First((item) => item.Code == employee.Position).Nomination
-			});
+				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Code == employee.Position).Select(position => position.Nomination).FirstOrDefaultAsync()
+			};
 		}
 
 		/// <summary>
@@ -100,7 +97,8 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Airline>> GetCollectionOfAirlinesAsync()
 		{
-			return await Task.FromResult(new ObservableCollection<Airline>(mDbContext.Airlines));
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToListAsync();
+			return new ObservableCollection<Airline>(airlines);
 		}
 
 		/// <summary>
@@ -108,7 +106,8 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Airplane>> GetCollectionOfAirplanesAsync()
 		{
-			return await Task.FromResult(new ObservableCollection<Airplane>(mDbContext.Airplanes));
+			var airplanes = await mDbContext.Airplanes.AsNoTracking().ToListAsync();
+			return new ObservableCollection<Airplane>(airplanes);
 		}
 
 		/// <summary>
@@ -116,7 +115,8 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Destination>> GetCollectionOfDestinationsAsync()
 		{
-			return await Task.FromResult(new ObservableCollection<Destination>(mDbContext.Destinations));
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToListAsync();
+			return new ObservableCollection<Destination>(destinations);
 		}
 
 		/// <summary>
@@ -124,7 +124,8 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Discount>> GetCollectionOfDiscountsAsync()
 		{
-			return await Task.Run(() => new ObservableCollection<Discount>(mDbContext.Discounts));
+			var discounts = await mDbContext.Discounts.AsNoTracking().ToListAsync();
+			return new ObservableCollection<Discount>(discounts);
 		}
 
 		/// <summary>
@@ -133,26 +134,27 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<Flight>> GetCollectionOfFlightsAsync()
 		{
 			var flights = new ObservableCollection<Flight>();
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Nomination);
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Nomination);
+			var airplanes = await mDbContext.Airplanes.AsNoTracking().ToDictionaryAsync(airplane => airplane.Code, airplane => airplane.BoardNumber);
+			var flightRecords = await mDbContext.Flights.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var flight in flightRecords)
 			{
-				foreach (FlightApiModel flight in mDbContext.Flights)
+				flights.Add(new Flight
 				{
-					flights.Add(new Flight
-					{
-						Code = flight.Code,
-						FlightNumber = flight.FlightNumber,
-						StartDate = flight.StartDate,
-						StartTime = flight.StartTime,
-						Airline = mDbContext.Airlines.First((item) => item.Code == flight.Airline).Nomination,
-						TicketPrice = flight.TicketPrice,
-						Destination = mDbContext.Destinations.First((item) => item.Code == flight.Destination).Nomination,
-						Airplane = mDbContext.Airplanes.First((item) => item.Code == flight.Airplane).BoardNumber,
-					});
-				}
-			});
+					Code = flight.Code,
+					FlightNumber = flight.FlightNumber,
+					StartDate = flight.StartDate,
+					StartTime = flight.StartTime,
+					Airline = airlines[flight.Airline],
+					TicketPrice = flight.TicketPrice,
+					Destination = destinations[flight.Destination],
+					Airplane = airplanes[flight.Airplane],
+				});
+			}
 
-			return await Task.FromResult(flights);
+			return flights;
 		}
 
 		/// <summary>
@@ -160,7 +162,8 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Passenger>> GetCollectionOfPassengersAsync()
 		{
-			return await Task.Run(() => new ObservableCollection<Passenger>(mDbContext.Passengers));
+			var passengers = await mDbContext.Passengers.AsNoTracking().ToListAsync();
+			return new ObservableCollection<Passenger>(passengers);
 		}
 
 		/// <summary>
@@ -168,7 +171,8 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<Position>> GetCollectionOfPositionsAsync()
 		{
-			return await Task.Run(() => new ObservableCollection<Position>(mDbContext.Positions));
+			var positions = await mDbContext.Positions.AsNoTracking().ToListAsync();
+			return new ObservableCollection<Position>(positions);
 		}
 
 		/// <summary>
@@ -177,8 +181,10 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<EmployeeCredentials>> GetCollectionOfEmployeesAsync()
 		{
 			var employees = new ObservableCollection<EmployeeCredentials>();
+			var positions = await mDbContext.Positions.AsNoTracking().ToDictionaryAsync(position => position.Code, position => position.Nomination);
+			var employeesRecords = await mDbContext.Staff.ToListAsync();
 
-			foreach (EmployeeCredentialsApiModel employee in mDbContext.Staff)
+			foreach (var employee in employeesRecords)
 			{
 				employees.Add(new EmployeeCredentials
 				{
@@ -189,11 +195,11 @@ namespace AIS_Airport.Relational
 					Phone = employee.Phone,
 					Address = employee.Address,
 					Password = employee.Password,
-					Position = mDbContext.Positions.First((item) => item.Code == employee.Position).Nomination,
+					Position = positions[employee.Position],
 				});
-			}
+			};
 
-			return await Task.FromResult(employees);
+			return employees;
 		}
 
 		/// <summary>
@@ -202,24 +208,25 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<Ticket>> GetCollectionOfTicketsAsync()
 		{
 			var tickets = new ObservableCollection<Ticket>();
+			var flights = await mDbContext.Flights.AsNoTracking().ToDictionaryAsync(flight => flight.Code, flight => flight.FlightNumber);
+			var passengers = await mDbContext.Passengers.AsNoTracking().ToDictionaryAsync(passenger => passenger.ID, passenger => passenger.Surname);
+			var staff = await mDbContext.Staff.AsNoTracking().ToDictionaryAsync(employee => employee.ID, employee => employee.Surname);
+			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var ticket in ticketsRecords)
 			{
-				foreach (TicketApiModel ticket in mDbContext.Tickets)
+				tickets.Add(new Ticket
 				{
-					tickets.Add(new Ticket
-					{
-						TicketNumber = ticket.TicketNumber,
-						FlightNumber = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).FlightNumber,
-						Passenger = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname,
-						Employee = mDbContext.Staff.First((item) => item.ID == ticket.Employee).Surname,
-						DepartureDate = ticket.DepartureDate,
-						Cost = ticket.Cost,
-					});
-				}
-			});
+					TicketNumber = ticket.TicketNumber,
+					FlightNumber = flights[ticket.FlightNumber],
+					Passenger = passengers[ticket.Passenger],
+					Employee = staff[ticket.Employee],
+					DepartureDate = ticket.DepartureDate,
+					Cost = ticket.Cost,
+				});
+			};
 
-			return await Task.FromResult(tickets);
+			return tickets;
 		}
 
 		/// <summary>
@@ -227,31 +234,30 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetProfitOnTransportationAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new Dictionary<string, DataItem>();
+			var flights = await mDbContext.Flights.AsNoTracking().ToDictionaryAsync(flight => flight.Code, flight => flight.FlightNumber);
+			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var ticket in ticketsRecords)
 			{
-				foreach (var ticket in mDbContext.Tickets)
+				var flightNumber = flights[ticket.FlightNumber];
+
+				if (data.TryGetValue(flightNumber, out var value))
 				{
-					string flightNumber = mDbContext.Flights.First((flight) => flight.Code == ticket.FlightNumber).FlightNumber;
-					var dataItem = new DataItem();
-
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == flightNumber)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = flightNumber,
-							Value = ticket.Cost
-						});
-					}
-					else
-					{
-						dataItem.Value += ticket.Cost;
-					}
+					value.Value += ticket.Cost;
+					continue;
 				}
-			});
 
-			return await Task.FromResult(data);
+				data.Add(flightNumber, new DataItem
+				{
+					Name = flightNumber,
+					Value = ticket.Cost
+				});
+			}
+
+			var result = new ObservableCollection<DataItem>(data.Values);
+
+			return result;
 		}
 
 		/// <summary>
@@ -259,32 +265,30 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetProfitByDestinationAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new Dictionary<string, DataItem>();
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Nomination);
+			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var ticket in ticketsRecords)
 			{
-				foreach (var ticket in mDbContext.Tickets)
+				var destination = destinations[ticket.Destination];
+
+				if (data.TryGetValue(destination, out var value))
 				{
-					int destinationCode = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).Destination;
-					string destination = mDbContext.Destinations.First((item) => item.Code == destinationCode).Nomination;
-					var dataItem = new DataItem();
-
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == destination)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = destination,
-							Value = ticket.Cost
-						});
-					}
-					else
-					{
-						dataItem.Value += ticket.Cost;
-					}
+					value.Value += ticket.Cost;
+					continue;
 				}
-			});
 
-			return await Task.FromResult(data);
+				data.Add(destination, new DataItem
+				{
+					Name = destination,
+					Value = ticket.Cost
+				});
+			}
+
+			var result = new ObservableCollection<DataItem>(data.Values);
+
+			return result;
 		}
 
 		/// <summary>
@@ -292,31 +296,30 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetProfitFromTicketSalesByPassengerAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new Dictionary<string, DataItem>();
+			var passengers = await mDbContext.Passengers.AsNoTracking().ToDictionaryAsync(flight => flight.ID, flight => flight.Surname);
+			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var ticket in ticketsRecords)
 			{
-				foreach (var ticket in mDbContext.Tickets)
+				var passengerSurname = passengers[ticket.Passenger];
+
+				if (data.TryGetValue(passengerSurname, out var value))
 				{
-					string passengerSurname = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Surname;
-					var dataItem = new DataItem();
-
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == passengerSurname)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = passengerSurname,
-							Value = ticket.Cost
-						});
-					}
-					else
-					{
-						dataItem.Value += ticket.Cost;
-					}
+					value.Value += ticket.Cost;
+					continue;
 				}
-			});
 
-			return await Task.FromResult(data);
+				data.Add(passengerSurname, new DataItem
+				{
+					Name = passengerSurname,
+					Value = ticket.Cost
+				});
+			}
+
+			var result = new ObservableCollection<DataItem>(data.Values);
+
+			return result;
 		}
 
 		/// <summary>
@@ -324,31 +327,30 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetNumberOfDiscountedTicketsByDiscountAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new Dictionary<string, DataItem>();
+			var passengers = await mDbContext.Passengers.AsNoTracking().ToDictionaryAsync(passenger => passenger.ID, passenger => passenger.Discount);
+			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var ticket in ticketsRecords)
 			{
-				foreach (var ticket in mDbContext.Tickets)
+				var discount = passengers[ticket.Passenger];
+
+				if (data.TryGetValue(discount, out var value))
 				{
-					string discount = mDbContext.Passengers.First((item) => item.ID == ticket.Passenger).Discount;
-					var dataItem = new DataItem();
-
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == discount)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = discount,
-							Value = 1
-						});
-					}
-					else
-					{
-						dataItem.Value += 1;
-					}
+					value.Value += 1;
+					continue;
 				}
-			});
 
-			return await Task.FromResult(data);
+				data.Add(discount, new DataItem
+				{
+					Name = discount,
+					Value = 1
+				});
+			}
+
+			var result = new ObservableCollection<DataItem>(data.Values);
+
+			return result;
 		}
 
 		/// <summary>
@@ -356,31 +358,30 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetNumberOfticketsByDestinationsAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new Dictionary<string, DataItem>();
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Nomination);
+			var flightsRecords = await mDbContext.Flights.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var flight in flightsRecords)
 			{
-				foreach (var flight in mDbContext.Flights)
+				var destination = destinations[flight.Destination];
+
+				if (data.TryGetValue(destination, out var value))
 				{
-					string destination = mDbContext.Destinations.First((item) => item.Code == flight.Destination).Nomination;
-					var dataItem = new DataItem();
-
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == destination)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = destination,
-							Value = 1
-						});
-					}
-					else
-					{
-						dataItem.Value += 1;
-					}
+					value.Value += 1;
+					continue;
 				}
-			});
 
-			return await Task.FromResult(data);
+				data.Add(destination, new DataItem
+				{
+					Name = destination,
+					Value = 1
+				});
+			}
+
+			var result = new ObservableCollection<DataItem>(data.Values);
+
+			return result;
 		}
 
 		/// <summary>
@@ -388,31 +389,30 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetNumberOfticketsByAirlinesAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new Dictionary<string, DataItem>();
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Nomination);
+			var flightsRecords = await mDbContext.Flights.ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var flight in flightsRecords)
 			{
-				foreach (var flight in mDbContext.Flights)
+				var airline = airlines[flight.Airline];
+
+				if (data.TryGetValue(airline, out var value))
 				{
-					string airline = mDbContext.Airlines.First((item) => item.Code == flight.Airline).Nomination;
-					var dataItem = new DataItem();
-
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == airline)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = airline,
-							Value = 1
-						});
-					}
-					else
-					{
-						dataItem.Value += 1;
-					}
+					value.Value += 1;
+					continue;
 				}
-			});
 
-			return await Task.FromResult(data);
+				data.Add(airline, new DataItem
+				{
+					Name = airline,
+					Value = 1
+				});
+			}
+
+			var result = new ObservableCollection<DataItem>(data.Values);
+
+			return result;
 		}
 
 		/// <summary>
@@ -420,28 +420,22 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<ObservableCollection<DataItem>> GetAverageTicketPricesByAirlinesAsync()
 		{
-			var data = new ObservableCollection<DataItem>();
+			var data = new HashSet<DataItem>();
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Nomination);
+			var tickets = await mDbContext.Tickets.AsNoTracking().Select(ticket => new { ticket.Airline, ticket.Cost }).ToListAsync();
 
-			await Task.Run(() =>
+			foreach (var airline in airlines)
 			{
-				foreach (var ticket in mDbContext.Tickets)
+				data.Add(new DataItem
 				{
-					int airlineCode = mDbContext.Flights.First((item) => item.Code == ticket.FlightNumber).Airline;
-					string airline = mDbContext.Airlines.First((item) => item.Code == airlineCode).Nomination;
-					var dataItem = new DataItem();
+					Name = airline.Value,
+					Value = tickets.Where(ticket => ticket.Airline == airline.Key).Average(item => item.Cost)
+				});
+			}
 
-					if ((dataItem = data.FirstOrDefault((d) => d.Name == airline)) == null)
-					{
-						data.Add(new DataItem
-						{
-							Name = airline,
-							Value = mDbContext.Tickets.Where((item) => item.FlightNumber == ticket.FlightNumber).ToList().Average((item) => item.Cost)
-						});
-					}
-				}
-			});
+			var result = new ObservableCollection<DataItem>(data);
 
-			return await Task.FromResult(data);
+			return result;
 		}
 
 		/// <summary>
@@ -449,9 +443,9 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<bool> GetEmployeeRightToAddNewFlightsAsync()
 		{
-			var employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname);
-
-			return await Task.FromResult(mDbContext.Positions.First((item) => item.Code == employee.Position).RightToAddNewFlights) == 1;
+			var employee = await mDbContext.Staff.AsNoTracking().FirstOrDefaultAsync(employee => employee.Surname.Equals(mEmployeeSurname));
+			var position = await mDbContext.Positions.AsNoTracking().FirstOrDefaultAsync(position => position.Code == employee.Position);
+			return position.RightToAddNewFlights == 1;
 		}
 
 		/// <summary>
@@ -459,9 +453,9 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<bool> GetEmployeeRightToSellTicketsAsync()
 		{
-			var employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname);
-
-			return await Task.FromResult(mDbContext.Positions.First((item) => item.Code == employee.Position).RightToSellTickets) == 1;
+			var employee = await mDbContext.Staff.AsNoTracking().FirstOrDefaultAsync(employee => employee.Surname.Equals(mEmployeeSurname));
+			var position = await mDbContext.Positions.AsNoTracking().FirstOrDefaultAsync(position => position.Code == employee.Position);
+			return position.RightToSellTickets == 1;
 		}
 
 		/// <summary>
@@ -469,9 +463,9 @@ namespace AIS_Airport.Relational
 		/// </summary>
 		public async Task<bool> GetEmployeeRightToAddNewEmployeesAsync()
 		{
-			var employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname);
-
-			return await Task.FromResult(mDbContext.Positions.First((item) => item.Code == employee.Position).RightToAddNewEmployees) == 1;
+			var employee = await mDbContext.Staff.AsNoTracking().FirstOrDefaultAsync((employee) => employee.Surname.Equals(mEmployeeSurname));
+			var position = await mDbContext.Positions.AsNoTracking().FirstOrDefaultAsync(position => position.Code == employee.Position);
+			return position.RightToAddNewEmployees == 1;
 		}
 
 		/// <summary>
@@ -481,8 +475,6 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveLoginCredentialsAsync(EmployeeCredentials employeeCredentials)
 		{
-			var md5 = new MD5(employeeCredentials.Password);
-
 			var employee = new EmployeeCredentialsApiModel
 			{
 				ID = employeeCredentials.ID,
@@ -491,17 +483,17 @@ namespace AIS_Airport.Relational
 				Patronymic = employeeCredentials.Patronymic,
 				Phone = employeeCredentials.Phone,
 				Address = employeeCredentials.Address,
-				Password = md5.GetHashCode(),
-				Position = mDbContext.Positions.First((item) => item.Nomination == employeeCredentials.Position).Code
+				Password = MD5.Encrypt(employeeCredentials.Password),
+				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Nomination.Equals(employeeCredentials.Position)).Select(position => position.Code).FirstOrDefaultAsync()
 			};
 
-			if (mDbContext.Staff.Contains(employee))
+			if (await mDbContext.Staff.ContainsAsync(employee))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Staff.Add(employee);
+			await mDbContext.Staff.AddAsync(employee);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -514,13 +506,13 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveAirlineCredentialsAsync(Airline airlineCredentials)
 		{
-			if (mDbContext.Airlines.Contains(airlineCredentials))
+			if (await mDbContext.Airlines.ContainsAsync(airlineCredentials))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Airlines.Add(airlineCredentials);
+			await mDbContext.Airlines.AddAsync(airlineCredentials);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -533,13 +525,13 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveAirplaneCredentialsAsync(Airplane airplaneCredentials)
 		{
-			if (mDbContext.Airplanes.Contains(airplaneCredentials))
+			if (await mDbContext.Airplanes.ContainsAsync(airplaneCredentials))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Airplanes.Add(airplaneCredentials);
+			await mDbContext.Airplanes.AddAsync(airplaneCredentials);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -552,13 +544,13 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveDestinationCredentialsAsync(Destination destinationCredentials)
 		{
-			if (mDbContext.Destinations.Contains(destinationCredentials))
+			if (await mDbContext.Destinations.ContainsAsync(destinationCredentials))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Destinations.Add(destinationCredentials);
+			await mDbContext.Destinations.AddAsync(destinationCredentials);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -571,13 +563,13 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveDiscountCredentialsAsync(Discount discountCredentials)
 		{
-			if (mDbContext.Discounts.Contains(discountCredentials))
+			if (await mDbContext.Discounts.ContainsAsync(discountCredentials))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Discounts.Add(discountCredentials);
+			await mDbContext.Discounts.AddAsync(discountCredentials);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -596,19 +588,19 @@ namespace AIS_Airport.Relational
 				FlightNumber = flightCredentials.FlightNumber,
 				StartDate = flightCredentials.StartDate,
 				StartTime = flightCredentials.StartTime,
-				Airline = mDbContext.Airlines.First((item) => item.Nomination == flightCredentials.Airline).Code,
+				Airline = await mDbContext.Airlines.AsNoTracking().Where(airline => airline.Nomination.Equals(flightCredentials.Airline)).Select(airline => airline.Code).FirstOrDefaultAsync(),
 				TicketPrice = flightCredentials.TicketPrice,
-				Destination = mDbContext.Destinations.First((item) => item.Nomination == flightCredentials.Destination).Code,
-				Airplane = mDbContext.Airplanes.First((item) => item.BoardNumber == flightCredentials.Airplane).Code,
+				Destination = await mDbContext.Destinations.AsNoTracking().Where(destination => destination.Nomination.Equals(flightCredentials.Destination)).Select(destination => destination.Code).FirstOrDefaultAsync(),
+				Airplane = await mDbContext.Airplanes.AsNoTracking().Where(airplane => airplane.BoardNumber.Equals(flightCredentials.Airplane)).Select(airplane => airplane.Code).FirstOrDefaultAsync(),
 			};
 
-			if (mDbContext.Flights.Contains(flight))
+			if (await mDbContext.Flights.ContainsAsync(flight))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Flights.Add(flight);
+			await mDbContext.Flights.AddAsync(flight);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -621,13 +613,13 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SavePassengerCredentialsAsync(Passenger passengerCredentials)
 		{
-			if (mDbContext.Passengers.Contains(passengerCredentials))
+			if (await mDbContext.Passengers.ContainsAsync(passengerCredentials))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Passengers.Add(passengerCredentials);
+			await mDbContext.Passengers.AddAsync(passengerCredentials);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -640,13 +632,13 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SavePositionCredentialsAsync(Position positionCredentials)
 		{
-			if (mDbContext.Positions.Contains(positionCredentials))
+			if (await mDbContext.Positions.ContainsAsync(positionCredentials))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Positions.Add(positionCredentials);
+			await mDbContext.Positions.AddAsync(positionCredentials);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -664,28 +656,35 @@ namespace AIS_Airport.Relational
 				TicketNumber = ticketCredentials.TicketNumber,
 			};
 
-			await Task.Run(() =>
-			{
-				ticket.FlightNumber = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).Code;
-				ticket.Passenger = mDbContext.Passengers.First((item) => item.Surname == ticketCredentials.Passenger).ID;
-				ticket.Employee = mDbContext.Staff.First((item) => item.Surname == mEmployeeSurname).ID;
-				ticket.DepartureDate = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).StartDate;
+			var flight = await mDbContext.Flights.AsNoTracking()
+				.Where(flight => flight.FlightNumber == ticketCredentials.FlightNumber)
+				.Select(flight => new { flight.FlightNumber, flight.Code, flight.StartDate, flight.TicketPrice })
+				.FirstOrDefaultAsync();
 
-				decimal ticketPrice = mDbContext.Flights.First((item) => item.FlightNumber == ticketCredentials.FlightNumber).TicketPrice;
-				string discount = mDbContext.Passengers.First((item) => item.Surname == ticketCredentials.Passenger).Discount;
-				decimal discountPercentage = mDbContext.Discounts.First((item) => item.DiscountName == discount).DiscountPercentage;
+			var passenger = await mDbContext.Passengers.AsNoTracking()
+				.Where(passenger => passenger.Surname == ticketCredentials.Passenger)
+				.Select(passenger => new { passenger.ID, passenger.Discount })
+				.FirstOrDefaultAsync();
 
-				ticket.Cost = (ticketPrice / 100) * discountPercentage;
+			var ticketPrice = flight.TicketPrice;
+			var discount = passenger.Discount;
+			var discountPercentage = await mDbContext.Discounts.Where(item => item.DiscountName == discount).Select(discount => discount.DiscountPercentage).FirstOrDefaultAsync();
 
-			});
+			ticket.Airline = await mDbContext.Airlines.Where(airline => airline.Nomination == ticketCredentials.Airline).Select(airplane => airplane.Code).FirstOrDefaultAsync();
+			ticket.Destination = await mDbContext.Destinations.Where(destination => destination.Nomination == ticketCredentials.Destination).Select(destination => destination.Code).FirstOrDefaultAsync();
+			ticket.Employee = await mDbContext.Staff.Where(employee => employee.Surname == mEmployeeSurname).Select(employee => employee.ID).FirstOrDefaultAsync();
+			ticket.FlightNumber = flight.Code;
+			ticket.DepartureDate = flight.StartDate;
+			ticket.Passenger = passenger.ID;
+			ticket.Cost = (ticketPrice / 100) * discountPercentage;
 
-			if (mDbContext.Tickets.Contains(ticket))
+			if (await mDbContext.Tickets.ContainsAsync(ticket))
 			{
 				return false;
 			}
 
 			// Add new one
-			mDbContext.Tickets.Add(ticket);
+			await mDbContext.Tickets.AddAsync(ticket);
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
