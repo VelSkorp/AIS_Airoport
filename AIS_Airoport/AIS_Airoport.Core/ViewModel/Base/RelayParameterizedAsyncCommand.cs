@@ -5,14 +5,14 @@ namespace AIS_Airport.Core
 	/// <summary>
 	/// A basic command that runs an Action
 	/// </summary>
-	public class RelayCommand : ICommand
+	public class RelayParameterizedAsyncCommand : ICommand
 	{
 		#region Private Members
 
 		/// <summary>
 		/// The action to run
 		/// </summary>
-		private readonly Action mAction;
+		private Func<object, Task> mFunc;
 
 		#endregion
 
@@ -30,9 +30,9 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public RelayCommand(Action action)
+		public RelayParameterizedAsyncCommand(Func<object, Task> func)
 		{
-			mAction = action;
+			mFunc = func;
 		}
 
 		#endregion
@@ -55,7 +55,7 @@ namespace AIS_Airport.Core
 		/// <param name="parameter"></param>
 		public async void Execute(object parameter)
 		{
-			mAction();
+			await Task.Run(async () => await mFunc(parameter));
 		}
 
 		#endregion

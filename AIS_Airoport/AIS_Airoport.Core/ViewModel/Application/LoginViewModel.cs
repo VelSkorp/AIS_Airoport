@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security;
-using System.Threading.Tasks;
+﻿using System.Security;
 using System.Windows.Input;
 
 namespace AIS_Airport.Core
@@ -41,7 +39,7 @@ namespace AIS_Airport.Core
 		public LoginViewModel()
 		{
 			// Create commands
-			LoginCommand = new RelayParameterizedCommand(async (parameter) => await LoginAsync(parameter));
+			LoginCommand = new RelayParameterizedAsyncCommand(LoginAsync);
 		}
 
 		#endregion

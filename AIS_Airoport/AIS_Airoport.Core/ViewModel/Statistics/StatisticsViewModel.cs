@@ -79,13 +79,13 @@ namespace AIS_Airport.Core
 		public StatisticsViewModel()
 		{
 			// Create commands
-			ProfitByDestinationRefreshCommand = new RelayCommand(async () => await RefreshProfitByDestinationAsync());
-			ProfitOnTransportationRefreshCommand = new RelayCommand(async () => await RefreshProfitOnTransportationAsync());
-			NumberOfDiscountedTicketsByDiscountRefreshCommand = new RelayCommand(async () => await RefreshNumberOfDiscountedTicketsByDiscountAsync());
-			AverageTicketPricesRefreshCommand = new RelayCommand(async () => await RefreshAverageTicketPricesAsync());
-			NumberOfticketsByDestinationsRefreshCommand = new RelayCommand(async () => await RefreshNumberOfticketsByDestinationsAsync());
-			NumberOfticketsByAirlinesRefreshCommand = new RelayCommand(async () => await RefreshNumberOfticketsByAirlinesAsync());
-			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayCommand(async () => await RefreshProfitFromTicketSalesByPassengerAsync());
+			ProfitByDestinationRefreshCommand = new RelayAsyncCommand(RefreshProfitByDestinationAsync);
+			ProfitOnTransportationRefreshCommand = new RelayAsyncCommand(RefreshProfitOnTransportationAsync);
+			NumberOfDiscountedTicketsByDiscountRefreshCommand = new RelayAsyncCommand(RefreshNumberOfDiscountedTicketsByDiscountAsync);
+			AverageTicketPricesRefreshCommand = new RelayAsyncCommand(RefreshAverageTicketPricesAsync);
+			NumberOfticketsByDestinationsRefreshCommand = new RelayAsyncCommand(RefreshNumberOfticketsByDestinationsAsync);
+			NumberOfticketsByAirlinesRefreshCommand = new RelayAsyncCommand(RefreshNumberOfticketsByAirlinesAsync);
+			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayAsyncCommand(RefreshProfitFromTicketSalesByPassengerAsync);
 			BackCommand = new RelayCommand(Back);
 		}
 

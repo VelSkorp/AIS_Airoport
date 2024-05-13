@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Threading.Tasks;
 
 namespace AIS_Airport.Core
 {
@@ -77,9 +74,9 @@ namespace AIS_Airport.Core
 		public CreateNewTicketViewModel()
 		{
 			// Create commands
-			SaveCommand = new RelayCommand(async () => await SaveAsync());
+			SaveCommand = new RelayAsyncCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
+			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
 		}
 
 		#endregion

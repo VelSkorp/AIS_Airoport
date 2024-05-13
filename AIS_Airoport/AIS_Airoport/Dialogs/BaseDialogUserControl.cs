@@ -68,7 +68,7 @@ namespace AIS_Airport
                 mDialogWindow.ViewModel = new DialogWindowViewModel(mDialogWindow);
 
                 // Create close command
-                CloseCommand = new RelayCommand(() => mDialogWindow.Close());
+                CloseCommand = new RelayCommand(mDialogWindow.Close);
             }
         }
 

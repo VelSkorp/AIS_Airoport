@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Threading.Tasks;
 
 namespace AIS_Airport.Core
 {
@@ -121,10 +119,10 @@ namespace AIS_Airport.Core
 		public AddNewEmployeeViewModel()
 		{
 			// Create commands
-			SavePositionCommand = new RelayCommand(async () => await SavePositionAsync());
-			SaveEmployeeCommand = new RelayCommand(async () => await SaveEmployeeAsync());
+			SavePositionCommand = new RelayAsyncCommand(SavePositionAsync);
+			SaveEmployeeCommand = new RelayAsyncCommand(SaveEmployeeAsync);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
+			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
 		}
 
 		#endregion

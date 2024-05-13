@@ -3,16 +3,16 @@
 namespace AIS_Airport.Core
 {
 	/// <summary>
-	/// A basic command that runs an Action
+	/// A basic async command that runs an Action
 	/// </summary>
-	public class RelayCommand : ICommand
+	public class RelayAsyncCommand : ICommand
 	{
 		#region Private Members
 
 		/// <summary>
 		/// The action to run
 		/// </summary>
-		private readonly Action mAction;
+		private readonly Func<Task> mFunc;
 
 		#endregion
 
@@ -30,9 +30,9 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public RelayCommand(Action action)
+		public RelayAsyncCommand(Func<Task> action)
 		{
-			mAction = action;
+			mFunc = action;
 		}
 
 		#endregion
@@ -50,12 +50,12 @@ namespace AIS_Airport.Core
 		}
 
 		/// <summary>
-		/// Executes the commands Action
+		/// Executes the commands Func
 		/// </summary>
 		/// <param name="parameter"></param>
 		public async void Execute(object parameter)
 		{
-			mAction();
+			await Task.Run(async () => await mFunc());
 		}
 
 		#endregion

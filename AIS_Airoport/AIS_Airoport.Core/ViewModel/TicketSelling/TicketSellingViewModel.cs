@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace AIS_Airport.Core
@@ -140,7 +137,7 @@ namespace AIS_Airport.Core
 			CreateCommand = new RelayCommand(Create);
 			ChangeCommand = new RelayCommand(Change);
 			GenerateCommand = new RelayCommand(Generate);
-			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
+			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
 		}
 
 		#endregion

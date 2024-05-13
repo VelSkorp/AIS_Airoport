@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System;
-using System.Threading.Tasks;
 
 namespace AIS_Airport.Core
 {
@@ -202,13 +199,13 @@ namespace AIS_Airport.Core
 		public AddNewFlightViewModel()
 		{
 			// Create commands
-			SaveAirlineCommand = new RelayCommand(async () => await SaveAirlineAsync());
-			SaveAirplaneCommand = new RelayCommand(async () => await SaveAirplaneAsync());
-			SaveDestinationCommand = new RelayCommand(async () => await SaveDestinationAsync());
-			SaveDiscountCommand = new RelayCommand(async () => await SaveDiscountAsync());
-			SaveFlightCommand = new RelayCommand(async () => await SaveFlightAsync());
+			SaveAirlineCommand = new RelayAsyncCommand(SaveAirlineAsync);
+			SaveAirplaneCommand = new RelayAsyncCommand(SaveAirplaneAsync);
+			SaveDestinationCommand = new RelayAsyncCommand(SaveDestinationAsync);
+			SaveDiscountCommand = new RelayAsyncCommand(SaveDiscountAsync);
+			SaveFlightCommand = new RelayAsyncCommand(SaveFlightAsync);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
+			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
 		}
 
 		#endregion

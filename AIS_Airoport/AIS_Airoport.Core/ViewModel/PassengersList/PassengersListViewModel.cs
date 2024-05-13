@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AIS_Airport.Core
@@ -89,7 +88,7 @@ namespace AIS_Airport.Core
 			AddCommand = new RelayCommand(AddNewPassenger);
 			ChangeCommand = new RelayCommand(ChangeCurrentPassenger);
 			BackCommand = new RelayCommand(Back);
-			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
+			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
 		}
 
 		#endregion

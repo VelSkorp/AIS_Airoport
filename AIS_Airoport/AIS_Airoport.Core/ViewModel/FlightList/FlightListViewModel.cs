@@ -127,7 +127,7 @@ namespace AIS_Airport.Core
 			SortByTicketPriceCommand = new RelayCommand(SortByTicketPrice);
 			SortByStartDateCommand = new RelayCommand(SortByStartDate);
 			DoNotSortCommand = new RelayCommand(DisableSorting);
-			RefreshCommand = new RelayCommand(async () => await RefreshAsync());
+			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
 		}
 
 		#endregion
