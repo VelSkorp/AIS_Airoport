@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System.Windows;
 using AIS_Airport.Core;
 
 namespace AIS_Airport
@@ -15,7 +15,10 @@ namespace AIS_Airport
         /// <returns></returns>
         public Task ShowMessage(MessageBoxDialogViewModel viewModel)
         {
-            return new DialogMessageBox().ShowDialog(viewModel);
+            return Application.Current.Dispatcher.Invoke(() =>
+            {
+                return new DialogMessageBox().ShowDialog(viewModel);
+            });
         }
     }
 }
