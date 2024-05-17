@@ -14,7 +14,7 @@ namespace AIS_Airport
 			// If we don't have a control, return
 			if (sender is not Control control)
 			{
-				return; 
+				return;
 			}
 
 			// Focus this control once loaded
@@ -32,13 +32,13 @@ namespace AIS_Airport
 			// If we don't have a control, return
 			if (sender is not Control control)
 			{
-				return; 
+				return;
 			}
 
 			// Focus this control 
 			if ((bool)e.NewValue)
 			{
-				control.Focus(); 
+				control.Focus();
 			}
 		}
 	}
@@ -51,15 +51,15 @@ namespace AIS_Airport
 		public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
 		{
 			// If we don't have a control, return
-			if (sender is TextBoxBase control)
+			if (sender is TextBoxBase textBox)
 			{
 				if ((bool)e.NewValue)
 				{
 					// Focus this control 
-					control.Focus();
+					textBox.Focus();
 
 					// Select all text
-					control.SelectAll();
+					textBox.SelectAll();
 				}
 			}
 			if (sender is PasswordBox password)
@@ -79,7 +79,7 @@ namespace AIS_Airport
 	/// <summary>
 	/// Represents an attached property for validation rules.
 	/// </summary>
-	public class TextValidationProperty : BaseAttachedProperty<TextValidationProperty, string>
+	public class TextValidationProperty : BaseAttachedProperty<TextValidationProperty, object>
 	{
 	}
 }

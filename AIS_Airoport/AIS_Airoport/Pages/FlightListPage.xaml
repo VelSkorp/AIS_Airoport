@@ -59,7 +59,7 @@
 					<RadioButton Command="{Binding SortByNumberCommand}" Content="By number"/>
 					<RadioButton Command="{Binding SortByTicketPriceCommand}" Content="By ticket price"/>
 					<RadioButton Command="{Binding SortByStartDateCommand}" Content="By start date" />
-					<RadioButton Command="{Binding DoNotSortCommand}" Content="Do not sort" />
+					<RadioButton Command="{Binding DoNotSortCommand}" Content="Do not sort" IsChecked="True"/>
 
 				</StackPanel>
 

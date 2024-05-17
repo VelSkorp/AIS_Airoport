@@ -13,7 +13,7 @@
 		/// <summary>
 		/// The airline name
 		/// </summary>
-		public string Nomination { get; set; }
+		public string Title { get; set; }
 
 		/// <summary>
 		/// The airline contact details

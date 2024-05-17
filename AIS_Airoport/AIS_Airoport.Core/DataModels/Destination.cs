@@ -13,7 +13,7 @@
 		/// <summary>
 		/// The destination name
 		/// </summary>
-		public string Nomination { get; set; }
+		public string Title { get; set; }
 
 		/// <summary>
 		/// Destination adress

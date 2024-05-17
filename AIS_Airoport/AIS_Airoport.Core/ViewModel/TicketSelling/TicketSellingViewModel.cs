@@ -31,7 +31,9 @@ namespace AIS_Airport.Core
 			{
 				// Make sure list has changed
 				if (mItems == value)
-					return;
+				{
+					return; 
+				}
 
 				// Update value
 				mItems = value;
@@ -149,17 +151,17 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public void Filter()
 		{
-			// Make sure we don't search empty date
-			if ((string.IsNullOrEmpty(FilterFrom.ToString()) && string.IsNullOrEmpty(FilterBy.ToString())) ||
-				(FilterFrom > FilterBy))
+			// Make sure we don't search a FilterFrom date smaller than FilterBy
+			if (FilterFrom > FilterBy)
+			{
 				return;
+			}
 
 			// If we have no search text, or no items
-			if (Items == null || Items.Count <= 0)
+			if (Items is null || Items.Count <= 0)
 			{
 				// Make filtered list the same
 				FilteredIAndSortedtems = new ObservableCollection<Ticket>(Items ?? Enumerable.Empty<Ticket>());
-
 				return;
 			}
 

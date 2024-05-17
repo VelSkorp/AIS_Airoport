@@ -27,7 +27,8 @@
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
 		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Margin" Value="0 5 0 5" />
+		<Setter Property="Margin" Value="5" />
+		<Setter Property="MinWidth" Value="120" />
 		<Setter Property="BorderBrush" Value="{StaticResource WordBlueBrush}" />
 		<Setter Property="BorderThickness" Value="0 0 0 1" />
 
@@ -37,13 +38,12 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TextBoxBase}">
-
 					<Grid>
-
 						<Border x:Name="border" 
 								BorderBrush="{TemplateBinding BorderBrush}" 
 								BorderThickness="{TemplateBinding BorderThickness}"
 								Background="{TemplateBinding Background}"
+								HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
 								SnapsToDevicePixels="True">
 							<ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
 						</Border>
@@ -66,7 +66,6 @@
 									</Style.Triggers>
 								</Style>
 							</TextBlock.Style>
-
 						</TextBlock>
 
 					</Grid>
@@ -86,27 +85,6 @@
 			</Setter.Value>
 		</Setter>
 
-		<Setter Property="Validation.ErrorTemplate">
-			<Setter.Value>
-				<ControlTemplate>
-					<StackPanel>
-						<Border BorderBrush="Red" BorderThickness="1">
-							<AdornedElementPlaceholder/>
-						</Border>
-						<TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-					</StackPanel>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-
-		<Style.Triggers>
-			<Trigger Property="Validation.HasError" Value="true">
-				<Setter Property="ToolTip"
-					Value="{Binding RelativeSource={RelativeSource Self}, 
-					   Path=(Validation.Errors)[0].ErrorContent}"/>
-			</Trigger>
-		</Style.Triggers>
-
 	</Style>
 
 	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyNumberValidation" BasedOn="{StaticResource {x:Type TextBox}}">
@@ -117,6 +95,126 @@
 					<Binding.ValidationRules>
 						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
 						<local:RegexValidationRule RegexPattern="^[0-9]*$" ErrorMessage="Only numbers are allowed." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyCoordinateValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6},\s*-?((1[0-7]|[1-9])?\d(\.\d{1,6})?|180(\.0{1,6})?)$" ErrorMessage="Invalid coordinate format (e.g. 55.7558, 37.6176.)." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyFlightNumberValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^[A-Za-z0-9]{2,3}\d{2,3}$" ErrorMessage="Invalid flight number format." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyAirplaneBoardNumberValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^[A-Z]{2,4}\d{2,4}$" ErrorMessage="Invalid airplane board number format(e.g. AB1234)." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyAirplaneModelValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^[A-Za-z0-9\- ]{1,20}$" ErrorMessage="Invalid airplane model format(e.g. 'Boeing 737', 'A320')." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+	
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyPassportValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^[A-Za-z0-9]{5,9}$" ErrorMessage="Invalid passport number format(e.g. AB12345)." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+	
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyPhoneValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$" ErrorMessage="Invalid phone number format." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyTicketValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^[A-Za-z0-9]{6,10}$" ErrorMessage="Invalid Ticket number format(e.g. XYZ5678)." ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyTimeValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$" ErrorMessage="Invalid time format(24h)." ValidatesOnTargetUpdated="True" />
 					</Binding.ValidationRules>
 				</Binding>
 			</Setter.Value>
@@ -143,7 +241,7 @@
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
 		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Margin" Value="0 5 0 5" />
+		<Setter Property="Margin" Value="5" />
 		<Setter Property="BorderBrush" Value="{StaticResource WordBlueBrush}" />
 		<Setter Property="BorderThickness" Value="0 0 0 1" />
 
@@ -194,6 +292,16 @@
 			</Setter.Value>
 		</Setter>
 
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="SecurePassword.Length" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:RegexValidationRule RegexPattern="^[1-9]\d*$" ErrorMessage="Field can't be empty" ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
 	</Style>
 
 	<Style TargetType="{x:Type TextBlock}" x:Key="SpinningText" BasedOn="{StaticResource BaseTextBlockStyle}">
@@ -203,7 +311,7 @@
 		<Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
 		<Setter Property="RenderTransform">
 			<Setter.Value>
-				<RotateTransform></RotateTransform>
+				<RotateTransform />
 			</Setter.Value>
 		</Setter>
 
@@ -241,6 +349,30 @@
 		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="SelectedDate" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="Validation.ErrorTemplate">
+			<Setter.Value>
+				<ControlTemplate>
+					<StackPanel>
+						<Border BorderBrush="Red" BorderThickness="1" Margin="0 0 40 0" Height="35">
+							<AdornedElementPlaceholder Margin="-3 -15 -30 0" />
+						</Border>
+						<TextBlock Text="{Binding [0].ErrorContent}" FontSize="{StaticResource FontSizeSmaller}" Foreground="Red"/>
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
 	</Style>
 
 	<Style TargetType="{x:Type DatePickerTextBox}">
@@ -319,7 +451,6 @@
 												<TextBlock Text="Pick date" 
 														   FontSize="{StaticResource FontSizeLarge}"
 														   FontFamily="{StaticResource LatoRegular}" />
-
 											</ControlTemplate>
 										</ContentControl.Template>
 
@@ -547,11 +678,11 @@
 			</Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
-	
-	<Style TargetType="{x:Type ComboBox}">
+
+	<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseStyle}">
 		<Setter Property="IsReadOnly" Value="True" />
 		<Setter Property="IsEditable" Value="True" />
-		<Setter Property="Margin" Value="1 5" />
+		<Setter Property="Margin" Value="5" />
 		<Setter Property="BorderThickness" Value="0" />
 
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -596,7 +727,17 @@
 				</Style>
 			</Setter.Value>
 		</Setter>
-		
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="SelectedItem" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
 		<Style.Triggers>
 			<Trigger Property="IsEditable" Value="true">
 				<Setter Property="IsTabStop" Value="false"/>
@@ -618,7 +759,8 @@
 	<SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FF3C77DD"/>
 	<SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
 	<SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121"/>
-	<Style TargetType="{x:Type CheckBox}">
+
+	<Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource BaseStyle}">
 		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 		<Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
 		<Setter Property="VerticalAlignment" Value="Center" />

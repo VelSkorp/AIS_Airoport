@@ -29,26 +29,27 @@
 						<StackPanel>
 
 							<!-- Sign Up header -->
-							<TextBlock Text="Sign In" 
-								   FontSize="{StaticResource FontSizeXXLarge}" 
-								   FontFamily="{StaticResource LatoRegular}"
-								   Foreground="{StaticResource WordBlueBrush}" />
+							<TextBlock Text="Sign In"
+									   FontSize="{StaticResource FontSizeXXLarge}"
+									   FontFamily="{StaticResource LatoRegular}"
+									   Foreground="{StaticResource WordBlueBrush}" />
 
 							<!-- Sign up subtext-->
 							<TextBlock Text="It's about to do work" 
 									   FontSize="{StaticResource FontSizeLarge}"
 									   Foreground="{StaticResource ForegroundDarkBrush}"
-									   Margin="0 0 0 20"
-									   />
+									   Margin="0 0 0 20" />
 
 							<!-- Email -->
 							<TextBox Text="{Binding Username}"
 									 Tag="Username"
-									 local:IsFocusedProperty.Value="True"
-									 />
+									 Name="Username"
+									 Margin="0"
+									 Style="{StaticResource NotEmptyValidation}"
+									 local:IsFocusedProperty.Value="True" />
 
 							<!-- Password -->
-							<PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 0 0 30" />
+							<PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 15" />
 
 							<!-- Login button -->
 							<Button Content="Login" 
@@ -56,7 +57,24 @@
 									local:IsBusyProperty.Value="{Binding LoginIsRunning}"
 									Command="{Binding LoginCommand}"
 									CommandParameter="{Binding ElementName=Page}" 
-									HorizontalAlignment="Center" />
+									HorizontalAlignment="Center">
+								<Button.Style>
+									<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+										<Setter Property="IsEnabled" Value="False"/>
+										<Style.Triggers>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding ElementName=Username, Path=(Validation.HasError)}" Value="False"/>
+													<Condition Binding="{Binding ElementName=PasswordText, Path=(Validation.HasError)}" Value="False"/>
+												</MultiDataTrigger.Conditions>
+												<MultiDataTrigger.Setters>
+													<Setter Property="IsEnabled" Value="True"/>
+												</MultiDataTrigger.Setters>
+											</MultiDataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Button.Style>
+							</Button>
 
 						</StackPanel>
 

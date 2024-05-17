@@ -84,11 +84,11 @@ namespace AIS_Airport.Relational
 				ID = employee.ID,
 				Surname = employee.Surname,
 				FirstName = employee.FirstName,
-				Patronymic = employee.Patronymic,
+				MiddleName = employee.MiddleName,
 				Phone = employee.Phone,
 				Address = employee.Address,
 				Password = employee.Password,
-				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Code == employee.Position).Select(position => position.Nomination).FirstOrDefaultAsync()
+				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Code == employee.Position).Select(position => position.Title).FirstOrDefaultAsync()
 			};
 		}
 
@@ -134,8 +134,8 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<Flight>> GetCollectionOfFlightsAsync()
 		{
 			var flights = new ObservableCollection<Flight>();
-			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Nomination);
-			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Nomination);
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Title);
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Title);
 			var airplanes = await mDbContext.Airplanes.AsNoTracking().ToDictionaryAsync(airplane => airplane.Code, airplane => airplane.BoardNumber);
 			var flightRecords = await mDbContext.Flights.ToListAsync();
 
@@ -181,7 +181,7 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<EmployeeCredentials>> GetCollectionOfEmployeesAsync()
 		{
 			var employees = new ObservableCollection<EmployeeCredentials>();
-			var positions = await mDbContext.Positions.AsNoTracking().ToDictionaryAsync(position => position.Code, position => position.Nomination);
+			var positions = await mDbContext.Positions.AsNoTracking().ToDictionaryAsync(position => position.Code, position => position.Title);
 			var employeesRecords = await mDbContext.Staff.ToListAsync();
 
 			foreach (var employee in employeesRecords)
@@ -191,7 +191,7 @@ namespace AIS_Airport.Relational
 					ID = employee.ID,
 					Surname = employee.Surname,
 					FirstName = employee.FirstName,
-					Patronymic = employee.Patronymic,
+					MiddleName = employee.MiddleName,
 					Phone = employee.Phone,
 					Address = employee.Address,
 					Password = employee.Password,
@@ -266,7 +266,7 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<DataItem>> GetProfitByDestinationAsync()
 		{
 			var data = new Dictionary<string, DataItem>();
-			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Nomination);
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Title);
 			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
 			foreach (var ticket in ticketsRecords)
@@ -359,7 +359,7 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<DataItem>> GetNumberOfticketsByDestinationsAsync()
 		{
 			var data = new Dictionary<string, DataItem>();
-			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Nomination);
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Title);
 			var flightsRecords = await mDbContext.Flights.ToListAsync();
 
 			foreach (var flight in flightsRecords)
@@ -390,7 +390,7 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<DataItem>> GetNumberOfticketsByAirlinesAsync()
 		{
 			var data = new Dictionary<string, DataItem>();
-			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Nomination);
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Title);
 			var flightsRecords = await mDbContext.Flights.ToListAsync();
 
 			foreach (var flight in flightsRecords)
@@ -421,7 +421,7 @@ namespace AIS_Airport.Relational
 		public async Task<ObservableCollection<DataItem>> GetAverageTicketPricesByAirlinesAsync()
 		{
 			var data = new HashSet<DataItem>();
-			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Nomination);
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Title);
 			var tickets = await mDbContext.Tickets.AsNoTracking().Select(ticket => new { ticket.Airline, ticket.Cost }).ToListAsync();
 
 			foreach (var airline in airlines)
@@ -480,11 +480,11 @@ namespace AIS_Airport.Relational
 				ID = employeeCredentials.ID,
 				Surname = employeeCredentials.Surname,
 				FirstName = employeeCredentials.FirstName,
-				Patronymic = employeeCredentials.Patronymic,
+				MiddleName = employeeCredentials.MiddleName,
 				Phone = employeeCredentials.Phone,
 				Address = employeeCredentials.Address,
 				Password = MD5.Encrypt(employeeCredentials.Password),
-				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Nomination.Equals(employeeCredentials.Position)).Select(position => position.Code).FirstOrDefaultAsync()
+				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Title.Equals(employeeCredentials.Position)).Select(position => position.Code).FirstOrDefaultAsync()
 			};
 
 			if (await mDbContext.Staff.ContainsAsync(employee))
@@ -588,9 +588,9 @@ namespace AIS_Airport.Relational
 				FlightNumber = flightCredentials.FlightNumber,
 				StartDate = flightCredentials.StartDate,
 				StartTime = flightCredentials.StartTime,
-				Airline = await mDbContext.Airlines.AsNoTracking().Where(airline => airline.Nomination.Equals(flightCredentials.Airline)).Select(airline => airline.Code).FirstOrDefaultAsync(),
+				Airline = await mDbContext.Airlines.AsNoTracking().Where(airline => airline.Title.Equals(flightCredentials.Airline)).Select(airline => airline.Code).FirstOrDefaultAsync(),
 				TicketPrice = flightCredentials.TicketPrice,
-				Destination = await mDbContext.Destinations.AsNoTracking().Where(destination => destination.Nomination.Equals(flightCredentials.Destination)).Select(destination => destination.Code).FirstOrDefaultAsync(),
+				Destination = await mDbContext.Destinations.AsNoTracking().Where(destination => destination.Title.Equals(flightCredentials.Destination)).Select(destination => destination.Code).FirstOrDefaultAsync(),
 				Airplane = await mDbContext.Airplanes.AsNoTracking().Where(airplane => airplane.BoardNumber.Equals(flightCredentials.Airplane)).Select(airplane => airplane.Code).FirstOrDefaultAsync(),
 			};
 
@@ -670,8 +670,8 @@ namespace AIS_Airport.Relational
 			var discount = passenger.Discount;
 			var discountPercentage = await mDbContext.Discounts.Where(item => item.DiscountName == discount).Select(discount => discount.DiscountPercentage).FirstOrDefaultAsync();
 
-			ticket.Airline = await mDbContext.Airlines.Where(airline => airline.Nomination == ticketCredentials.Airline).Select(airplane => airplane.Code).FirstOrDefaultAsync();
-			ticket.Destination = await mDbContext.Destinations.Where(destination => destination.Nomination == ticketCredentials.Destination).Select(destination => destination.Code).FirstOrDefaultAsync();
+			ticket.Airline = await mDbContext.Airlines.Where(airline => airline.Title == ticketCredentials.Airline).Select(airplane => airplane.Code).FirstOrDefaultAsync();
+			ticket.Destination = await mDbContext.Destinations.Where(destination => destination.Title == ticketCredentials.Destination).Select(destination => destination.Code).FirstOrDefaultAsync();
 			ticket.Employee = await mDbContext.Staff.Where(employee => employee.Surname == mEmployeeSurname).Select(employee => employee.ID).FirstOrDefaultAsync();
 			ticket.FlightNumber = flight.Code;
 			ticket.DepartureDate = flight.StartDate;

@@ -37,8 +37,13 @@ namespace AIS_Airport
 		/// <param name="e"></param>
 		private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 		{
+			var passwordBox = (PasswordBox)sender;
+
 			// Set the attached HasText value
-			HasTextProperty.SetValue((PasswordBox)sender);
+			HasTextProperty.SetValue(passwordBox);
+
+			// Update validation
+			TextValidationProperty.SetValue(passwordBox, passwordBox.SecurePassword.Length);
 		}
 	}
 

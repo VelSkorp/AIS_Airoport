@@ -58,26 +58,15 @@ namespace AIS_Airport.Core
 				var loginCredentials = new LoginCredentialsApiModel
 				{
 					Surname = Username,
-					Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+					Password = (parameter as IHavePassword).Password.Unsecure()
 				};
-
-				if (string.IsNullOrEmpty(loginCredentials.Surname))
-				{
-					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Empty usernmae",
-						Message = "The current username is invalid or empty"
-					});
-
-					return;
-				}
 
 				if (await IoC.DataStore.LoginAsync(loginCredentials) == false)
 				{
 					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 					{
-						Title = "Empty password",
-						Message = "The current password is invalid or empty"
+						Title = "Wrong Credentials",
+						Message = "The current password or username is invalid or empty"
 					});
 
 					return;

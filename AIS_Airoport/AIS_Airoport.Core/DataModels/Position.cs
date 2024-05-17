@@ -13,7 +13,7 @@
         /// <summary>
         /// Job Title
         /// </summary>
-        public string Nomination { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Right to sell tickets (1 or 0)

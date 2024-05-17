@@ -7,7 +7,6 @@
 	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
 	  mc:Ignorable="d" >
 
-
 	<StackPanel VerticalAlignment="Center">
 		<Border Background="{StaticResource BackgroundVeryLightBrush}"
 				HorizontalAlignment="Center"
@@ -17,15 +16,19 @@
 
 			<StackPanel Orientation="Horizontal">
 
-				<TextBox Tag="TicketNumber" 
+				<TextBox Tag="Ticket number" 
+						 Name="TicketNumber"
+						 Style="{StaticResource NotEmptyTicketValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding TicketNumber}" />
 
 				<ComboBox Text="Select the flight"
+						  Name="Flight"
 						  SelectedItem="{Binding FlightNumber}"
 						  ItemsSource="{Binding ListOfFlights}" />
 
 				<ComboBox Text="Select the passenger"
+						  Name="Passenger"
 						  SelectedItem="{Binding Passenger}" 
 						  ItemsSource="{Binding ListOfPassengers}"/>
 
@@ -51,7 +54,25 @@
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveCommand}"
-						local:IsBusyProperty.Value="{Binding SaveIsRunning}"/>
+						local:IsBusyProperty.Value="{Binding SaveIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=TicketNumber, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Flight, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Passenger, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
 			</StackPanel>
 		</Border>

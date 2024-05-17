@@ -31,7 +31,9 @@ namespace AIS_Airport.Core
 			{
 				// Make sure list has changed
 				if (mItems == value)
-					return;
+				{
+					return; 
+				}
 
 				// Update value
 				mItems = value;

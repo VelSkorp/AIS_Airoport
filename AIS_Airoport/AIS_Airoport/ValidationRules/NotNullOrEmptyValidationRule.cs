@@ -13,7 +13,6 @@ namespace AIS_Airport
 			}
 
 			return ValidationResult.ValidResult;
-
 		}
 	}
 }

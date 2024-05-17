@@ -13,44 +13,92 @@
 				CornerRadius="10"
 				Margin="0 0 0 5"
 				Padding="5">
-
-			<StackPanel Orientation="Horizontal">
-
-				<TextBox Tag="Surname" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Margin="1 5"
-						 Text="{Binding Surname}" />
-
-				<TextBox Tag="FirstName" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Margin="1 5"
-						 Text="{Binding FirstName}" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1.5*" />
+					<ColumnDefinition Width="0.5*"/>
+				</Grid.ColumnDefinitions>
 				
-				<TextBox Tag="Patronymic" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Margin="1 5"
-						 Text="{Binding Patronymic}" />
+				<StackPanel>
+					<StackPanel Orientation="Horizontal"
+								Margin="0 0 0 10">
 
-				<TextBox Tag="Phone" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Margin="1 5"
-						 Text="{Binding Phone}" />
+						<TextBox Tag="First name"
+								 Name="FirstName"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding FirstName}" />
 
-				<TextBox Tag="Address" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Margin="1 5"
-						 Text="{Binding Address}" />
+						<TextBox Tag="Middle name"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding MiddleName}" />
 
-				<TextBox Tag="Passport number" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Margin="1 5"
-						 Text="{Binding Passport}" />
+						<TextBox Tag="Surname"
+								 Name="Surname"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Surname}" />
 
-				<ComboBox Text="Select the discount"
-						  SelectedItem="{Binding SelectedDiscount}" 
-						  ItemsSource="{Binding Discounts}"/>
+						<TextBox Tag="Phone"
+								 Name="Phone"
+								 Style="{StaticResource NotEmptyPhoneValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Phone}" />
 
-			</StackPanel>
+					</StackPanel>
+
+					<StackPanel Orientation="Horizontal"
+								Margin="0 0 0 10">
+
+						<TextBox Tag="Address"
+								 Name="Address"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Address}" />
+
+						<TextBox Tag="Passport number"
+								 Name="Passport"
+								 Style="{StaticResource NotEmptyPassportValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Passport}" />
+
+						<ComboBox Text="Select the discount"
+								  Name="Discount"
+								  SelectedItem="{Binding SelectedDiscount}"
+								  ItemsSource="{Binding Discounts}"/>
+
+					</StackPanel>
+				</StackPanel>
+				
+				<Button Content="Save"
+						Grid.Column="1"
+						VerticalAlignment="Center"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveCommand}"
+						local:IsBusyProperty.Value="{Binding SaveIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=FirstName, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Surname, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Phone, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Address, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Passport, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Discount, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+
+			</Grid>
 		</Border>
 
 		<Border Background="{StaticResource BackgroundVeryLightBrush}"
@@ -69,13 +117,8 @@
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding BackCommand}"/>
 
-				<Button Content="Save"
-						FontSize="{StaticResource FontSizeLarge}"
-						Command="{Binding SaveCommand}"
-						local:IsBusyProperty.Value="{Binding SaveIsRunning}"/>
-
 			</StackPanel>
 		</Border>
 	</StackPanel>
 
-	</local:BasePage>
+</local:BasePage>

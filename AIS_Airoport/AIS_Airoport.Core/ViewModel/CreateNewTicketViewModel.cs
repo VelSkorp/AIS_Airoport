@@ -90,20 +90,9 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => SaveIsRunning, async () =>
 			{
-				if (TicketNumber == null || FlightNumber == null || Passenger == null)
-				{
-					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Empty ticket form",
-						Message = "Fill out the ticket form"
-					});
+				var employee = await IoC.DataStore.GetEmployeeCredentialsAsync();
 
-					return;
-				}
-
-				EmployeeCredentials employee = await IoC.DataStore.GetEmployeeCredentialsAsync();
-
-				bool isSaved = await IoC.DataStore.SaveTicketCredentialsAsync(new Ticket
+				var isSaved = await IoC.DataStore.SaveTicketCredentialsAsync(new Ticket
 				{
 					TicketNumber = TicketNumber,
 					FlightNumber = FlightNumber,
@@ -113,8 +102,12 @@ namespace AIS_Airport.Core
 
 				if (isSaved)
 				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Successful",
+						Message = "Ticket successful saved"
+					});
 					IoC.Application.GoToPage(ApplicationPage.TicketSelling);
-					return;
 				}
 
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
@@ -140,10 +133,10 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
-				ObservableCollection<Flight> flights = await IoC.DataStore.GetCollectionOfFlightsAsync();
+				var flights = await IoC.DataStore.GetCollectionOfFlightsAsync();
 				ListOfFlights = new ObservableCollection<string>(flights.Select((item) => item.FlightNumber));
 
-				ObservableCollection<Passenger> passenger = await IoC.DataStore.GetCollectionOfPassengersAsync();
+				var passenger = await IoC.DataStore.GetCollectionOfPassengersAsync();
 				ListOfPassengers = new ObservableCollection<string>(passenger.Select((item) => item.Surname));
 			});
 		}

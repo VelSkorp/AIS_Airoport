@@ -6,7 +6,7 @@
 	  xmlns:local="clr-namespace:AIS_Airport"
 	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
 	  mc:Ignorable="d" 
-	  d:DesignHeight="500" d:DesignWidth="900">
+	  d:DesignHeight="600" d:DesignWidth="900">
 
 	<StackPanel VerticalAlignment="Center">
 
@@ -14,30 +14,52 @@
 		<Border Background="{StaticResource BackgroundVeryLightBrush}"
 				HorizontalAlignment="Center"
 				CornerRadius="10"
-				Margin="0 0 0 5"
+				Margin="0 5"
 				Padding="5">
 
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal"
+						Margin="0 0 0 5">
 
-				<TextBox Tag="Airline nomination" 
-						 Margin="1 5"
+				<TextBox Tag="Airline title"
+						 Name="Airline"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding AirlineNomination}" />
+						 Text="{Binding AirlineTitle}" />
 
 				<TextBox Tag="Contacts" 
-						 Margin="1 5"
+						 Name="Contacts"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding AirlineContacts}" />
 
 				<TextBox Tag="Head office address" 
-						 Margin="1 5"
+						 Name="HeadOffice"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding AirlineHeadOfficeAddress}" />
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveAirlineCommand}"
-						local:IsBusyProperty.Value="{Binding SaveAirlineIsRunning}"/>
+						local:IsBusyProperty.Value="{Binding SaveAirlineIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=Airline, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Contacts, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=HeadOffice, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
 			</StackPanel>
 		</Border>
@@ -49,30 +71,54 @@
 				Margin="0 0 0 5"
 				Padding="5">
 
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal"
+						Margin="0 0 0 5">
 
 				<TextBox Tag="Airplane board number" 
-						 Margin="1 5"
+						 Name="Airplane"
+						 Style="{StaticResource NotEmptyAirplaneBoardNumberValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding AirplaneBoardNumber}" />
 
 				<TextBox Tag="Model" 
-						 Margin="1 5"
+						 Name="Model"
+						 Style="{StaticResource NotEmptyAirplaneModelValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding AirplaneModel}" />
 
 				<TextBox Tag="Capacity" 
-						 Margin="1 5"
+						 Name="Capacity"
+						 Style="{StaticResource NotEmptyNumberValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding AirplaneCapacity}" />
 
 				<DatePicker FontSize="{StaticResource FontSizeLarge}"
+							Name="AirplaneDate"
 							SelectedDate="{Binding AirplaneDateEntered}" />
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveAirplaneCommand}"
-						local:IsBusyProperty.Value="{Binding SaveAirplaneIsRunning}"/>
+						local:IsBusyProperty.Value="{Binding SaveAirplaneIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=Airplane, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Model, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Capacity, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=AirplaneDate, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
 			</StackPanel>
 		</Border>
@@ -84,27 +130,49 @@
 				Margin="0 0 0 5"
 				Padding="5">
 
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal"
+						Margin="0 0 0 5">
 
-				<TextBox Tag="Destination nomination" 
-						 Margin="1 5"
+				<TextBox Tag="Destination title" 
+						 Name="Destination"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding DestinationNomination}" />
+						 Text="{Binding DestinationTitle}" />
 
 				<TextBox Tag="Adress" 
-						 Margin="1 5"
+						 Name="Adress"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding DestinationAdress}" />
 
 				<TextBox Tag="Coordinates" 
-						 Margin="1 5"
+						 Name="Coordinates"
+						 Style="{StaticResource NotEmptyCoordinateValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding DestinationCoordinates}" />
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveDestinationCommand}"
-						local:IsBusyProperty.Value="{Binding SaveDestinationIsRunning}"/>
+						local:IsBusyProperty.Value="{Binding SaveDestinationIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=Destination, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Adress, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Coordinates, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
 			</StackPanel>
 		</Border>
@@ -116,22 +184,42 @@
 				Margin="0 0 0 5"
 				Padding="5">
 
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal"
+						Margin="0 0 0 5">
 
 				<TextBox Tag="Discount name" 
-						 Margin="1 5"
+						 Name="Discount"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding DiscountName}" />
 
 				<TextBox Tag="Discount percentage" 
-						 Margin="1 5"
+						 Name="Percentage"
+						 Style="{StaticResource NotEmptyNumberValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding DiscountPercentage}" />
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveDiscountCommand}"
-						local:IsBusyProperty.Value="{Binding SaveDiscountIsRunning}"/>
+						local:IsBusyProperty.Value="{Binding SaveDiscountIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=Discount, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Percentage, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
 			</StackPanel>
 		</Border>
@@ -142,54 +230,90 @@
 				CornerRadius="10"
 				Margin="0 0 0 5"
 				Padding="5">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1.5*" />
+					<ColumnDefinition Width="0.5*"/>
+				</Grid.ColumnDefinitions>
 
-			<StackPanel>
+				<StackPanel>
+					<StackPanel Orientation="Horizontal"
+								Margin="0 0 0 10"
+								HorizontalAlignment="Center">
 
-				<StackPanel Orientation="Horizontal"
-							HorizontalAlignment="Center">
+						<TextBox Tag="Flight number"
+								 Name="Flight"
+								 Style="{StaticResource NotEmptyFlightNumberValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding FlightNumber}" />
 
-					<TextBox Tag="Flight number" 
-							 Margin="1 5"
-							 FontSize="{StaticResource FontSizeLarge}"
-							 Text="{Binding FlightNumber}" />
+						<DatePicker FontSize="{StaticResource FontSizeLarge}"
+									Name="StartDate"
+									SelectedDate="{Binding FlightStartDate}" />
 
-					<DatePicker FontSize="{StaticResource FontSizeLarge}"
-								SelectedDate="{Binding FlightStartDate}" />
+						<TextBox Tag="Start time"
+								 Name="StartTime"
+								 Style="{StaticResource NotEmptyTimeValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding FlightStartTime}" />
 
-					<TextBox Tag="Start time" 
-							 Margin="1 5"
-							 FontSize="{StaticResource FontSizeLarge}"
-							 Text="{Binding FlightStartTime}" />
+						<TextBox Tag="Ticket price"
+								 Name="Price"
+								 Style="{StaticResource NotEmptyNumberValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding FlightTicketPrice}" />
 
-					<TextBox Tag="Ticket price" 
-							 Margin="1 5"
-							 FontSize="{StaticResource FontSizeLarge}"
-							 Text="{Binding FlightTicketPrice}" />
+					</StackPanel>
 
+					<StackPanel Orientation="Horizontal"
+								Margin="0 0 0 5">
+
+						<ComboBox Text="Select the airline"
+								  Name="SelectedAirline"
+								  SelectedItem="{Binding FlightSelectAirline}"
+								  ItemsSource="{Binding Airlines}" />
+
+						<ComboBox Text="Select the destination"
+								  Name="SelectedDestination"
+								  SelectedItem="{Binding FlightSelectDestination}"
+								  ItemsSource="{Binding Destinations}"/>
+
+						<ComboBox Text="Select the airplane"
+								  Name="SelectedAirplane"
+								  SelectedItem="{Binding FlightSelectAirplane}"
+								  ItemsSource="{Binding Airplanes}"/>
+					</StackPanel>
 				</StackPanel>
 
-				<StackPanel Orientation="Horizontal" 
-							Grid.Row="1">
-
-					<ComboBox Text="Select the airline"
-							  SelectedItem="{Binding FlightSelectAirline}"
-							  ItemsSource="{Binding Airlines}" />
-
-					<ComboBox Text="Select the destination"
-							  SelectedItem="{Binding FlightSelectDestination}" 
-							  ItemsSource="{Binding Destinations}"/>
-
-					<ComboBox Text="Select the airplane"
-							  SelectedItem="{Binding FlightSelectAirplane}" 
-							  ItemsSource="{Binding Airplanes}"/>
-
-					<Button Content="Save"
-							FontSize="{StaticResource FontSizeLarge}"
-							Command="{Binding SaveFlightCommand}"
-							local:IsBusyProperty.Value="{Binding SaveFlightIsRunning}"/>
-
-				</StackPanel>
-			</StackPanel>
+				<Button Content="Save"
+						Grid.Column="1"
+						VerticalAlignment="Center"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveFlightCommand}"
+						local:IsBusyProperty.Value="{Binding SaveFlightIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=Flight, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=StartDate, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=StartTime, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Price, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=SelectedAirline, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=SelectedDestination, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=PrSelectedAirplaneice, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+			</Grid>
 		</Border>
 
 		<Border Background="{StaticResource BackgroundVeryLightBrush}"

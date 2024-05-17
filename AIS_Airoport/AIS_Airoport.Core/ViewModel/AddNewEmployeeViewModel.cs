@@ -8,27 +8,27 @@ namespace AIS_Airport.Core
 	/// </summary>
 	public class AddNewEmployeeViewModel : BaseViewModel
 	{
-		#region Public Properties
+        #region Public Properties
 
-		/// <summary>
-		/// The position nomination
-		/// </summary>
-		public string PositionNomination { get; set; }
+        /// <summary>
+        /// The position title
+        /// </summary>
+        public string PositionTitle { get; set; }
 
 		/// <summary>
 		/// The right to sell tickets
 		/// </summary>
-		public bool? RightToSellTickets { get; set; }
+		public bool RightToSellTickets { get; set; } = false;
 
 		/// <summary>
 		/// The right to add new flights
 		/// </summary>
-		public bool? RightToAddNewFlights { get; set; }
+		public bool RightToAddNewFlights { get; set; } = false;
 
 		/// <summary>
 		/// The right to add new employees
 		/// </summary>
-		public bool? RightToAddNewEmployees { get; set; }
+		public bool RightToAddNewEmployees { get; set; } = false;
 
 		/// <summary>
 		/// The employee surname
@@ -41,9 +41,9 @@ namespace AIS_Airport.Core
 		public string FirstName { get; set; }
 
 		/// <summary>
-		/// The employee patronymic
+		/// The employee middle name
 		/// </summary>
-		public string Patronymic { get; set; }
+		public string MiddleName { get; set; }
 
 		/// <summary>
 		/// The employee phone
@@ -136,49 +136,36 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => SavePositionIsRunning, async () =>
 			{
-				if (PositionNomination == null || RightToSellTickets == null || RightToAddNewFlights == null
-					|| RightToAddNewEmployees == null)
-				{
-					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Empty position form",
-						Message = "Fill out the position form"
-					});
+				var position = await IoC.DataStore.GetCollectionOfPositionsAsync();
 
-					return;
-				}
-
-				ObservableCollection<Position> position = await IoC.DataStore.GetCollectionOfPositionsAsync();
-
-				bool isSaved = await IoC.DataStore.SavePositionCredentialsAsync(new Position
+				var isSaved = await IoC.DataStore.SavePositionCredentialsAsync(new Position
 				{
 					Code = position.Count + 1,
-					Nomination = PositionNomination,
-					RightToSellTickets = RightToSellTickets.Value ? 1 : 0,
-					RightToAddNewFlights = RightToAddNewFlights.Value ? 1 : 0,
-					RightToAddNewEmployees = RightToAddNewEmployees.Value ? 1 : 0,
+					Title = PositionTitle,
+					RightToSellTickets = RightToSellTickets ? 1 : 0,
+					RightToAddNewFlights = RightToAddNewFlights ? 1 : 0,
+					RightToAddNewEmployees = RightToAddNewEmployees ? 1 : 0,
 				});
 
-				if (isSaved == false)
+				if (isSaved)
 				{
+					PositionTitle = null;
+					RightToSellTickets = false;
+					RightToAddNewFlights = false;
+					RightToAddNewEmployees = false;
+
 					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 					{
-						Title = "Position exist",
-						Message = "Position already exist"
+						Title = "Successful",
+						Message = "Position successful saved"
 					});
-
 					return;
 				}
-
-				PositionNomination = null;
-				RightToSellTickets = null;
-				RightToAddNewFlights = null;
-				RightToAddNewEmployees = null;
 
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Successful",
-					Message = "Position successful saved"
+					Title = "Position exist",
+					Message = "Position already exist"
 				});
 			});
 		}
@@ -190,53 +177,42 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => SaveEmployeeIsRunning, async () =>
 			{
-				if (Surname == null || FirstName == null || Patronymic == null || Phone == null || Address == null
-					|| Password == null || Positions == null)
-				{
-					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Empty employee form",
-						Message = "Fill out the employee form"
-					});
+				var employee = await IoC.DataStore.GetCollectionOfEmployeesAsync();
 
-					return;
-				}
-
-				ObservableCollection<EmployeeCredentials> employee = await IoC.DataStore.GetCollectionOfEmployeesAsync();
-
-				bool isSaved = await IoC.DataStore.SaveLoginCredentialsAsync(new EmployeeCredentials
+				var isSaved = await IoC.DataStore.SaveLoginCredentialsAsync(new EmployeeCredentials
 				{
 					ID = employee.Count + 1,
 					Surname = Surname,
 					FirstName = FirstName,
-					Patronymic = Patronymic,
+					MiddleName = MiddleName,
 					Phone = Phone,
 					Address = Address,
 					Password = Password,
 					Position = Position,
 				});
 
-				if (isSaved == false)
+				if (isSaved)
 				{
+					Surname = null;
+					FirstName = null;
+					MiddleName = null;
+					Phone = null;
+					Address = null;
+					Password = null;
+					Position = null;
+
 					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 					{
-						Title = "Employee exist",
-						Message = "Employee already exist"
+						Title = "Successful",
+						Message = "Employee successful saved"
 					});
+					return;
 				}
-
-				Surname = null;
-				FirstName = null;
-				Patronymic = null;
-				Phone = null;
-				Address = null;
-				Password = null;
-				Position = null;
 
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
 				{
-					Title = "Successful",
-					Message = "Employee successful saved"
+					Title = "Employee exist",
+					Message = "Employee already exist"
 				});
 			});
 		}
@@ -256,8 +232,8 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
-				ObservableCollection<Position> positions = await IoC.DataStore.GetCollectionOfPositionsAsync();
-				Positions = new ObservableCollection<string>(positions.Select((item) => item.Nomination));
+				var positions = await IoC.DataStore.GetCollectionOfPositionsAsync();
+				Positions = new ObservableCollection<string>(positions.Select((item) => item.Title));
 			});
 		}
 

@@ -8,15 +8,6 @@ namespace AIS_Airport.Core
 	/// </summary>
 	public class FlightListViewModel : BaseViewModel
 	{
-		#region Protected Members
-
-		/// <summary>
-		/// The flight list items for the list
-		/// </summary>
-		protected ObservableCollection<Flight> mItems;
-
-		#endregion
-
 		#region Public Properties
 
 		/// <summary>
@@ -31,7 +22,9 @@ namespace AIS_Airport.Core
 			{
 				// Make sure list has changed
 				if (mItems == value)
-					return;
+				{
+					return; 
+				}
 
 				// Update value
 				mItems = value;
@@ -59,12 +52,21 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// The right to add new flights
 		/// </summary>
-		public bool HasRightToAddNewFlights { get; set; } = IoC.DataStore.GetEmployeeRightToAddNewFlightsAsync().Result;
+		public bool HasRightToAddNewFlights { get; private set; } = IoC.DataStore.GetEmployeeRightToAddNewFlightsAsync().Result;
 
 		/// <summary>
 		/// A flag indicating if the refresh command is running
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
+
+		#endregion
+
+		#region Protected Members
+
+		/// <summary>
+		/// The flight list items for the list
+		/// </summary>
+		protected ObservableCollection<Flight> mItems;
 
 		#endregion
 
@@ -139,17 +141,17 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public void Filter()
 		{
-			// Make sure we don't search empty date
-			if ((string.IsNullOrEmpty(FilterFrom.ToString()) && string.IsNullOrEmpty(FilterBy.ToString())) ||
-				(FilterFrom > FilterBy))
-				return;
+			// Make sure we don't search a FilterFrom date smaller than FilterBy
+			if (FilterFrom > FilterBy)
+			{
+				return; 
+			}
 
 			// If we have no search text, or no items
-			if (Items == null || Items.Count <= 0)
+			if (Items is null || Items.Count <= 0)
 			{
 				// Make filtered list the same
 				FilteredIAndSortedtems = new ObservableCollection<Flight>(Items ?? Enumerable.Empty<Flight>());
-
 				return;
 			}
 

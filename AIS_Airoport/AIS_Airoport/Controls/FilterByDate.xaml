@@ -12,17 +12,38 @@
 				   Text="FROM" 
 				   HorizontalAlignment="Right" />
 
-		<DatePicker SelectedDate="{Binding FilterFrom}" />
+		<DatePicker SelectedDate="{Binding FilterFrom}"
+					Name="DateFilterFrom" />
+
 
 		<TextBlock Style="{StaticResource RegularText}"
 				   Text="BY" 
 				   HorizontalAlignment="Right" />
 
-		<DatePicker SelectedDate="{Binding FilterBy}" />
+		<DatePicker SelectedDate="{Binding FilterBy}"
+					Name="DateFilterBy" />
 
 		<Button FontSize="{StaticResource FontSizeLarge}" 
 				Command="{Binding FilterCommand}"
-				Content="Filter"/>
+				Content="Filter">
+			<Button.Style>
+				<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+					<Setter Property="IsEnabled" Value="False"/>
+					<Style.Triggers>
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding ElementName=DateFilterFrom, Path=(Validation.HasError)}" Value="False"/>
+								<Condition Binding="{Binding ElementName=DateFilterBy, Path=(Validation.HasError)}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<MultiDataTrigger.Setters>
+								<Setter Property="IsEnabled" Value="True"/>
+							</MultiDataTrigger.Setters>
+						</MultiDataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Button.Style>
+
+		</Button>
 
 		<Button FontSize="{StaticResource FontSizeLarge}" 
 				Command="{Binding RefreshCommand}"

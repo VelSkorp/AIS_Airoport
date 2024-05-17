@@ -11,11 +11,6 @@ namespace AIS_Airport.Core
 		#region Public Properties
 
 		/// <summary>
-		/// The passenger surname
-		/// </summary>
-		public string Surname { get; set; }
-
-		/// <summary>
 		/// The passenger first name
 		/// </summary>
 		public string FirstName { get; set; }
@@ -23,7 +18,12 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// The passenger middle name
 		/// </summary>
-		public string Patronymic { get; set; }
+		public string MiddleName { get; set; }
+
+		/// <summary>
+		/// The passenger surname
+		/// </summary>
+		public string Surname { get; set; }
 
 		/// <summary>
 		/// The passenger phone
@@ -38,7 +38,7 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// The passenger passport
 		/// </summary>
-		public int? Passport { get; set; }
+		public string Passport { get; set; }
 
 		/// <summary>
 		/// The discount for this passenger
@@ -105,36 +105,28 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => SaveIsRunning, async () =>
 			{
-				if (Surname == null || FirstName == null || Patronymic == null || Phone == null
-				    || Address == null || Passport == null || SelectedDiscount == null)
-				{
-					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Empty passenger form",
-						Message = "Fill out the passenger form"
-					});
+				var passengers = await IoC.DataStore.GetCollectionOfPassengersAsync();
 
-					return;
-				}
-
-				ObservableCollection<Passenger> passengers = await IoC.DataStore.GetCollectionOfPassengersAsync();
-
-				bool isSaved = await IoC.DataStore.SavePassengerCredentialsAsync(new Passenger
+				var isSaved = await IoC.DataStore.SavePassengerCredentialsAsync(new Passenger
 				{
 					ID = passengers.Count + 1,
 					Surname = Surname,
 					FirstName = FirstName,
-					Patronymic = Patronymic,
+					MiddleName = MiddleName,
 					Phone = Phone,
 					Address = Address,
-					Passport = Passport.Value,
+					Passport = Passport,
 					Discount = SelectedDiscount,
 				});
 
 				if (isSaved)
 				{
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Successful",
+						Message = "Passenger successful saved"
+					});
 					IoC.Application.GoToPage(ApplicationPage.Passengers);
-					return;
 				}
 
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
@@ -160,7 +152,7 @@ namespace AIS_Airport.Core
 		{
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
-				ObservableCollection<Discount> discount = await IoC.DataStore.GetCollectionOfDiscountsAsync();
+				var discount = await IoC.DataStore.GetCollectionOfDiscountsAsync();
 				Discounts = new ObservableCollection<string>(discount.Select((item) => item.DiscountName));
 			});
 		}

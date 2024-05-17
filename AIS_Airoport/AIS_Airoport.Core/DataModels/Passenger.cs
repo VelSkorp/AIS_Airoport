@@ -23,7 +23,7 @@
 		/// <summary>
 		/// The passenger middle name
 		/// </summary>
-		public string Patronymic { get; set; }
+		public string MiddleName { get; set; }
 
 		/// <summary>
 		/// The passenger phone
@@ -38,7 +38,7 @@
 		/// <summary>
 		/// The passenger passport
 		/// </summary>
-		public int Passport { get; set; }
+		public string Passport { get; set; }
 
 		/// <summary>
 		/// The discount for this passenger

@@ -53,8 +53,8 @@
 				<ListView.View>
 					<GridView>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Surname</GridViewColumn>
-						<GridViewColumn DisplayMemberBinding="{Binding Path=FirstName}">First Name</GridViewColumn>
-						<GridViewColumn DisplayMemberBinding="{Binding Path=Patronymic}">Patronymic</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=FirstName}">First name</GridViewColumn>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=MiddleName}">Middle name</GridViewColumn>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Phone}">Phone</GridViewColumn>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Address}">Address</GridViewColumn>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Passport}">Passport</GridViewColumn>

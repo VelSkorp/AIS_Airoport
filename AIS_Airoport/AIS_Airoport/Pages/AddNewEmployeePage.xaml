@@ -6,7 +6,7 @@
 	  xmlns:local="clr-namespace:AIS_Airport"
 	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
 	  mc:Ignorable="d" 
-	  d:DesignHeight="500" d:DesignWidth="900">
+	  d:DesignHeight="500" d:DesignWidth="1100">
 
 	<StackPanel VerticalAlignment="Center">
 
@@ -16,36 +16,44 @@
 				CornerRadius="10"
 				Margin="0 0 0 5"
 				Padding="5">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.5*"/>
+					<ColumnDefinition Width="1.5*" />
+					<ColumnDefinition Width="0.5*"/>
+				</Grid.ColumnDefinitions>
 
-			<StackPanel>
-				<StackPanel Orientation="Horizontal">
-					
-					<TextBox Tag="Position nomination" 
-							 Margin="1 5"
-							 FontSize="{StaticResource FontSizeLarge}"
-							 Text="{Binding PositionNomination}" />
+				<TextBox Tag="Position title"
+						 Name="PositionTitle"
+						 Margin="5 5 5 10"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Style="{StaticResource NotEmptyValidation}"
+						 Text="{Binding PositionTitle}" />
 
-					<CheckBox Content="Right to sell tickets"
-							  IsChecked="{Binding RightToSellTickets}"/>
+				<StackPanel Grid.Column="1">
+					<StackPanel Orientation="Horizontal"
+								Margin="0 10">
 
-					<CheckBox Content="Right to add new flights"
-							  IsChecked="{Binding RightToAddNewFlights}"/>
-					
-				</StackPanel>
+						<CheckBox Content="Right to sell tickets"
+								  IsChecked="{Binding RightToSellTickets}"/>
 
-				<StackPanel Orientation="Horizontal"
-							HorizontalAlignment="Center">
+						<CheckBox Content="Right to add new flights"
+								  IsChecked="{Binding RightToAddNewFlights}"/>
+
+					</StackPanel>
 
 					<CheckBox Content="Right to add new employees"
 							  IsChecked="{Binding RightToAddNewEmployees}"/>
 
-					<Button Content="Save"
-							FontSize="{StaticResource FontSizeLarge}"
-							Command="{Binding SavePositionCommand}"
-							local:IsBusyProperty.Value="{Binding SavePositionIsRunning}"/>
 				</StackPanel>
 
-			</StackPanel>
+				<Button Content="Save"
+						Grid.Column="2"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SavePositionCommand}"
+						local:IsBusyProperty.Value="{Binding SavePositionIsRunning}"
+						IsEnabled="{Binding ElementName=PositionTitle, Path=(Validation.HasError), Converter={local:InverseBooleanConverter}}"/>
+			</Grid>
 		</Border>
 
 		<!-- Staff table  -->
@@ -55,46 +63,73 @@
 				Margin="0 0 0 5"
 				Padding="5">
 
-			<StackPanel Orientation="Horizontal">
-
-				<TextBox Tag="Surname" 
-						 Margin="1 5"
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding Surname}" />
+			<StackPanel Orientation="Horizontal"
+						Margin="0 0 0 10">
 
 				<TextBox Tag="First name" 
-						 Margin="1 5"
+						 Name="FirstName"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding FirstName}" />
 
-				<TextBox Tag="Patronymic" 
-						 Margin="1 5"
+				<TextBox Tag="Middle name" 
 						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding Patronymic}" />
+						 Text="{Binding MiddleName}" />
+
+				<TextBox Tag="Surname" 
+						 Name="Surname"
+						 Style="{StaticResource NotEmptyValidation}"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding Surname}" />
 
 				<TextBox Tag="Phone" 
-						 Margin="1 5"
+						 Name="Phone"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding Phone}" />
 
 				<TextBox Tag="Address" 
-						 Margin="1 5"
+						 Name="Address"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding Address}" />
 
 				<TextBox Tag="Password" 
-						 Margin="1 5"
+						 Name="Password"
+						 Style="{StaticResource NotEmptyValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding Password}" />
 
 				<ComboBox Text="Position"
+						  Name="Position"
 						  SelectedItem="{Binding Position}"
 						  ItemsSource="{Binding Positions}" />
 
 				<Button Content="Save"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveEmployeeCommand}"
-						local:IsBusyProperty.Value="{Binding SaveEmployeeIsRunning}"/>
+						local:IsBusyProperty.Value="{Binding SaveEmployeeIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=FirstName, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Surname, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Phone, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Address, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Password, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Position, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
 			</StackPanel>
 		</Border>

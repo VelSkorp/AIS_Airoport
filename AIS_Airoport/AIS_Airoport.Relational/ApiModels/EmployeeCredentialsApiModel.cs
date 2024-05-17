@@ -21,9 +21,9 @@
 		public string FirstName { get; set; }
 
 		/// <summary>
-		/// The employee patronymic
+		/// The employee middle name
 		/// </summary>
-		public string Patronymic { get; set; }
+		public string MiddleName { get; set; }
 
 		/// <summary>
 		/// The employee phone
