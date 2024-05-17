@@ -16,7 +16,7 @@
 		public string Title { get; set; }
 
 		/// <summary>
-		/// Destination adress
+		/// Destination address
 		/// </summary>
 		public string Adress { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AIS_Airport.Core
+﻿namespace AIS_Airport.Core
 {
 	/// <summary>
 	/// A flight information

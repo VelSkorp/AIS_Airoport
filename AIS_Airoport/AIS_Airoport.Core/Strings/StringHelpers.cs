@@ -13,7 +13,7 @@
 		/// <returns>True if s was converted successfully; otherwise, false.</returns>
 		public static bool IsInt(this string s)
 		{
-			return int.TryParse(s, out int x);
+			return int.TryParse(s, out var _);
 		}
 	}
 }

@@ -4,19 +4,19 @@ using System.Windows.Controls;
 
 namespace AIS_Airport
 {
-    public class RegexValidationRule : ValidationRule
-    {
-        public string RegexPattern { get; set; }
-        public string ErrorMessage { get; set; }
+	public class RegexValidationRule : ValidationRule
+	{
+		public string RegexPattern { get; set; }
+		public string ErrorMessage { get; set; }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        {
-            if (Regex.IsMatch(value.ToString(), RegexPattern))
-            {
-                return ValidationResult.ValidResult; 
-            }
+		public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+		{
+			if (Regex.IsMatch(value.ToString(), RegexPattern))
+			{
+				return ValidationResult.ValidResult; 
+			}
 
-            return new ValidationResult(false, ErrorMessage);
-        }
-    }
+			return new ValidationResult(false, ErrorMessage);
+		}
+	}
 }

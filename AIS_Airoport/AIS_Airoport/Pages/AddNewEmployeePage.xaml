@@ -62,50 +62,62 @@
 				CornerRadius="10"
 				Margin="0 0 0 5"
 				Padding="5">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1.5*" />
+					<ColumnDefinition Width="0.5*" />
+				</Grid.ColumnDefinitions>
+				
+				<StackPanel>
+					<StackPanel Orientation="Horizontal"
+								Margin="0 0 0 10">
+						<TextBox Tag="First name"
+								 Name="FirstName"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding FirstName}" />
 
-			<StackPanel Orientation="Horizontal"
-						Margin="0 0 0 10">
+						<TextBox Tag="Middle name"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding MiddleName}" />
 
-				<TextBox Tag="First name" 
-						 Name="FirstName"
-						 Style="{StaticResource NotEmptyValidation}"
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding FirstName}" />
+						<TextBox Tag="Surname"
+								 Name="Surname"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Surname}" />
+					</StackPanel>
+					
+					<StackPanel Orientation="Horizontal"
+								Margin="0 0 0 10">
+						<TextBox Tag="Phone"
+								 Name="Phone"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Phone}" />
 
-				<TextBox Tag="Middle name" 
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding MiddleName}" />
+						<TextBox Tag="Address"
+								 Name="Address"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Address}" />
 
-				<TextBox Tag="Surname" 
-						 Name="Surname"
-						 Style="{StaticResource NotEmptyValidation}"
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding Surname}" />
+						<TextBox Tag="Password"
+								 Name="Password"
+								 Style="{StaticResource NotEmptyValidation}"
+								 FontSize="{StaticResource FontSizeLarge}"
+								 Text="{Binding Password}" />
 
-				<TextBox Tag="Phone" 
-						 Name="Phone"
-						 Style="{StaticResource NotEmptyValidation}"
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding Phone}" />
-
-				<TextBox Tag="Address" 
-						 Name="Address"
-						 Style="{StaticResource NotEmptyValidation}"
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding Address}" />
-
-				<TextBox Tag="Password" 
-						 Name="Password"
-						 Style="{StaticResource NotEmptyValidation}"
-						 FontSize="{StaticResource FontSizeLarge}"
-						 Text="{Binding Password}" />
-
-				<ComboBox Text="Position"
-						  Name="Position"
-						  SelectedItem="{Binding Position}"
-						  ItemsSource="{Binding Positions}" />
-
+						<ComboBox Text="Position"
+								  Name="Position"
+								  SelectedItem="{Binding Position}"
+								  ItemsSource="{Binding Positions}" />
+					</StackPanel>
+				</StackPanel>
+				
 				<Button Content="Save"
+						Grid.Column="1"
+						VerticalAlignment="Center"
 						FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding SaveEmployeeCommand}"
 						local:IsBusyProperty.Value="{Binding SaveEmployeeIsRunning}">
@@ -130,8 +142,7 @@
 						</Style>
 					</Button.Style>
 				</Button>
-
-			</StackPanel>
+			</Grid>
 		</Border>
 
 		<!-- Back and Refresh buttons -->
