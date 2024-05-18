@@ -108,6 +108,7 @@ namespace AIS_Airport.Core
 						Message = "Ticket successful saved"
 					});
 					IoC.Application.GoToPage(ApplicationPage.TicketSelling);
+					return;
 				}
 
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel

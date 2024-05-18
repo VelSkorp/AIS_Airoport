@@ -8,6 +8,53 @@
 	  mc:Ignorable="d" >
 
 	<StackPanel VerticalAlignment="Center">
+
+		<Border Background="{StaticResource BackgroundVeryLightBrush}"
+				HorizontalAlignment="Center"
+				CornerRadius="10"
+				Margin="0 0 0 5"
+				Padding="5">
+
+			<StackPanel Orientation="Horizontal"
+						Margin="0 0 0 5">
+
+				<TextBox Tag="Discount name" 
+						 Name="DiscountName"
+						 Style="{StaticResource NotEmptyValidation}"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DiscountName}" />
+
+				<TextBox Tag="Discount percentage" 
+						 Name="Percentage"
+						 Style="{StaticResource NotEmptyNumberValidation}"
+						 FontSize="{StaticResource FontSizeLarge}"
+						 Text="{Binding DiscountPercentage}" />
+
+				<Button Content="Save"
+						FontSize="{StaticResource FontSizeLarge}"
+						Command="{Binding SaveDiscountCommand}"
+						local:IsBusyProperty.Value="{Binding SaveDiscountIsRunning}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+							<Setter Property="IsEnabled" Value="False"/>
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding ElementName=DiscountName, Path=(Validation.HasError)}" Value="False"/>
+										<Condition Binding="{Binding ElementName=Percentage, Path=(Validation.HasError)}" Value="False"/>
+									</MultiDataTrigger.Conditions>
+									<MultiDataTrigger.Setters>
+										<Setter Property="IsEnabled" Value="True"/>
+									</MultiDataTrigger.Setters>
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+
+			</StackPanel>
+		</Border>
+
 		<Border Background="{StaticResource BackgroundVeryLightBrush}"
 				HorizontalAlignment="Center"
 				CornerRadius="10"

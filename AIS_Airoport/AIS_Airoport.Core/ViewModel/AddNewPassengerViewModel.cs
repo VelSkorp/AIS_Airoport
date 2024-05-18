@@ -11,6 +11,16 @@ namespace AIS_Airport.Core
 		#region Public Properties
 
 		/// <summary>
+		/// The discount name
+		/// </summary>
+		public string DiscountName { get; set; }
+
+		/// <summary>
+		/// The discount percentage
+		/// </summary>
+		public string DiscountPercentage { get; set; }
+
+		/// <summary>
 		/// The passenger first name
 		/// </summary>
 		public string FirstName { get; set; }
@@ -56,6 +66,11 @@ namespace AIS_Airport.Core
 		public bool RefreshIsRunning { get; set; }
 
 		/// <summary>
+		/// A flag indicating if the save discount command is running
+		/// </summary>
+		public bool SaveDiscountIsRunning { get; set; }
+
+		/// <summary>
 		/// A flag indicating if the save passenger command is running
 		/// </summary>
 		public bool SaveIsRunning { get; set; }
@@ -63,6 +78,11 @@ namespace AIS_Airport.Core
 		#endregion
 
 		#region Commands
+
+		/// <summary>
+		/// The command save new discount
+		/// </summary>
+		public ICommand SaveDiscountCommand { get; set; }
 
 		/// <summary>
 		/// The command save new ticket
@@ -89,6 +109,7 @@ namespace AIS_Airport.Core
 		public AddNewPassengerViewModel()
 		{
 			// Create commands
+			SaveDiscountCommand = new RelayAsyncCommand(SaveDiscountAsync);
 			SaveCommand = new RelayAsyncCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
@@ -97,6 +118,40 @@ namespace AIS_Airport.Core
 		#endregion
 
 		#region Command Methods
+
+		/// <summary>
+		/// Save new discount
+		/// </summary>
+		public async Task SaveDiscountAsync()
+		{
+			await RunCommandAsync(() => SaveDiscountIsRunning, async () =>
+			{
+				var isSaved = await IoC.DataStore.SaveDiscountCredentialsAsync(new Discount
+				{
+					DiscountName = DiscountName,
+					DiscountPercentage = int.Parse(DiscountPercentage)
+				});
+
+				if (isSaved)
+				{
+					DiscountName = null;
+					DiscountPercentage = null;
+
+					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Successful",
+						Message = "Discount successful saved"
+					});
+					return;
+				}
+
+				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+				{
+					Title = "Discount exist",
+					Message = "Discount already exist"
+				});
+			});
+		}
 
 		/// <summary>
 		/// Save new ticket
@@ -127,6 +182,7 @@ namespace AIS_Airport.Core
 						Message = "Passenger successful saved"
 					});
 					IoC.Application.GoToPage(ApplicationPage.Passengers);
+					return;
 				}
 
 				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel

@@ -184,7 +184,7 @@
 				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
 					<Binding.ValidationRules>
 						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
-						<local:RegexValidationRule RegexPattern="^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$" ErrorMessage="Invalid phone number format." ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^\(\+?\d{2,3}\)?[-.\s]?\(?\d{3}\)?[-\s]?\d{3}[-.\s]?\d{3,4}$" ErrorMessage="Invalid phone number format." ValidatesOnTargetUpdated="True" />
 					</Binding.ValidationRules>
 				</Binding>
 			</Setter.Value>

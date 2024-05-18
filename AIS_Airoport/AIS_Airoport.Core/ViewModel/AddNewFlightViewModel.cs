@@ -61,16 +61,6 @@ namespace AIS_Airport.Core
 		public string DestinationCoordinates { get; set; }
 
 		/// <summary>
-		/// The discount name
-		/// </summary>
-		public string DiscountName { get; set; }
-
-		/// <summary>
-		/// The discount percentage
-		/// </summary>
-		public string DiscountPercentage { get; set; }
-
-		/// <summary>
 		/// The flight number
 		/// </summary>
 		public string FlightNumber { get; set; }
@@ -141,11 +131,6 @@ namespace AIS_Airport.Core
 		public bool SaveDestinationIsRunning { get; set; }
 
 		/// <summary>
-		/// A flag indicating if the save discount command is running
-		/// </summary>
-		public bool SaveDiscountIsRunning { get; set; }
-
-		/// <summary>
 		/// A flag indicating if the save flight command is running
 		/// </summary>
 		public bool SaveFlightIsRunning { get; set; }
@@ -168,11 +153,6 @@ namespace AIS_Airport.Core
 		/// The command save new destination
 		/// </summary>
 		public ICommand SaveDestinationCommand { get; set; }
-
-		/// <summary>
-		/// The command save new discount
-		/// </summary>
-		public ICommand SaveDiscountCommand { get; set; }
 
 		/// <summary>
 		/// The command save new flight
@@ -202,7 +182,6 @@ namespace AIS_Airport.Core
 			SaveAirlineCommand = new RelayAsyncCommand(SaveAirlineAsync);
 			SaveAirplaneCommand = new RelayAsyncCommand(SaveAirplaneAsync);
 			SaveDestinationCommand = new RelayAsyncCommand(SaveDestinationAsync);
-			SaveDiscountCommand = new RelayAsyncCommand(SaveDiscountAsync);
 			SaveFlightCommand = new RelayAsyncCommand(SaveFlightAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
@@ -327,40 +306,6 @@ namespace AIS_Airport.Core
 				{
 					Title = "Destination exist",
 					Message = "Destination already exist"
-				});
-			});
-		}
-
-		/// <summary>
-		/// Save new discount
-		/// </summary>
-		public async Task SaveDiscountAsync()
-		{
-			await RunCommandAsync(() => SaveDiscountIsRunning, async () =>
-			{
-				var isSaved = await IoC.DataStore.SaveDiscountCredentialsAsync(new Discount
-				{
-					DiscountName = DiscountName,
-					DiscountPercentage = int.Parse(DiscountPercentage)
-				});
-
-				if (isSaved)
-				{
-					DiscountName = null;
-					DiscountPercentage = null;
-
-					await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Successful",
-						Message = "Discount successful saved"
-					});
-					return;
-				}
-
-				await IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-				{
-					Title = "Discount exist",
-					Message = "Discount already exist"
 				});
 			});
 		}

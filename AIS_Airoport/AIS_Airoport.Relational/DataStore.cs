@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using AIS_Airport.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -426,10 +427,20 @@ namespace AIS_Airport.Relational
 
 			foreach (var airline in airlines)
 			{
+				if (tickets.Any(ticket => ticket.Airline == airline.Key))
+				{
+					data.Add(new DataItem
+					{
+						Name = airline.Value,
+						Value = tickets.Where(ticket => ticket.Airline == airline.Key).Average(item => item.Cost)
+					});
+					continue;
+				}
+
 				data.Add(new DataItem
 				{
 					Name = airline.Value,
-					Value = tickets.Where(ticket => ticket.Airline == airline.Key).Average(item => item.Cost)
+					Value = 0
 				});
 			}
 
@@ -658,7 +669,7 @@ namespace AIS_Airport.Relational
 
 			var flight = await mDbContext.Flights.AsNoTracking()
 				.Where(flight => flight.FlightNumber == ticketCredentials.FlightNumber)
-				.Select(flight => new { flight.FlightNumber, flight.Code, flight.StartDate, flight.TicketPrice })
+				.Select(flight => new { flight.FlightNumber, flight.Code, flight.StartDate, flight.TicketPrice, flight.Airline, flight.Destination })
 				.FirstOrDefaultAsync();
 
 			var passenger = await mDbContext.Passengers.AsNoTracking()
@@ -670,9 +681,11 @@ namespace AIS_Airport.Relational
 			var discount = passenger.Discount;
 			var discountPercentage = await mDbContext.Discounts.Where(item => item.DiscountName == discount).Select(discount => discount.DiscountPercentage).FirstOrDefaultAsync();
 
-			ticket.Airline = await mDbContext.Airlines.Where(airline => airline.Title == ticketCredentials.Airline).Select(airplane => airplane.Code).FirstOrDefaultAsync();
-			ticket.Destination = await mDbContext.Destinations.Where(destination => destination.Title == ticketCredentials.Destination).Select(destination => destination.Code).FirstOrDefaultAsync();
+			//ticket.Airline = await mDbContext.Airlines.Where(airline => airline.Code == flight.Airline).Select(airplane => airplane.Code).FirstOrDefaultAsync();
+			//ticket.Destination = await mDbContext.Destinations.Where(destination => destination.Title == flight.Destination).Select(destination => destination.Code).FirstOrDefaultAsync();
 			ticket.Employee = await mDbContext.Staff.Where(employee => employee.Surname == mEmployeeSurname).Select(employee => employee.ID).FirstOrDefaultAsync();
+			ticket.Airline = flight.Airline;
+			ticket.Destination = flight.Destination;
 			ticket.FlightNumber = flight.Code;
 			ticket.DepartureDate = flight.StartDate;
 			ticket.Passenger = passenger.ID;

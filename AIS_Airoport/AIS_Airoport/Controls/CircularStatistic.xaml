@@ -4,7 +4,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:AIS_Airport"
-			 xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+			 xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
 			 mc:Ignorable="d" >
 	
 	<Grid>
@@ -15,30 +15,27 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<!--<lvc:PieChart 
-			Series="{Binding Series}"
-			LegendPosition="Right">
-		</lvc:PieChart>-->
-
-		<!--<dvc:Chart Style="{StaticResource CircularChartStyle}">
+		<dvc:Chart Style="{StaticResource CircularChartStyle}">
 
 			<dvc:PieSeries ItemsSource="{Binding Data}" 
 						   LegendItemStyle="{StaticResource LegendItemStyle}"
 						   DependentValuePath="Value"
 						   IndependentValuePath="Name" />
 
-		</dvc:Chart>-->
+		</dvc:Chart>
 
-		<ListView HorizontalAlignment="Left" 
-				  ItemsSource="{Binding Data}"
+		<ListView ItemsSource="{Binding Data}"
+				  HorizontalAlignment="Stretch"
 				  Grid.Row="1">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn DisplayMemberBinding="{Binding Path=Name}"
+									Width="200"
 									Header="{Binding Path=Text, 
 													 RelativeSource={RelativeSource Mode=FindAncestor, 
 																					AncestorType=local:CircularStatistic}}" />
 					<GridViewColumn DisplayMemberBinding="{Binding Path=Value}" 
+									Width="200"
 									Header="{Binding Path=Tag, 
 													 RelativeSource={RelativeSource Mode=FindAncestor, 
 																					AncestorType=local:CircularStatistic}}" />
