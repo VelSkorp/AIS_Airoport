@@ -37,11 +37,11 @@ namespace AIS_Airport
 				case ApplicationPage.Statistics:
 					return new StatisticsPage(viewModel as StatisticsViewModel);
 
-				case ApplicationPage.CreateNewTicket:
-					return new CreateNewTicketPage(viewModel as CreateNewTicketViewModel);
+				case ApplicationPage.AddOrUpdateTicket:
+					return new AddOrUpdateTicketPage(viewModel as AddOrUpdateTicketViewModel);
 
-				case ApplicationPage.AddNewPassenger:
-					return new AddNewPassengerPage(viewModel as AddNewPassengerViewModel);
+				case ApplicationPage.AddOrUpdatePassenger:
+					return new AddOrUpdatePassengerPage(viewModel as AddOrUpdatePassengerViewModel);
 
 				case ApplicationPage.AddNewFlight:
 					return new AddNewFlightPage(viewModel as AddNewFlightViewModel);
@@ -82,11 +82,11 @@ namespace AIS_Airport
 			if (page is LoginPage)
 				return ApplicationPage.Login;
 
-			if (page is CreateNewTicketPage)
-				return ApplicationPage.CreateNewTicket;
+			if (page is AddOrUpdateTicketPage)
+				return ApplicationPage.AddOrUpdateTicket;
 
-			if (page is AddNewPassengerPage)
-				return ApplicationPage.AddNewPassenger;
+			if (page is AddOrUpdatePassengerPage)
+				return ApplicationPage.AddOrUpdatePassenger;
 
 			if (page is AddNewFlightPage)
 				return ApplicationPage.AddNewFlight;

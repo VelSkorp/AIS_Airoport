@@ -8,12 +8,12 @@ namespace AIS_Airport.Core
 	/// </summary>
 	public class AddNewEmployeeViewModel : BaseViewModel
 	{
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
-        /// The position title
-        /// </summary>
-        public string PositionTitle { get; set; }
+		/// <summary>
+		/// The position title
+		/// </summary>
+		public string PositionTitle { get; set; }
 
 		/// <summary>
 		/// The right to sell tickets
@@ -123,6 +123,9 @@ namespace AIS_Airport.Core
 			SaveEmployeeCommand = new RelayAsyncCommand(SaveEmployeeAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
 		}
 
 		#endregion

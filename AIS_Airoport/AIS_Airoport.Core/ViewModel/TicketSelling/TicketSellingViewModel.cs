@@ -68,6 +68,11 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
 
+		/// <summary>
+		/// Selected ticket from the list
+		/// </summary>
+		public Ticket SelectedTicket { get; set; }
+
 
 		#endregion
 
@@ -140,6 +145,9 @@ namespace AIS_Airport.Core
 			ChangeCommand = new RelayCommand(Change);
 			GenerateCommand = new RelayCommand(Generate);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
 		}
 
 		#endregion
@@ -206,7 +214,7 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public void Create()
 		{
-			IoC.Application.GoToPage(ApplicationPage.CreateNewTicket);
+			IoC.Application.GoToPage(ApplicationPage.AddOrUpdateTicket);
 		}
 
 		/// <summary>
@@ -214,7 +222,7 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public void Change()
 		{
-			// TODO: Implement ticket chenge command with popup menu
+			IoC.Application.GoToPage(ApplicationPage.AddOrUpdateTicket, new AddOrUpdateTicketViewModel(SelectedTicket));
 		}
 
 		/// <summary>

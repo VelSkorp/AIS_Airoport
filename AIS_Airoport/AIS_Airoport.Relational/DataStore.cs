@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using AIS_Airport.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -624,13 +623,24 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SavePassengerCredentialsAsync(Passenger passengerCredentials)
 		{
-			if (await mDbContext.Passengers.ContainsAsync(passengerCredentials))
-			{
-				return false;
-			}
+			var existingPassenger = await mDbContext.Passengers.SingleOrDefaultAsync(p => p.ID == passengerCredentials.ID);
 
-			// Add new one
-			await mDbContext.Passengers.AddAsync(passengerCredentials);
+			if (existingPassenger is not null)
+			{
+				// Update existing
+				existingPassenger.Surname = passengerCredentials.Surname;
+				existingPassenger.FirstName = passengerCredentials.FirstName;
+				existingPassenger.MiddleName = passengerCredentials.MiddleName;
+				existingPassenger.Phone = passengerCredentials.Phone;
+				existingPassenger.Address = passengerCredentials.Address;
+				existingPassenger.Passport = passengerCredentials.Passport;
+				existingPassenger.Discount = passengerCredentials.Discount;
+			}
+			else
+			{
+				// Add new one
+				await mDbContext.Passengers.AddAsync(passengerCredentials);
+			}
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;
@@ -662,10 +672,7 @@ namespace AIS_Airport.Relational
 		/// <returns>Returns a task that will finish once the save is complete</returns>
 		public async Task<bool> SaveTicketCredentialsAsync(Ticket ticketCredentials)
 		{
-			var ticket = new TicketApiModel
-			{
-				TicketNumber = ticketCredentials.TicketNumber,
-			};
+			var existingTicket = await mDbContext.Tickets.SingleOrDefaultAsync(t => t.TicketNumber == ticketCredentials.TicketNumber);
 
 			var flight = await mDbContext.Flights.AsNoTracking()
 				.Where(flight => flight.FlightNumber == ticketCredentials.FlightNumber)
@@ -677,27 +684,48 @@ namespace AIS_Airport.Relational
 				.Select(passenger => new { passenger.ID, passenger.Discount })
 				.FirstOrDefaultAsync();
 
-			var ticketPrice = flight.TicketPrice;
 			var discount = passenger.Discount;
-			var discountPercentage = await mDbContext.Discounts.Where(item => item.DiscountName == discount).Select(discount => discount.DiscountPercentage).FirstOrDefaultAsync();
+			var discountPercentage = await mDbContext.Discounts.AsNoTracking()
+				.Where(item => item.DiscountName == discount)
+				.Select(discount => discount.DiscountPercentage)
+				.FirstOrDefaultAsync();
 
-			//ticket.Airline = await mDbContext.Airlines.Where(airline => airline.Code == flight.Airline).Select(airplane => airplane.Code).FirstOrDefaultAsync();
-			//ticket.Destination = await mDbContext.Destinations.Where(destination => destination.Title == flight.Destination).Select(destination => destination.Code).FirstOrDefaultAsync();
-			ticket.Employee = await mDbContext.Staff.Where(employee => employee.Surname == mEmployeeSurname).Select(employee => employee.ID).FirstOrDefaultAsync();
-			ticket.Airline = flight.Airline;
-			ticket.Destination = flight.Destination;
-			ticket.FlightNumber = flight.Code;
-			ticket.DepartureDate = flight.StartDate;
-			ticket.Passenger = passenger.ID;
-			ticket.Cost = (ticketPrice / 100) * discountPercentage;
+			var ticketPrice = flight.TicketPrice;
+			var calculatedCost = (ticketPrice / 100) * discountPercentage;
 
-			if (await mDbContext.Tickets.ContainsAsync(ticket))
+			var employee = await mDbContext.Staff.AsNoTracking()
+					.Where(e => e.Surname.Equals(mEmployeeSurname))
+					.Select(e => e.ID)
+					.FirstOrDefaultAsync();
+
+			if (existingTicket is not null)
 			{
-				return false;
+				// Update existing
+				existingTicket.Employee = employee;
+				existingTicket.Airline = flight.Airline;
+				existingTicket.Destination = flight.Destination;
+				existingTicket.FlightNumber = flight.Code;
+				existingTicket.DepartureDate = flight.StartDate;
+				existingTicket.Passenger = passenger.ID;
+				existingTicket.Cost = calculatedCost;
 			}
+			else
+			{
+			    // Add new one
+				var ticket = new TicketApiModel
+				{
+					TicketNumber = ticketCredentials.TicketNumber,
+					Employee = employee,
+					Airline = flight.Airline,
+					Destination = flight.Destination,
+					FlightNumber = flight.Code,
+					DepartureDate = flight.StartDate,
+					Passenger = passenger.ID,
+					Cost = calculatedCost
+				};
 
-			// Add new one
-			await mDbContext.Tickets.AddAsync(ticket);
+				await mDbContext.Tickets.AddAsync(ticket);
+			}
 
 			// Save changes
 			return await mDbContext.SaveChangesAsync() == 1;

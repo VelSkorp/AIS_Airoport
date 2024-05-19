@@ -6,7 +6,7 @@ namespace AIS_Airport.Core
 	/// <summary>
 	/// The View Model for a create new ticket screen
 	/// </summary>
-	public class CreateNewTicketViewModel : BaseViewModel
+	public class AddOrUpdateTicketViewModel : BaseViewModel
 	{
 		#region Public Properties
 
@@ -45,6 +45,11 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public bool SaveIsRunning { get; set; }
 
+		/// <summary>
+		/// A flag indicating if the ticket is updating
+		/// </summary>
+		public bool TicketIsUpdating { get; set; }
+
 		#endregion
 
 		#region Commands
@@ -66,17 +71,32 @@ namespace AIS_Airport.Core
 
 		#endregion
 
-		#region Constructor
+		#region Constructors
 
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public CreateNewTicketViewModel()
+		public AddOrUpdateTicketViewModel()
 		{
 			// Create commands
 			SaveCommand = new RelayAsyncCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
+		}
+
+		/// <summary>
+		/// Update ticket constructor
+		/// </summary>
+		public AddOrUpdateTicketViewModel(Ticket ticket)
+			: this()
+		{
+			TicketNumber = ticket.TicketNumber;
+			FlightNumber = ticket.FlightNumber;
+			Passenger = ticket.Passenger;
+			TicketIsUpdating = true;
 		}
 
 		#endregion

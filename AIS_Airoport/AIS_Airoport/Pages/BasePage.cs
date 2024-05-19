@@ -200,7 +200,7 @@ namespace AIS_Airport
 		public BasePage(VM specificViewModel = null) : base()
 		{
 			// Set specific view model
-			if (specificViewModel != null)
+			if (specificViewModel is not null)
 			{
 				ViewModel = specificViewModel; 
 			}

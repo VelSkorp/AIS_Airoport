@@ -6,7 +6,7 @@ namespace AIS_Airport.Core
 	/// <summary>
 	/// The View Model for a add new passenger screen
 	/// </summary>
-	public class AddNewPassengerViewModel : BaseViewModel
+	public class AddOrUpdatePassengerViewModel : BaseViewModel
 	{
 		#region Public Properties
 
@@ -77,6 +77,20 @@ namespace AIS_Airport.Core
 
 		#endregion
 
+		#region Private Members
+
+		/// <summary>
+		/// The passenger ID
+		/// </summary>
+		private int ID;
+
+		/// <summary>
+		/// A flag indicating if the passenger is updating
+		/// </summary>
+		private bool PassengerIsUpdating { get; set; }
+
+		#endregion
+
 		#region Commands
 
 		/// <summary>
@@ -106,13 +120,33 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public AddNewPassengerViewModel()
+		public AddOrUpdatePassengerViewModel()
 		{
 			// Create commands
 			SaveDiscountCommand = new RelayAsyncCommand(SaveDiscountAsync);
 			SaveCommand = new RelayAsyncCommand(SaveAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
+		}
+
+		/// <summary>
+		/// Update passenger constructor
+		/// </summary>
+		public AddOrUpdatePassengerViewModel(Passenger passenger)
+			: this()
+		{
+			ID = passenger.ID;
+			FirstName = passenger.FirstName;
+			MiddleName = passenger.MiddleName;
+			Surname = passenger.Surname;
+			Phone = passenger.Phone;
+			Address = passenger.Address;
+			Passport = passenger.Passport;
+			SelectedDiscount = passenger.Discount;
+			PassengerIsUpdating = true;
 		}
 
 		#endregion
@@ -164,7 +198,7 @@ namespace AIS_Airport.Core
 
 				var isSaved = await IoC.DataStore.SavePassengerCredentialsAsync(new Passenger
 				{
-					ID = passengers.Count + 1,
+					ID = PassengerIsUpdating ? ID : passengers.Count + 1,
 					Surname = Surname,
 					FirstName = FirstName,
 					MiddleName = MiddleName,

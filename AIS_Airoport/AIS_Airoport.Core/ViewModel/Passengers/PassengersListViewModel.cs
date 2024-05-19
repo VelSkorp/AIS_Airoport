@@ -8,15 +8,6 @@ namespace AIS_Airport.Core
 	/// </summary>
 	public class PassengersListViewModel : BaseViewModel
 	{
-		#region Protected Members
-
-		/// <summary>
-		/// The flight list items for the list
-		/// </summary>
-		protected ObservableCollection<Passenger> mItems;
-
-		#endregion
-
 		#region Public Properties
 
 		/// <summary>
@@ -32,7 +23,7 @@ namespace AIS_Airport.Core
 				// Make sure list has changed
 				if (mItems == value)
 				{
-					return; 
+					return;
 				}
 
 				// Update value
@@ -52,6 +43,20 @@ namespace AIS_Airport.Core
 		/// A flag indicating if the refresh command is running
 		/// </summary>
 		public bool RefreshIsRunning { get; set; }
+
+		/// <summary>
+		/// Selected passenger from the list
+		/// </summary>
+		public Passenger SelectedPassenger { get; set; }
+
+		#endregion
+
+		#region Protected Members
+
+		/// <summary>
+		/// The flight list items for the list
+		/// </summary>
+		protected ObservableCollection<Passenger> mItems;
 
 		#endregion
 
@@ -91,6 +96,9 @@ namespace AIS_Airport.Core
 			ChangeCommand = new RelayCommand(ChangeCurrentPassenger);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
 		}
 
 		#endregion
@@ -110,7 +118,7 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public void AddNewPassenger()
 		{
-			IoC.Application.GoToPage(ApplicationPage.AddNewPassenger);
+			IoC.Application.GoToPage(ApplicationPage.AddOrUpdatePassenger);
 		}
 
 		/// <summary>
@@ -118,7 +126,7 @@ namespace AIS_Airport.Core
 		/// </summary>
 		public void ChangeCurrentPassenger()
 		{
-			// TODO: Implement method to change data about the current passenger
+			IoC.Application.GoToPage(ApplicationPage.AddOrUpdatePassenger, new AddOrUpdatePassengerViewModel(SelectedPassenger));
 		}
 
 		/// <summary>

@@ -26,7 +26,7 @@
 						Command="{Binding AddCommand}"
 						FontSize="{StaticResource FontSizeLarge}" />
 
-				<Button Content="Change this"
+				<Button Content="Change selected"
 						Command="{Binding ChangeCommand}"
 						FontSize="{StaticResource FontSizeLarge}"  />
 
@@ -49,7 +49,8 @@
 				HorizontalAlignment="Center"
 				CornerRadius="10" >
 
-			<ListView ItemsSource="{Binding FilteredIAndSortedtems}" >
+			<ListView ItemsSource="{Binding FilteredIAndSortedtems}"
+					  SelectedItem="{Binding SelectedPassenger}">
 				<ListView.View>
 					<GridView>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Surname</GridViewColumn>

@@ -185,6 +185,9 @@ namespace AIS_Airport.Core
 			SaveFlightCommand = new RelayAsyncCommand(SaveFlightAsync);
 			BackCommand = new RelayCommand(Back);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
 		}
 
 		#endregion

@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="core:CreateNewTicketViewModel" x:Class="AIS_Airport.CreateNewTicketPage"
+﻿<local:BasePage x:TypeArguments="core:AddOrUpdateTicketViewModel" x:Class="AIS_Airport.AddOrUpdateTicketPage"
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,6 +18,7 @@
 
 				<TextBox Tag="Ticket number" 
 						 Name="TicketNumber"
+						 IsReadOnly="{Binding TicketIsUpdating}"
 						 Style="{StaticResource NotEmptyTicketValidation}"
 						 FontSize="{StaticResource FontSizeLarge}"
 						 Text="{Binding TicketNumber}" />

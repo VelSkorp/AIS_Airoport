@@ -32,11 +32,11 @@ namespace AIS_Airport
 				case ApplicationPage.Statistics:
 					return new StatisticsPage();
 
-				case ApplicationPage.CreateNewTicket:
-					return new CreateNewTicketPage();
+				case ApplicationPage.AddOrUpdateTicket:
+					return new AddOrUpdateTicketPage();
 
-				case ApplicationPage.AddNewPassenger:
-					return new AddNewPassengerPage();
+				case ApplicationPage.AddOrUpdatePassenger:
+					return new AddOrUpdatePassengerPage();
 
 				case ApplicationPage.AddNewFlight:
 					return new AddNewFlightPage();

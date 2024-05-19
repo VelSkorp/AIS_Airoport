@@ -3,55 +3,55 @@ using System.Windows.Controls;
 
 namespace AIS_Airport
 {
-    /// <summary>
-    /// Логика взаимодействия для Statistic.xaml
-    /// </summary>
-    public partial class ColumnStatistic : UserControl
-    {
-        #region Dependency Properties
+	/// <summary>
+	/// Логика взаимодействия для Statistic.xaml
+	/// </summary>
+	public partial class ColumnStatistic : UserControl
+	{
+		#region Dependency Properties
 
-        /// <summary>
-        /// The text to show in table header
-        /// </summary>
-        public string Text
-        {
-            get => GetValue(TextProperty).ToString();
-            set => SetValue(TextProperty, value.ToString());
-        }
+		/// <summary>
+		/// The text to show in table header
+		/// </summary>
+		public string Text
+		{
+			get => GetValue(TextProperty).ToString();
+			set => SetValue(TextProperty, value.ToString());
+		}
 
-        /// <summary>
-        /// Registers text dependency property
-        /// </summary>
-        public static readonly DependencyProperty TextProperty =
-         DependencyProperty.Register("Text", typeof(string), typeof(ColumnStatistic));
+		/// <summary>
+		/// Registers text dependency property
+		/// </summary>
+		public static readonly DependencyProperty TextProperty =
+		 DependencyProperty.Register("Text", typeof(string), typeof(ColumnStatistic));
 
-        /// <summary>
-        /// The command to refresh data in table and in chart
-        /// </summary>
-        public object RefreshCommand
-        {
-            get => GetValue(RefreshCommandProperty);
-            set => SetValue(RefreshCommandProperty, value);
-        }
+		/// <summary>
+		/// The command to refresh data in table and in chart
+		/// </summary>
+		public object RefreshCommand
+		{
+			get => GetValue(RefreshCommandProperty);
+			set => SetValue(RefreshCommandProperty, value);
+		}
 
-        /// <summary>
-        /// Registers refresh command dependency property
-        /// </summary>
-        public static readonly DependencyProperty RefreshCommandProperty =
-         DependencyProperty.Register("RefreshCommand", typeof(object), typeof(ColumnStatistic));
+		/// <summary>
+		/// Registers refresh command dependency property
+		/// </summary>
+		public static readonly DependencyProperty RefreshCommandProperty =
+		 DependencyProperty.Register("RefreshCommand", typeof(object), typeof(ColumnStatistic));
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ColumnStatistic()
-        {
-            InitializeComponent();
-        }
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public ColumnStatistic()
+		{
+			InitializeComponent();
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

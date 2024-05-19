@@ -87,6 +87,9 @@ namespace AIS_Airport.Core
 			NumberOfticketsByAirlinesRefreshCommand = new RelayAsyncCommand(RefreshNumberOfticketsByAirlinesAsync);
 			ProfitFromTicketSalesByPassengerRefreshCommand = new RelayAsyncCommand(RefreshProfitFromTicketSalesByPassengerAsync);
 			BackCommand = new RelayCommand(Back);
+
+			// Update info
+			RefreshProfitByDestinationAsync();
 		}
 
 		#endregion

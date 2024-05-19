@@ -130,6 +130,9 @@ namespace AIS_Airport.Core
 			SortByStartDateCommand = new RelayCommand(SortByStartDate);
 			DoNotSortCommand = new RelayCommand(DisableSorting);
 			RefreshCommand = new RelayAsyncCommand(RefreshAsync);
+
+			// Update info
+			RefreshAsync();
 		}
 
 		#endregion

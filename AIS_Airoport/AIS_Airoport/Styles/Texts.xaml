@@ -199,7 +199,7 @@
 				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
 					<Binding.ValidationRules>
 						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
-						<local:RegexValidationRule RegexPattern="^[A-Za-z0-9]{6,10}$" ErrorMessage="Invalid Ticket number format(e.g. XYZ5678)." ValidatesOnTargetUpdated="True" />
+						<local:RegexValidationRule RegexPattern="^[A-Za-z0-9]{3,10}$" ErrorMessage="Invalid Ticket number format(e.g. XYZ5678)." ValidatesOnTargetUpdated="True" />
 					</Binding.ValidationRules>
 				</Binding>
 			</Setter.Value>

@@ -3,16 +3,16 @@
 namespace AIS_Airport
 {
 	/// <summary>
-	/// Interaction logic for AddNewPassengerPage.xaml
+	/// Interaction logic for AddNewFlightPage.xaml
 	/// </summary>
-	public partial class AddNewPassengerPage : BasePage<AddNewPassengerViewModel>
+	public partial class AddNewFlightPage : BasePage<AddNewFlightViewModel>
 	{
 		#region Constructors
 
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public AddNewPassengerPage()
+		public AddNewFlightPage()
 		{
 			InitializeComponent();
 		}
@@ -21,7 +21,7 @@ namespace AIS_Airport
 		/// Constructor with specific view model
 		/// </summary>
 		/// <param name="specificViewModel">The specific view model to use for this page</param>
-		public AddNewPassengerPage(AddNewPassengerViewModel specificViewModel = null) : base(specificViewModel)
+		public AddNewFlightPage(AddNewFlightViewModel specificViewModel = null) : base(specificViewModel)
 		{
 			InitializeComponent();
 		}

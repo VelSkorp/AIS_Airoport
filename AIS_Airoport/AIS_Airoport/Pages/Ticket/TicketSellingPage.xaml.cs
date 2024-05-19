@@ -3,16 +3,16 @@
 namespace AIS_Airport
 {
 	/// <summary>
-	/// Interaction logic for LoginPage.xaml
+	/// Interaction logic for TicketSellingPage.xaml
 	/// </summary>
-	public partial class MainMenuPage : BasePage<MainMenuViewModel>
+	public partial class TicketSellingPage : BasePage<TicketSellingViewModel>
 	{
 		#region Constructors
 
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public MainMenuPage()
+		public TicketSellingPage()
 		{
 			InitializeComponent();
 		}
@@ -21,8 +21,7 @@ namespace AIS_Airport
 		/// Constructor with specific view model
 		/// </summary>
 		/// <param name="specificViewModel">The specific view model to use for this page</param>
-		public MainMenuPage(MainMenuViewModel specificViewModel)
-			: base(specificViewModel)
+		public TicketSellingPage(TicketSellingViewModel specificViewModel = null) : base(specificViewModel)
 		{
 			InitializeComponent();
 		}

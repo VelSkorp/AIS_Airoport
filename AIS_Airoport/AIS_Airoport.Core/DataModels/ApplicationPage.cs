@@ -38,12 +38,12 @@
 		/// <summary>
 		/// The create new ticket page
 		/// </summary>
-		CreateNewTicket = 6,
+		AddOrUpdateTicket = 6,
 
 		/// <summary>
 		/// The add new passenger page
 		/// </summary>
-		AddNewPassenger = 7,
+		AddOrUpdatePassenger = 7,
 
 		/// <summary>
 		/// The add new flight page

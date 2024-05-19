@@ -38,7 +38,8 @@
 				HorizontalAlignment="Center"
 				CornerRadius="10" >
 
-			<ListView ItemsSource="{Binding FilteredIAndSortedtems}" >
+			<ListView ItemsSource="{Binding FilteredIAndSortedtems}"
+                      SelectedItem="{Binding SelectedTicket}">
 				<ListView.View>
 					<GridView>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=FlightNumber}">Flight number</GridViewColumn>
