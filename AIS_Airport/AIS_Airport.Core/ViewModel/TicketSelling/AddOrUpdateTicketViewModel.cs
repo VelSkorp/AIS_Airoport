@@ -155,10 +155,10 @@ namespace AIS_Airport.Core
 			await RunCommandAsync(() => RefreshIsRunning, async () =>
 			{
 				var flights = await IoC.DataStore.GetCollectionOfFlightsAsync();
-				ListOfFlights = new ObservableCollection<string>(flights.Select((item) => item.FlightNumber));
+				ListOfFlights = new ObservableCollection<string>(flights.Select(flight => flight.FlightNumber));
 
-				var passenger = await IoC.DataStore.GetCollectionOfPassengersAsync();
-				ListOfPassengers = new ObservableCollection<string>(passenger.Select((item) => item.Surname));
+				var passengers = await IoC.DataStore.GetCollectionOfPassengersAsync();
+				ListOfPassengers = new ObservableCollection<string>(passengers.Select(passenger => $"{passenger.FirstName} {passenger.MiddleName} {passenger.Surname}"));
 			});
 		}
 
