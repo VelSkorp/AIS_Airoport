@@ -41,13 +41,13 @@ namespace AIS_Airport
 			var firstLoadReference = mFirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
 
 			// Don't fire if the value doesn't change
-			if ((bool)sender.GetValue(ValueProperty) == (bool)value && alreadyLoadedReference.Key != null)
+			if ((bool)sender.GetValue(ValueProperty) == (bool)value && alreadyLoadedReference.Key is not null)
 			{
 				return; 
 			}
 
 			// On first load...
-			if (alreadyLoadedReference.Key == null)
+			if (alreadyLoadedReference.Key is null)
 			{
 				// Create weak reference
 				var weakReference = new WeakReference(sender);
@@ -61,17 +61,17 @@ namespace AIS_Airport
 				// Create a single self-unhookable event 
 				// for the elements Loaded event
 				RoutedEventHandler onLoaded = null;
-				onLoaded = async (ss, ee) =>
+				onLoaded = (ss, ee) =>
 				{
 					// Unhook ourselves
 					element.Loaded -= onLoaded;
 
 					// Slight delay after load is needed for some elements to get laid out
 					// and their width/heights correctly calculated
-					await Task.Delay(5);
+					Task.Delay(5);
 
 					// Do desired animation
-					DoAnimation(element, firstLoadReference.Key != null ? firstLoadReference.Value : (bool)value, true);
+					DoAnimation(element, firstLoadReference.Key is not null ? firstLoadReference.Value : (bool)value, true);
 
 					// Flag that we have finished first load
 					mAlreadyLoaded[weakReference] = true;
@@ -83,7 +83,7 @@ namespace AIS_Airport
 			// If we have started a first load but not fired the animation yet, update the property
 			else if (alreadyLoadedReference.Value == false)
 			{
-				mFirstLoadValue[new WeakReference(sender)] = (bool)value; 
+				mFirstLoadValue[new WeakReference(sender)] = (bool)value;
 			}
 			else
 			{

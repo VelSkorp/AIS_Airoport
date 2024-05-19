@@ -142,7 +142,7 @@
 					Panel.ZIndex="10"
 					Opacity="0.3">
 				<Border Background="{StaticResource ForegroundVeryDarkBrush}"
-						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
+						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible, Mode=TwoWay}" />
 			</Border>
 
 			<local:PageHost Grid.Column="1" 

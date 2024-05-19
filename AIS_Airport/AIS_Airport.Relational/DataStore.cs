@@ -57,7 +57,7 @@ namespace AIS_Airport.Relational
 			var user = await mDbContext.Staff.AsNoTracking().Where(employee => employee.Surname.Equals(loginCredentialsApiModel.Surname)
 				&& employee.Password.Equals(password)).FirstOrDefaultAsync();
 
-			return user != null;
+			return user is not null;
 		}
 
 		/// <summary>

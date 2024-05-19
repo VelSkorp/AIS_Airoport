@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>True</UseWPF>
+    <ApplicationIcon>Images\Logo\icon.ico</ApplicationIcon>
+    <Authors>VelScorp</Authors>
+    <PackageIcon>icon.ico</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +33,6 @@
     <None Remove="Fonts\Lato-ThinItalic.ttf" />
     <None Remove="Images\Backgrounds\airoplains-background.png" />
     <None Remove="Images\Logo\airplane.png" />
-    <None Remove="Images\Logo\icon.ico" />
     <None Remove="Images\Samples\Administrator.png" />
     <None Remove="Images\Samples\airoport.png" />
     <None Remove="Images\Samples\airplane.png" />
@@ -40,16 +42,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AIS_Airoport.Core\AIS_Airport.Core.csproj" />
-    <ProjectReference Include="..\AIS_Airoport.Relational\AIS_Airport.Relational.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIS_Airport.Core\AIS_Airport.Core.csproj" />
+    <ProjectReference Include="..\AIS_Airport.Relational\AIS_Airport.Relational.csproj" />
+    <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +103,10 @@
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Logo\icon.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

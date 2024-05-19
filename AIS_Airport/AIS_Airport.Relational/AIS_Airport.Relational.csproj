@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AIS_Airoport.Core\AIS_Airport.Core.csproj" />
+    <ProjectReference Include="..\AIS_Airport.Core\AIS_Airport.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
