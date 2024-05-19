@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using AIS_Airport.Core;
 using AIS_Airport.Relational;
 using Dna;

@@ -209,8 +209,10 @@ namespace AIS_Airport.Relational
 		{
 			var tickets = new ObservableCollection<Ticket>();
 			var flights = await mDbContext.Flights.AsNoTracking().ToDictionaryAsync(flight => flight.Code, flight => flight.FlightNumber);
-			var passengers = await mDbContext.Passengers.AsNoTracking().ToDictionaryAsync(passenger => passenger.ID, passenger => passenger.Surname);
-			var staff = await mDbContext.Staff.AsNoTracking().ToDictionaryAsync(employee => employee.ID, employee => employee.Surname);
+			var airlines = await mDbContext.Airlines.AsNoTracking().ToDictionaryAsync(airline => airline.Code, airline => airline.Title);
+			var destinations = await mDbContext.Destinations.AsNoTracking().ToDictionaryAsync(destination => destination.Code, destination => destination.Title);
+			var passengers = await mDbContext.Passengers.AsNoTracking().ToDictionaryAsync(passenger => passenger.ID, passenger => new List<string> { passenger.FirstName, passenger.MiddleName, passenger.Surname });
+			var staff = await mDbContext.Staff.AsNoTracking().ToDictionaryAsync(employee => employee.ID, employee => new List<string> { employee.FirstName, employee.MiddleName, employee.Surname });
 			var ticketsRecords = await mDbContext.Tickets.ToListAsync();
 
 			foreach (var ticket in ticketsRecords)
@@ -219,8 +221,10 @@ namespace AIS_Airport.Relational
 				{
 					TicketNumber = ticket.TicketNumber,
 					FlightNumber = flights[ticket.FlightNumber],
-					Passenger = passengers[ticket.Passenger],
-					Employee = staff[ticket.Employee],
+					Airline = airlines[ticket.Airline],
+					Destination = destinations[ticket.Destination],
+					Passenger = string.Join(' ', passengers[ticket.Passenger]),
+					Employee = string.Join(' ', staff[ticket.Employee]),
 					DepartureDate = ticket.DepartureDate,
 					Cost = ticket.Cost,
 				});
@@ -711,7 +715,7 @@ namespace AIS_Airport.Relational
 			}
 			else
 			{
-			    // Add new one
+				// Add new one
 				var ticket = new TicketApiModel
 				{
 					TicketNumber = ticketCredentials.TicketNumber,

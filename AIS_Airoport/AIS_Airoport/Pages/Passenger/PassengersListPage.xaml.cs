@@ -3,7 +3,7 @@
 namespace AIS_Airport
 {
 	/// <summary>
-	/// Логика взаимодействия для PassengersPage.xaml
+	/// Interaction logic for PassengersPage.xaml
 	/// </summary>
 	public partial class PassengersPage : BasePage<PassengersListViewModel>
 	{

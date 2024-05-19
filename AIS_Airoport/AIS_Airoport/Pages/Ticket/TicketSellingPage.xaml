@@ -3,8 +3,8 @@
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-	  xmlns:local="clr-namespace:AIS_Airport"
 	  xmlns:core="clr-namespace:AIS_Airport.Core;assembly=AIS_Airport.Core"
+	  xmlns:local="clr-namespace:AIS_Airport"
 	  mc:Ignorable="d" 
 	  d:DataContext="{x:Static core:TicketSellingDesignModel.Instance}">
 
@@ -17,8 +17,8 @@
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="1.5*" />
+			<ColumnDefinition Width="0.5*" />
 		</Grid.ColumnDefinitions>
 
 		<Border Background="{StaticResource ForegroundLightBrush}"
@@ -39,7 +39,7 @@
 				CornerRadius="10" >
 
 			<ListView ItemsSource="{Binding FilteredIAndSortedtems}"
-                      SelectedItem="{Binding SelectedTicket}">
+					  SelectedItem="{Binding SelectedTicket}">
 				<ListView.View>
 					<GridView>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=FlightNumber}">Flight number</GridViewColumn>
@@ -50,24 +50,6 @@
 					</GridView>
 				</ListView.View>
 			</ListView>
-
-		</Border>
-
-		<Border Grid.Row="2"
-				Grid.ColumnSpan="2"
-				Background="{StaticResource ForegroundLightBrush}"
-				Margin="0 10 0 20"
-				HorizontalAlignment="Center"
-				CornerRadius="10" 
-				Height="80" >
-
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-
-				<RadioButton Command="{Binding SortByTicketNumberCommand}" Content="By ticket number"/>
-				<RadioButton Command="{Binding SortByStartDateCommand}" Content="By start date" />
-				<RadioButton Command="{Binding DoNotSortCommand}" Content="Do not sort" />
-
-			</StackPanel>
 
 		</Border>
 
@@ -95,11 +77,30 @@
 				<Button FontSize="{StaticResource FontSizeLarge}"
 						Command="{Binding GenerateCommand}"
 						Padding="0 10"
-						Content="Generate a ticket" />
+						Content="Generate a ticket"
+						local:IsBusyProperty.Value="{Binding GenerateIsRunning}" />
 			
 			</StackPanel>
 
 		</Border>
-		
+
+		<Border Grid.Row="2"
+				Grid.ColumnSpan="2"
+				Background="{StaticResource ForegroundLightBrush}"
+				Margin="0 10 0 20"
+				HorizontalAlignment="Center"
+				CornerRadius="10" 
+				Height="80" >
+
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+				<RadioButton Command="{Binding SortByTicketNumberCommand}" Content="By ticket number"/>
+				<RadioButton Command="{Binding SortByStartDateCommand}" Content="By start date" />
+				<RadioButton Command="{Binding DoNotSortCommand}" Content="Do not sort" />
+
+			</StackPanel>
+
+		</Border>
+
 	</Grid>
 </local:BasePage>

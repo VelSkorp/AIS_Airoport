@@ -15,6 +15,14 @@
 		Task WriteTextToFileAsync(string text, string path, bool append = false);
 
 		/// <summary>
+		/// Asynchronously saves a ticket document to the specified path.
+		/// </summary>
+		/// <param name="ticket">The ticket containing the information to save.</param>
+		/// <param name="path">The path where the document will be saved.</param>
+		/// <returns>A task representing the asynchronous operation.</returns>
+		Task SaveTicketDocumentAsync(Ticket ticket, string path);
+
+		/// <summary>
 		/// Normalizing a path based on the current operating system
 		/// </summary>
 		/// <param name="path">The path to normalize</param>

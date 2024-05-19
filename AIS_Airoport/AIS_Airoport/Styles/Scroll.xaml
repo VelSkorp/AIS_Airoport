@@ -177,6 +177,7 @@
 								<ItemsPresenter.Resources>
 									<Style TargetType="TextBlock" BasedOn="{StaticResource RegularText}">
 										<Setter Property="Padding" Value="0 10" />
+										<Setter Property="TextWrapping" Value="Wrap" />
 									</Style>
 								</ItemsPresenter.Resources>
 								
