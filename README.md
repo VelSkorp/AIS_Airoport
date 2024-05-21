@@ -55,7 +55,7 @@ AIS_Airport is a C# application designed to manage airport information systems e
 ![FlightsPage](Screenshots/FlightsPage.png)
 
 ### Add new Flight
-![AddNewFlightPage](Screenshots/AddNewFlightPage.png)
+![AddNewFlightPage](Screenshots/AddNewFlightPag.png)
 
 ### Passengers
 ![PassengersPage](Screenshots/PassengersPage.png)
