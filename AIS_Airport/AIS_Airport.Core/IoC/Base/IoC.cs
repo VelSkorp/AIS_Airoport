@@ -17,22 +17,22 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// A shortcut to access the <see cref="ILogFactory"/>
 		/// </summary>
-		public static ILogFactory Logger => IoC.Get<ILogFactory>();
+		public static ILogFactory Logger => Get<ILogFactory>();
 
 		/// <summary>
 		/// A shortcut to access the <see cref="IFileManager"/>
 		/// </summary>
-		public static IFileManager File => IoC.Get<IFileManager>();
+		public static IFileManager File => Get<IFileManager>();
 
 		/// <summary>
 		/// A shortcut to access the <see cref="ITaskManager"/>
 		/// </summary>
-		public static ITaskManager Task => IoC.Get<ITaskManager>();
+		public static ITaskManager Task => Get<ITaskManager>();
 
 		/// <summary>
 		/// A shortcut to access the <see cref="ApplicationViewModel"/>
 		/// </summary>
-		public static ApplicationViewModel Application => IoC.Get<ApplicationViewModel>();
+		public static ApplicationViewModel Application => Get<ApplicationViewModel>();
 
 		/// <summary>
 		/// A shortcut to access toe <see cref="IClientDataStore"/> service
@@ -42,7 +42,7 @@ namespace AIS_Airport.Core
 		/// <summary>
 		/// A shortcut to access the <see cref="IUIManager"/>
 		/// </summary>
-		public static IUIManager UI => IoC.Get<IUIManager>();
+		public static IUIManager UI => Get<IUIManager>();
 
 		#endregion
 

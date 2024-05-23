@@ -41,12 +41,12 @@ namespace AIS_Airport
 			IoC.Setup();
 
 			// Bind a logger
-			IoC.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(new[]
-			{
+			IoC.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(
+			[
 				// TODO: Add ApplicationSettings so we can set/edit a location
 				//       For now just log to the path where this application is running
 				new Core.FileLogger("OldLog.txt"),
-			}));
+			]));
 
 			// Add our task manager
 			IoC.Kernel.Bind<ITaskManager>().ToConstant(new TaskManager());
