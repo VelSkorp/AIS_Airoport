@@ -1,4 +1,4 @@
-﻿namespace AIS_Airport.Relational
+﻿namespace AIS_Airport.Core
 {
 	public class Buffer
 	{

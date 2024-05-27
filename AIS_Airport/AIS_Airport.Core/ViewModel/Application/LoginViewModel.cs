@@ -58,7 +58,7 @@ namespace AIS_Airport.Core
 				var loginCredentials = new LoginCredentialsApiModel
 				{
 					Surname = Username,
-					Password = (parameter as IHavePassword).Password.Unsecure()
+					Password = MD5.Encrypt((parameter as IHavePassword).Password.Unsecure())
 				};
 
 				if (await IoC.DataStore.LoginAsync(loginCredentials) == false)

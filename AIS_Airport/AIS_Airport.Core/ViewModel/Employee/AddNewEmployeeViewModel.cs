@@ -190,7 +190,7 @@ namespace AIS_Airport.Core
 					MiddleName = MiddleName,
 					Phone = Phone,
 					Address = Address,
-					Password = Password,
+					Password = MD5.Encrypt(Password),
 					Position = Position,
 				});
 

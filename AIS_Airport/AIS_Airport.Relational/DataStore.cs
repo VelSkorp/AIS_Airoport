@@ -53,9 +53,8 @@ namespace AIS_Airport.Relational
 		{
 			mEmployeeSurname = loginCredentialsApiModel.Surname;
 
-			var password = MD5.Encrypt(loginCredentialsApiModel.Password);
 			var user = await mDbContext.Staff.AsNoTracking().Where(employee => employee.Surname.Equals(loginCredentialsApiModel.Surname)
-				&& employee.Password.Equals(password)).FirstOrDefaultAsync();
+				&& employee.Password.Equals(loginCredentialsApiModel.Password)).FirstOrDefaultAsync();
 
 			return user is not null;
 		}
@@ -497,7 +496,7 @@ namespace AIS_Airport.Relational
 				MiddleName = employeeCredentials.MiddleName,
 				Phone = employeeCredentials.Phone,
 				Address = employeeCredentials.Address,
-				Password = MD5.Encrypt(employeeCredentials.Password),
+				Password = employeeCredentials.Password,
 				Position = await mDbContext.Positions.AsNoTracking().Where(position => position.Title.Equals(employeeCredentials.Position)).Select(position => position.Code).FirstOrDefaultAsync()
 			};
 
