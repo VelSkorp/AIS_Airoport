@@ -92,7 +92,7 @@ cd AIS_Airoport
 
 ## Contributing
 
-Contributions to SimpleGraphics are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request on GitHub.
+Contributions are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request on GitHub.
 
 ## License
 
